@@ -29,7 +29,7 @@ export function InteractiveFeatures() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           {topFeatures.map((feature, i) => {
-            const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[feature.icon];
+            const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[feature.icon];
             const isExpanded = expanded === i;
 
             return (
