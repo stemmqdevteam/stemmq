@@ -146,3 +146,158 @@ export interface FeatureItem {
   title: string;
   description: string;
 }
+
+// ============================================
+// New types for design system upgrade
+// ============================================
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  role: string;
+  company: string;
+  workspaceId: string;
+  onboardingCompleted: boolean;
+}
+
+export interface Session {
+  accessToken: string;
+  expiresAt: string;
+}
+
+export interface Workspace {
+  id: string;
+  name: string;
+  slug: string;
+  logo?: string;
+  memberCount: number;
+  plan: "starter" | "professional" | "enterprise";
+}
+
+export interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: "info" | "success" | "warning" | "error" | "mention" | "update";
+  read: boolean;
+  actionUrl?: string;
+  createdAt: string;
+  actor?: {
+    name: string;
+    avatar: string;
+  };
+}
+
+export interface OnboardingState {
+  currentStep: number;
+  totalSteps: number;
+  completed: boolean;
+  data: Record<string, unknown>;
+}
+
+export interface OnboardingStep {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  action: string;
+  actor: string;
+  actorAvatar: string;
+  resource: string;
+  resourceType: "decision" | "assumption" | "simulation" | "agent" | "document" | "team" | "settings" | "auth";
+  details: string;
+  ipAddress: string;
+  timestamp: string;
+}
+
+export interface Integration {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: "crm" | "communication" | "project" | "analytics" | "storage" | "ai";
+  status: "connected" | "available" | "coming_soon";
+  connectedAt?: string;
+}
+
+export interface BillingPlan {
+  name: string;
+  price: number;
+  interval: "monthly" | "annual";
+  features: string[];
+  usage: {
+    decisions: { used: number; limit: number };
+    members: { used: number; limit: number };
+    storage: { used: number; limit: number; unit: string };
+    apiCalls: { used: number; limit: number };
+  };
+}
+
+export interface Invoice {
+  id: string;
+  date: string;
+  amount: number;
+  status: "paid" | "pending" | "overdue";
+  downloadUrl: string;
+}
+
+export interface UsageMetric {
+  label: string;
+  data: { date: string; value: number }[];
+  total: number;
+  change: number;
+}
+
+export interface APIKey {
+  id: string;
+  name: string;
+  key: string;
+  prefix: string;
+  createdAt: string;
+  lastUsed: string | null;
+  expiresAt: string | null;
+  permissions: string[];
+}
+
+export interface SecurityEvent {
+  id: string;
+  type: "login" | "logout" | "password_change" | "2fa_enabled" | "2fa_disabled" | "api_key_created" | "session_revoked";
+  description: string;
+  ipAddress: string;
+  device: string;
+  location: string;
+  timestamp: string;
+}
+
+export interface ActiveSession {
+  id: string;
+  device: string;
+  browser: string;
+  location: string;
+  ipAddress: string;
+  lastActive: string;
+  current: boolean;
+}
+
+export interface Toast {
+  id: string;
+  type: "success" | "error" | "warning" | "info";
+  message: string;
+  duration?: number;
+}
+
+export interface CommandPaletteItem {
+  id: string;
+  label: string;
+  description?: string;
+  icon?: string;
+  href?: string;
+  action?: () => void;
+  category: "page" | "action" | "recent";
+}

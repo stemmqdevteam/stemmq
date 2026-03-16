@@ -6,6 +6,7 @@ export const ROUTES = {
   features: "/features",
   pricing: "/pricing",
   about: "/about",
+  auth: "/auth",
   login: "/login",
   signup: "/signup",
   oauth: "/oauth",
@@ -21,6 +22,15 @@ export const ROUTES = {
   analytics: "/analytics",
   team: "/team",
   settings: "/settings",
+  notifications: "/notifications",
+  integrations: "/integrations",
+  auditLogs: "/audit-logs",
+  billing: "/billing",
+  usage: "/usage",
+  apiKeys: "/api-keys",
+  security: "/security",
+  activity: "/activity",
+  onboarding: "/onboarding",
 } as const;
 
 export const MARKETING_NAV = [
@@ -41,6 +51,13 @@ export const SIDEBAR_NAV: NavItem[] = [
   { label: "Analytics", href: ROUTES.analytics, icon: "BarChart3" },
   { label: "Team", href: ROUTES.team, icon: "Users" },
   { label: "Settings", href: ROUTES.settings, icon: "Settings" },
+];
+
+export const SIDEBAR_SECONDARY_NAV: NavItem[] = [
+  { label: "Notifications", href: ROUTES.notifications, icon: "Bell", badge: 5 },
+  { label: "Integrations", href: ROUTES.integrations, icon: "Plug" },
+  { label: "Audit Logs", href: ROUTES.auditLogs, icon: "ScrollText" },
+  { label: "Activity", href: ROUTES.activity, icon: "Clock" },
 ];
 
 export const PRICING_TIERS: PricingTier[] = [
@@ -179,17 +196,44 @@ export const FOOTER_LINKS = {
     { label: "Features", href: ROUTES.features },
     { label: "Pricing", href: ROUTES.pricing },
     { label: "Changelog", href: "#" },
+    { label: "Integrations", href: "#" },
+  ],
+  platform: [
+    { label: "Decision Engine", href: "#" },
+    { label: "Assumption Tracking", href: "#" },
+    { label: "Simulations", href: "#" },
+    { label: "AI Agents", href: "#" },
+    { label: "Strategy Graph", href: "#" },
+  ],
+  solutions: [
+    { label: "Enterprise Strategy", href: "#" },
+    { label: "Product Teams", href: "#" },
+    { label: "Investment Analysis", href: "#" },
+    { label: "Risk Management", href: "#" },
+  ],
+  resources: [
     { label: "Documentation", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Guides", href: "#" },
+    { label: "Webinars", href: "#" },
+    { label: "Case Studies", href: "#" },
   ],
   company: [
     { label: "About", href: ROUTES.about },
-    { label: "Blog", href: "#" },
     { label: "Careers", href: "#" },
     { label: "Contact", href: "#" },
+    { label: "Press", href: "#" },
   ],
   legal: [
     { label: "Privacy Policy", href: ROUTES.privacy },
     { label: "Terms of Service", href: ROUTES.terms },
     { label: "Security", href: "#" },
+    { label: "Cookie Policy", href: "#" },
+  ],
+  developers: [
+    { label: "API Reference", href: "#" },
+    { label: "SDKs", href: "#" },
+    { label: "Webhooks", href: "#" },
+    { label: "Status Page", href: "#" },
   ],
 };

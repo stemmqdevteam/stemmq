@@ -8,6 +8,17 @@ import type {
   Document,
   ActivityItem,
   MetricCardData,
+  User,
+  Workspace,
+  Notification,
+  AuditLogEntry,
+  Integration,
+  BillingPlan,
+  Invoice,
+  UsageMetric,
+  APIKey,
+  SecurityEvent,
+  ActiveSession,
 } from "./types";
 
 export const mockMetrics: MetricCardData[] = [
@@ -283,4 +294,156 @@ export const mockActivityFeed: ActivityItem[] = [
   { id: "act-013", user: "Priya Sharma", avatar: "PS", action: "created", target: "Dashboard redesign proposal", targetType: "decision", timestamp: "2026-03-15T09:00:00Z" },
   { id: "act-014", user: "Marcus Rodriguez", avatar: "MR", action: "validated", target: "API v1 usage below 5%", targetType: "assumption", timestamp: "2026-03-14T18:00:00Z" },
   { id: "act-015", user: "Aisha Patel", avatar: "AP", action: "created", target: "SOC2 compliance automation", targetType: "decision", timestamp: "2026-03-14T17:00:00Z" },
+];
+
+// ============================================
+// Extended mock data for new pages
+// ============================================
+
+export const mockUser: User = {
+  id: "usr-001",
+  name: "Sarah Chen",
+  email: "sarah@stemmq.com",
+  avatar: "SC",
+  role: "Chief Strategy Officer",
+  company: "StemmQ",
+  workspaceId: "ws-001",
+  onboardingCompleted: true,
+};
+
+export const mockWorkspaces: Workspace[] = [
+  { id: "ws-001", name: "StemmQ HQ", slug: "stemmq-hq", memberCount: 10, plan: "professional" },
+  { id: "ws-002", name: "StemmQ Labs", slug: "stemmq-labs", memberCount: 4, plan: "starter" },
+  { id: "ws-003", name: "StemmQ Enterprise", slug: "stemmq-enterprise", memberCount: 48, plan: "enterprise" },
+];
+
+export const mockNotifications: Notification[] = [
+  { id: "notif-001", title: "New proposal from Agent Aria", message: "Agent Aria proposed reducing onboarding steps from 7 to 4.", type: "update", read: false, actionUrl: "/agents", createdAt: "2026-03-16T09:00:00Z", actor: { name: "Agent Aria", avatar: "AA" } },
+  { id: "notif-002", title: "Assumption challenged", message: "Marcus Rodriguez challenged the multi-cloud migration timeline assumption.", type: "warning", read: false, actionUrl: "/assumptions", createdAt: "2026-03-16T08:30:00Z", actor: { name: "Marcus Rodriguez", avatar: "MR" } },
+  { id: "notif-003", title: "Simulation completed", message: "European Market Entry Scenarios simulation has finished running.", type: "success", read: false, actionUrl: "/simulations", createdAt: "2026-03-16T08:00:00Z" },
+  { id: "notif-004", title: "You were mentioned", message: "Elena Vasquez mentioned you in a comment on 'Restructure pricing tiers'.", type: "mention", read: false, actionUrl: "/decisions", createdAt: "2026-03-15T17:00:00Z", actor: { name: "Elena Vasquez", avatar: "EV" } },
+  { id: "notif-005", title: "Security alert", message: "Agent Sentinel flagged an elevated API abuse pattern.", type: "error", read: true, actionUrl: "/agents", createdAt: "2026-03-15T15:30:00Z", actor: { name: "Agent Sentinel", avatar: "AS" } },
+  { id: "notif-006", title: "Document processed", message: "InsightML Due Diligence.pdf has been processed successfully.", type: "info", read: true, actionUrl: "/documents", createdAt: "2026-03-15T14:00:00Z" },
+  { id: "notif-007", title: "Team member joined", message: "Alex Thompson has accepted the invitation and joined the team.", type: "success", read: true, createdAt: "2026-03-15T10:00:00Z", actor: { name: "Alex Thompson", avatar: "AT" } },
+  { id: "notif-008", title: "Weekly decision review", message: "Your weekly decision quality report is ready for review.", type: "info", read: true, actionUrl: "/analytics", createdAt: "2026-03-14T09:00:00Z" },
+];
+
+export const mockAuditLogs: AuditLogEntry[] = [
+  { id: "audit-001", action: "decision.updated", actor: "Sarah Chen", actorAvatar: "SC", resource: "Expand into European market", resourceType: "decision", details: "Updated strategic intent from Defense to Growth", ipAddress: "192.168.1.42", timestamp: "2026-03-16T09:15:00Z" },
+  { id: "audit-002", action: "assumption.challenged", actor: "Marcus Rodriguez", actorAvatar: "MR", resource: "Multi-cloud migration timeline", resourceType: "assumption", details: "Changed status from pending to challenged", ipAddress: "192.168.1.105", timestamp: "2026-03-16T08:45:00Z" },
+  { id: "audit-003", action: "agent.proposal_created", actor: "Agent Aria", actorAvatar: "AA", resource: "Reduce onboarding steps", resourceType: "agent", details: "Auto-generated proposal based on drop-off analysis", ipAddress: "10.0.0.1", timestamp: "2026-03-16T08:30:00Z" },
+  { id: "audit-004", action: "document.uploaded", actor: "Aisha Patel", actorAvatar: "AP", resource: "SOC2 Compliance Checklist.xlsx", resourceType: "document", details: "Uploaded new compliance document (1.1 MB)", ipAddress: "192.168.1.78", timestamp: "2026-03-15T14:00:00Z" },
+  { id: "audit-005", action: "team.member_invited", actor: "Sarah Chen", actorAvatar: "SC", resource: "Alex Thompson", resourceType: "team", details: "Invited alex@stemmq.com with Engineering Manager role", ipAddress: "192.168.1.42", timestamp: "2026-03-15T10:00:00Z" },
+  { id: "audit-006", action: "simulation.started", actor: "Elena Vasquez", actorAvatar: "EV", resource: "Pricing Restructure Impact", resourceType: "simulation", details: "Started Monte Carlo simulation with 10,000 iterations", ipAddress: "192.168.1.92", timestamp: "2026-03-15T09:30:00Z" },
+  { id: "audit-007", action: "settings.updated", actor: "Sarah Chen", actorAvatar: "SC", resource: "Organization settings", resourceType: "settings", details: "Updated decision review cadence to weekly", ipAddress: "192.168.1.42", timestamp: "2026-03-14T16:00:00Z" },
+  { id: "audit-008", action: "auth.login", actor: "David Park", actorAvatar: "DP", resource: "Session", resourceType: "auth", details: "Logged in via Google OAuth", ipAddress: "192.168.1.55", timestamp: "2026-03-14T09:00:00Z" },
+];
+
+export const mockIntegrations: Integration[] = [
+  { id: "int-001", name: "Salesforce", description: "Sync decisions with CRM pipeline data and customer outcomes.", icon: "Database", category: "crm", status: "connected", connectedAt: "2026-02-15T10:00:00Z" },
+  { id: "int-002", name: "Slack", description: "Get real-time notifications and updates in your Slack workspace.", icon: "MessageSquare", category: "communication", status: "connected", connectedAt: "2026-01-20T09:00:00Z" },
+  { id: "int-003", name: "Jira", description: "Link decisions to development epics and track implementation.", icon: "SquareKanban", category: "project", status: "available" },
+  { id: "int-004", name: "HubSpot", description: "Connect marketing and sales data to validate growth assumptions.", icon: "Database", category: "crm", status: "available" },
+  { id: "int-005", name: "Notion", description: "Sync decision documentation and strategy wikis.", icon: "BookOpen", category: "project", status: "available" },
+  { id: "int-006", name: "GitHub", description: "Link technical decisions to code changes and PRs.", icon: "Github", category: "project", status: "available" },
+  { id: "int-007", name: "Google Analytics", description: "Import web analytics to validate product decisions.", icon: "BarChart3", category: "analytics", status: "coming_soon" },
+  { id: "int-008", name: "Snowflake", description: "Connect to your data warehouse for advanced analytics.", icon: "Database", category: "analytics", status: "coming_soon" },
+  { id: "int-009", name: "Google Drive", description: "Import documents directly from Google Drive.", icon: "FolderOpen", category: "storage", status: "available" },
+  { id: "int-010", name: "OpenAI", description: "Enhanced AI capabilities for decision analysis.", icon: "Brain", category: "ai", status: "coming_soon" },
+];
+
+export const mockBillingData: BillingPlan = {
+  name: "Professional",
+  price: 149,
+  interval: "monthly",
+  features: [
+    "Up to 50 team members",
+    "Unlimited decisions",
+    "AI-powered simulations",
+    "Agent decision governance",
+    "Priority support",
+  ],
+  usage: {
+    decisions: { used: 47, limit: -1 },
+    members: { used: 10, limit: 50 },
+    storage: { used: 2.4, limit: 10, unit: "GB" },
+    apiCalls: { used: 12450, limit: 50000 },
+  },
+};
+
+export const mockInvoices: Invoice[] = [
+  { id: "inv-001", date: "2026-03-01", amount: 149, status: "paid", downloadUrl: "#" },
+  { id: "inv-002", date: "2026-02-01", amount: 149, status: "paid", downloadUrl: "#" },
+  { id: "inv-003", date: "2026-01-01", amount: 149, status: "paid", downloadUrl: "#" },
+  { id: "inv-004", date: "2025-12-01", amount: 119, status: "paid", downloadUrl: "#" },
+  { id: "inv-005", date: "2025-11-01", amount: 119, status: "paid", downloadUrl: "#" },
+];
+
+export const mockUsageMetrics: UsageMetric[] = [
+  {
+    label: "Decisions Created",
+    total: 47,
+    change: 12.3,
+    data: [
+      { date: "2026-03-10", value: 3 }, { date: "2026-03-11", value: 5 },
+      { date: "2026-03-12", value: 4 }, { date: "2026-03-13", value: 6 },
+      { date: "2026-03-14", value: 8 }, { date: "2026-03-15", value: 7 },
+      { date: "2026-03-16", value: 2 },
+    ],
+  },
+  {
+    label: "API Calls",
+    total: 12450,
+    change: 8.7,
+    data: [
+      { date: "2026-03-10", value: 1820 }, { date: "2026-03-11", value: 2100 },
+      { date: "2026-03-12", value: 1950 }, { date: "2026-03-13", value: 2300 },
+      { date: "2026-03-14", value: 2400 }, { date: "2026-03-15", value: 1880 },
+      { date: "2026-03-16", value: 980 },
+    ],
+  },
+  {
+    label: "Simulations Run",
+    total: 24,
+    change: 15.2,
+    data: [
+      { date: "2026-03-10", value: 2 }, { date: "2026-03-11", value: 4 },
+      { date: "2026-03-12", value: 3 }, { date: "2026-03-13", value: 5 },
+      { date: "2026-03-14", value: 4 }, { date: "2026-03-15", value: 3 },
+      { date: "2026-03-16", value: 1 },
+    ],
+  },
+  {
+    label: "Team Activity",
+    total: 156,
+    change: -2.4,
+    data: [
+      { date: "2026-03-10", value: 22 }, { date: "2026-03-11", value: 28 },
+      { date: "2026-03-12", value: 25 }, { date: "2026-03-13", value: 30 },
+      { date: "2026-03-14", value: 24 }, { date: "2026-03-15", value: 18 },
+      { date: "2026-03-16", value: 9 },
+    ],
+  },
+];
+
+export const mockAPIKeys: APIKey[] = [
+  { id: "key-001", name: "Production API", key: "sk_live_xxxxxxxxxxxxxxxxxxxx_a8Kd", prefix: "sk_live_", createdAt: "2026-01-15T10:00:00Z", lastUsed: "2026-03-16T08:30:00Z", expiresAt: null, permissions: ["read", "write", "admin"] },
+  { id: "key-002", name: "Development API", key: "sk_test_xxxxxxxxxxxxxxxxxxxx_j2Lm", prefix: "sk_test_", createdAt: "2026-02-01T09:00:00Z", lastUsed: "2026-03-15T17:00:00Z", expiresAt: "2026-06-01T00:00:00Z", permissions: ["read", "write"] },
+  { id: "key-003", name: "CI/CD Pipeline", key: "sk_live_xxxxxxxxxxxxxxxxxxxx_p4Nq", prefix: "sk_live_", createdAt: "2026-02-20T14:00:00Z", lastUsed: "2026-03-16T06:00:00Z", expiresAt: null, permissions: ["read"] },
+  { id: "key-004", name: "Analytics Dashboard", key: "sk_test_xxxxxxxxxxxxxxxxxxxx_r7Ws", prefix: "sk_test_", createdAt: "2026-03-05T11:00:00Z", lastUsed: null, expiresAt: "2026-09-05T00:00:00Z", permissions: ["read"] },
+];
+
+export const mockSecurityEvents: SecurityEvent[] = [
+  { id: "sec-001", type: "login", description: "Signed in with Google OAuth", ipAddress: "192.168.1.42", device: "Chrome on macOS", location: "San Francisco, CA", timestamp: "2026-03-16T08:00:00Z" },
+  { id: "sec-002", type: "api_key_created", description: "Created API key: Analytics Dashboard", ipAddress: "192.168.1.42", device: "Chrome on macOS", location: "San Francisco, CA", timestamp: "2026-03-05T11:00:00Z" },
+  { id: "sec-003", type: "password_change", description: "Password changed successfully", ipAddress: "192.168.1.42", device: "Chrome on macOS", location: "San Francisco, CA", timestamp: "2026-02-28T14:00:00Z" },
+  { id: "sec-004", type: "2fa_enabled", description: "Two-factor authentication enabled", ipAddress: "192.168.1.42", device: "Chrome on macOS", location: "San Francisco, CA", timestamp: "2026-02-15T10:00:00Z" },
+  { id: "sec-005", type: "login", description: "Signed in with email and password", ipAddress: "10.0.0.55", device: "Safari on iOS", location: "San Francisco, CA", timestamp: "2026-03-14T09:00:00Z" },
+  { id: "sec-006", type: "session_revoked", description: "Revoked session on Firefox", ipAddress: "192.168.1.42", device: "Chrome on macOS", location: "San Francisco, CA", timestamp: "2026-03-10T16:00:00Z" },
+];
+
+export const mockActiveSessions: ActiveSession[] = [
+  { id: "sess-001", device: "macOS", browser: "Chrome 122", location: "San Francisco, CA", ipAddress: "192.168.1.42", lastActive: "2026-03-16T09:00:00Z", current: true },
+  { id: "sess-002", device: "iOS", browser: "Safari", location: "San Francisco, CA", ipAddress: "10.0.0.55", lastActive: "2026-03-15T18:00:00Z", current: false },
+  { id: "sess-003", device: "Windows", browser: "Edge 122", location: "New York, NY", ipAddress: "172.16.0.12", lastActive: "2026-03-14T12:00:00Z", current: false },
 ];
