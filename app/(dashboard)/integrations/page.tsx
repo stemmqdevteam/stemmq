@@ -72,7 +72,7 @@ export default function IntegrationsPage() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           {filtered.map(integration => {
-            const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[integration.icon];
+            const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[integration.icon];
             const status = statusConfig[integration.status];
 
             return (
