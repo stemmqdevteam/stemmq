@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import type { MetricCardData } from "@/lib/types";
 
 function MetricCard({ label, value, change, trend, icon }: MetricCardData) {
-  const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[icon];
+  const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[icon];
   const TrendIcon = trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
 
   return (
