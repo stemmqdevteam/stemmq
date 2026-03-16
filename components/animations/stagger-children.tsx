@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface StaggerChildrenProps {
@@ -24,7 +24,7 @@ const childVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.4, ease: cubicBezier(0.21, 0.47, 0.32, 0.98) },
   },
 };
 

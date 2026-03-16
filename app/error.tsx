@@ -2,6 +2,7 @@
 
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Error({
   error,
@@ -26,9 +27,9 @@ export default function Error({
           <Button variant="accent" onClick={reset}>
             Try Again
           </Button>
-          <a href="/">
+          <Link href="/">
             <Button variant="outline">Go Home</Button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
