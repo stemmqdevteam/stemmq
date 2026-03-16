@@ -20,7 +20,7 @@ function FeatureGrid() {
 
         <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES_LIST.map((feature) => {
-            const Icon = (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[feature.icon];
+            const Icon = (LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[feature.icon];
             return (
               <StaggerItem key={feature.title}>
                 <div className="group rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 hover:border-accent/20">
