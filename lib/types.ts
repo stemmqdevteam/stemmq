@@ -301,3 +301,7 @@ export interface CommandPaletteItem {
   action?: () => void;
   category: "page" | "action" | "recent";
 }
+
+export type MarketingNavItem =
+  | { label: string; href: string; children?: never }
+  | { label: string; href?: never; children: { label: string; href: string; description?: string }[] };

@@ -1,4 +1,4 @@
-import type { NavItem, PricingTier, FeatureItem } from "./types";
+import type { NavItem, PricingTier, FeatureItem, MarketingNavItem } from "./types";
 
 export const ROUTES = {
   home: "/",
@@ -6,6 +6,15 @@ export const ROUTES = {
   features: "/features",
   pricing: "/pricing",
   about: "/about",
+  aiAgents: "/ai-agents",
+  decisionIntelligence: "/decision-intelligence",
+  useCases: "/use-cases",
+  marketingIntegrations: "/integrations",
+  marketingSecurity: "/security",
+  blog: "/blog",
+  docs: "/docs",
+  changelog: "/changelog",
+  careers: "/careers",
   auth: "/auth",
   login: "/login",
   signup: "/signup",
@@ -28,16 +37,39 @@ export const ROUTES = {
   billing: "/billing",
   usage: "/usage",
   apiKeys: "/api-keys",
-  security: "/security",
+  security: "features/security",
   activity: "/activity",
   onboarding: "/onboarding",
 } as const;
 
-export const MARKETING_NAV = [
+export const MARKETING_NAV: MarketingNavItem[] = [
   { label: "Product", href: ROUTES.product },
-  { label: "Features", href: ROUTES.features },
+  {
+    label: "Solutions",
+    children: [
+      { label: "Decision Intelligence", href: ROUTES.decisionIntelligence, description: "Structured decision objects, quality scoring, and outcome tracking" },
+      { label: "AI Agents", href: ROUTES.aiAgents, description: "Govern AI agents through the decision intelligence layer" },
+      { label: "Use Cases", href: ROUTES.useCases, description: "See how teams across every function use StemmQ" },
+    ],
+  },
+  {
+    label: "Developers",
+    children: [
+      { label: "Documentation", href: ROUTES.docs, description: "Guides, API reference, and SDKs" },
+      { label: "Integrations", href: ROUTES.marketingIntegrations, description: "Connect StemmQ to your existing stack" },
+      { label: "Changelog", href: ROUTES.changelog, description: "Latest updates and product releases" },
+    ],
+  },
+  {
+    label: "Company",
+    children: [
+      { label: "About", href: ROUTES.about, description: "Our mission, team, and story" },
+      { label: "Blog", href: ROUTES.blog, description: "Insights on decision intelligence and AI governance" },
+      { label: "Careers", href: ROUTES.careers, description: "Join us in building decision infrastructure" },
+      { label: "Security", href: ROUTES.marketingSecurity, description: "Enterprise-grade security and compliance" },
+    ],
+  },
   { label: "Pricing", href: ROUTES.pricing },
-  { label: "About", href: ROUTES.about },
 ];
 
 export const SIDEBAR_NAV: NavItem[] = [
@@ -195,45 +227,44 @@ export const FOOTER_LINKS = {
   product: [
     { label: "Features", href: ROUTES.features },
     { label: "Pricing", href: ROUTES.pricing },
-    { label: "Changelog", href: "#" },
-    { label: "Integrations", href: "#" },
+    { label: "Changelog", href: ROUTES.changelog },
+    { label: "Integrations", href: ROUTES.marketingIntegrations },
   ],
   platform: [
-    { label: "Decision Engine", href: "#" },
-    { label: "Assumption Tracking", href: "#" },
-    { label: "Simulations", href: "#" },
-    { label: "AI Agents", href: "#" },
-    { label: "Strategy Graph", href: "#" },
+    { label: "Decision Intelligence", href: ROUTES.decisionIntelligence },
+    { label: "Assumption Tracking", href: ROUTES.features },
+    { label: "Simulations", href: ROUTES.features },
+    { label: "AI Agents", href: ROUTES.aiAgents },
+    { label: "Strategy Graph", href: ROUTES.features },
   ],
   solutions: [
-    { label: "Enterprise Strategy", href: "#" },
-    { label: "Product Teams", href: "#" },
-    { label: "Investment Analysis", href: "#" },
-    { label: "Risk Management", href: "#" },
+    { label: "Use Cases", href: ROUTES.useCases },
+    { label: "Enterprise Strategy", href: ROUTES.useCases },
+    { label: "Product Teams", href: ROUTES.useCases },
+    { label: "Risk Management", href: ROUTES.decisionIntelligence },
   ],
   resources: [
-    { label: "Documentation", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Guides", href: "#" },
-    { label: "Webinars", href: "#" },
-    { label: "Case Studies", href: "#" },
+    { label: "Documentation", href: ROUTES.docs },
+    { label: "Blog", href: ROUTES.blog },
+    { label: "Guides", href: ROUTES.docs },
+    { label: "Changelog", href: ROUTES.changelog },
   ],
   company: [
     { label: "About", href: ROUTES.about },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#" },
-    { label: "Press", href: "#" },
+    { label: "Careers", href: ROUTES.careers },
+    { label: "Security", href: ROUTES.marketingSecurity },
+    { label: "Contact", href: ROUTES.about },
   ],
   legal: [
     { label: "Privacy Policy", href: ROUTES.privacy },
     { label: "Terms of Service", href: ROUTES.terms },
-    { label: "Security", href: "#" },
-    { label: "Cookie Policy", href: "#" },
+    { label: "Security", href: ROUTES.marketingSecurity },
+    { label: "Cookie Policy", href: ROUTES.privacy },
   ],
   developers: [
-    { label: "API Reference", href: "#" },
-    { label: "SDKs", href: "#" },
-    { label: "Webhooks", href: "#" },
-    { label: "Status Page", href: "#" },
+    { label: "API Reference", href: ROUTES.docs },
+    { label: "SDKs", href: ROUTES.docs },
+    { label: "Webhooks", href: ROUTES.marketingIntegrations },
+    { label: "Status Page", href: ROUTES.changelog },
   ],
 };
