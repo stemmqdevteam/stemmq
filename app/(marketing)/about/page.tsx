@@ -67,7 +67,7 @@ export default function AboutPage() {
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
-        <AnimatedGradient intensity="low" />
+        <AnimatedGradient intensity="subtle" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <div className="max-w-3xl">
             <FadeIn>
