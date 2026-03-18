@@ -244,13 +244,13 @@ export default function ProductPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <FadeIn>
             <div className="text-center mb-12">
-              <span className="text-xs font-semibold uppercase tracking-wider text-accent">Agent Governance</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-accent">Autonomous Agent Layer</span>
               <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-white">
-                No agent can execute without a decision
+                Every agent action is a decision object
               </h2>
               <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
-                Every AI agent — native or external — must generate a Structured Decision Object before
-                any action executes. The Decision Gate is the governance layer that makes AI agents trustworthy.
+                Create agents with a no-code builder or connect external systems. Every action generates a
+                structured decision that flows through evaluation, the Decision Gate, and outcome tracking.
               </p>
             </div>
           </FadeIn>
@@ -259,13 +259,15 @@ export default function ProductPage() {
             {[
               { label: "Agent Intent", color: "border-accent/40 bg-accent/10 text-accent" },
               { label: "→", isArrow: true },
-              { label: "SDO Created", color: "border-purple-500/40 bg-purple-500/10 text-purple-400" },
+              { label: "Decision Object", color: "border-blue-500/40 bg-blue-500/10 text-blue-400" },
               { label: "→", isArrow: true },
-              { label: "Gate Evaluation", color: "border-warning/40 bg-warning/10 text-warning" },
+              { label: "Evaluation", color: "border-purple-500/40 bg-purple-500/10 text-purple-400" },
               { label: "→", isArrow: true },
-              { label: "Approve / Reject", color: "border-success/40 bg-success/10 text-success" },
+              { label: "Decision Gate", color: "border-warning/40 bg-warning/10 text-warning" },
               { label: "→", isArrow: true },
-              { label: "Outcome Tracked", color: "border-blue-400/40 bg-blue-400/10 text-blue-400" },
+              { label: "Execution", color: "border-success/40 bg-success/10 text-success" },
+              { label: "→", isArrow: true },
+              { label: "Outcome Tracking", color: "border-emerald-400/40 bg-emerald-400/10 text-emerald-400" },
             ].map((item, i) =>
               "isArrow" in item ? (
                 <ArrowRight key={i} className="h-4 w-4 text-slate-600 shrink-0" />
@@ -302,8 +304,8 @@ export default function ProductPage() {
               <div>
                 <SectionHeader
                   eyebrow="Live Intelligence"
-                  title="Every agent decision, visible and governed"
-                  subtitle="Watch agents propose, evaluate, and execute — all through the Decision Gate. Full transparency over every automated action in your organization."
+                  title="Every agent decision, structured and tracked"
+                  subtitle="Agents propose decisions with assumptions, expected outcomes, and confidence scores. The Decision Gate evaluates every action through organizational memory and risk modeling."
                   align="left"
                 />
                 <div className="mt-8">

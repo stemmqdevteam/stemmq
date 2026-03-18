@@ -8,7 +8,7 @@ const steps = [
   { icon: FileInput, title: "Capture", description: "Record every strategic decision as a Structured Decision Object with full context.", color: "text-accent bg-accent/10" },
   { icon: Target, title: "Calibrate", description: "Track and challenge the assumptions behind every decision with validity scoring.", color: "text-success bg-success/10" },
   { icon: Activity, title: "Simulate", description: "Model probabilistic outcomes and simulate future scenarios before committing.", color: "text-warning bg-warning/10" },
-  { icon: ShieldCheck, title: "Govern", description: "AI agents propose and audit decisions with human-in-the-loop approval gates.", color: "text-accent-secondary bg-accent-secondary/10" },
+  { icon: ShieldCheck, title: "Govern", description: "AI agents generate structured decisions through the Decision Gate — with conditional human oversight and organizational memory.", color: "text-accent-secondary bg-accent-secondary/10" },
 ];
 
 export function WorkflowSection() {

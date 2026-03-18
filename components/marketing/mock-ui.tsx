@@ -108,7 +108,7 @@ function MockAgentFeed({ proposals = defaultProposals }: { proposals?: AgentProp
   };
 
   const statusConfig = {
-    pending: { icon: <Clock className="h-3 w-3 text-warning" />, label: "Pending Gate" },
+    pending: { icon: <Clock className="h-3 w-3 text-warning" />, label: "Pending Decision Gate" },
     approved: { icon: <CheckCircle className="h-3 w-3 text-success" />, label: "Approved" },
     reviewing: { icon: <AlertTriangle className="h-3 w-3 text-accent" />, label: "In Review" },
   };
@@ -160,10 +160,11 @@ function MockAgentFeed({ proposals = defaultProposals }: { proposals?: AgentProp
 // ─── MockFlowDiagram ───────────────────────────────────────────────────────────
 const FLOW_STEPS = [
   { label: "Intent", desc: "Agent proposes action", color: "bg-accent/10 border-accent/20 text-accent" },
-  { label: "Evaluate", desc: "Risk + pattern check", color: "bg-purple-500/10 border-purple-500/20 text-purple-500" },
-  { label: "Decision Gate", desc: "Approve / Reject / Escalate", color: "bg-warning/10 border-warning/20 text-warning" },
+  { label: "Decision Object", desc: "Structured decision created", color: "bg-blue-500/10 border-blue-500/20 text-blue-500" },
+  { label: "Evaluate", desc: "Risk + pattern + assumption", color: "bg-purple-500/10 border-purple-500/20 text-purple-500" },
+  { label: "Decision Gate", desc: "Approve / Revise / Escalate", color: "bg-warning/10 border-warning/20 text-warning" },
   { label: "Execute", desc: "Only approved actions run", color: "bg-success/10 border-success/20 text-success" },
-  { label: "Outcome", desc: "Track + learn + improve", color: "bg-blue-500/10 border-blue-500/20 text-blue-500" },
+  { label: "Outcome", desc: "Track + learn + improve", color: "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" },
 ];
 
 function MockFlowDiagram({ vertical = false }: { vertical?: boolean }) {

@@ -9,6 +9,8 @@ export type DecisionStatus = "draft" | "active" | "completed" | "archived";
 export type AssumptionStatus = "validated" | "pending" | "challenged" | "invalidated";
 export type SimulationStatus = "draft" | "running" | "completed";
 export type AgentStatus = "active" | "paused" | "reviewing";
+export type AgentDecisionScope = "pricing" | "campaigns" | "hiring" | "operations" | "sales" | "security" | "engineering";
+export type RiskLevel = "low" | "medium" | "high" | "critical";
 export type DocumentType = "PDF" | "DOCX" | "PPTX" | "CSV" | "XLSX";
 export type ProcessingStatus = "processed" | "processing" | "queued" | "failed";
 
@@ -57,13 +59,31 @@ export interface SimulationOutcome {
   impact: "positive" | "negative" | "neutral";
 }
 
+export interface AgentRiskBoundaries {
+  maxDiscountPercent?: number;
+  maxSpendThreshold?: number;
+  allowIrreversible: boolean;
+}
+
 export interface Agent {
   id: string;
   name: string;
+  role: string;
+  department: string;
   objective: string;
   status: AgentStatus;
+  capabilities: string[];
+  decisionScope: AgentDecisionScope[];
+  riskBoundaries: AgentRiskBoundaries;
+  instructionLayer: string;
   pendingProposals: number;
-  accuracyScore: number;
+  // Performance Model
+  forecastAccuracy: number;
+  dqsScore: number;
+  roiContribution: string;
+  riskExposure: RiskLevel;
+  failureRate: number;
+  successRate: number;
   decisionsProcessed: number;
   lastActive: string;
 }
@@ -72,8 +92,14 @@ export interface AgentProposal {
   id: string;
   agentId: string;
   agentName: string;
+  // Structured Decision Object fields
   title: string;
+  intent: string;
   description: string;
+  assumptions: string[];
+  expectedOutcomes: string[];
+  riskLevel: RiskLevel;
+  confidenceScore: number;
   type: "decision" | "assumption" | "simulation";
   priority: "high" | "medium" | "low";
   createdAt: string;

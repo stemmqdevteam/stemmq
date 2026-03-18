@@ -42,7 +42,7 @@ const categories = [
     id: "governance",
     label: "AI Governance",
     features: [
-      { icon: Bot, title: "Agent Governance", desc: "Govern AI agent decisions with approval gates and human-in-the-loop oversight." },
+      { icon: Bot, title: "Autonomous Agent Layer", desc: "Create AI agents with a no-code builder. Every action generates a structured decision that flows through the Decision Gate." },
       { icon: ShieldCheck, title: "Autonomous Audit", desc: "Complete decision audit trails with immutable logs and compliance tracking." },
       { icon: Handshake, title: "CRM Validation", desc: "Cross-reference strategic decisions with CRM data to validate assumptions." },
       { icon: FileText, title: "Document Intelligence", desc: "Extract decisions and strategic signals from PDFs, presentations, and docs automatically." },

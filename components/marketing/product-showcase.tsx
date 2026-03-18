@@ -34,7 +34,7 @@ const tabs = [
           <div className="rounded-lg border border-border/50 bg-background/60 p-3 h-28">
             <p className="text-[10px] text-muted-foreground mb-2">Activity Feed</p>
             <div className="space-y-2">
-              {["Sarah updated expansion plan", "Agent flagged assumption", "Simulation completed"].map((t, i) => (
+              {["Sarah updated expansion plan", "PricingAgent proposed discount", "Simulation completed"].map((t, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <div className="h-4 w-4 rounded-full bg-accent/20" />
                   <span className="text-[9px] text-muted-foreground truncate">{t}</span>
@@ -118,14 +118,14 @@ const tabs = [
     id: "agents",
     label: "AI Agents",
     icon: Bot,
-    title: "Governed AI Decision-Making",
-    description: "AI agents propose decisions, challenge assumptions, and run simulations — all with human-in-the-loop approval gates.",
+    title: "Autonomous Decision Agents",
+    description: "Create AI agents that generate structured decisions — every action flows through the Decision Gate with organizational memory and conditional human oversight.",
     mockup: () => (
       <div className="space-y-3">
         {[
-          { name: "Agent Aria", objective: "Customer success optimization", accuracy: 92, status: "active" },
-          { name: "Agent Nova", objective: "Predictive analytics", accuracy: 87, status: "active" },
-          { name: "Agent Sentinel", objective: "Security monitoring", accuracy: 95, status: "reviewing" },
+          { name: "PricingAgent", objective: "Revenue · Pricing Optimization", accuracy: 81, status: "active" },
+          { name: "MarketingAgent", objective: "Marketing · Campaign Intelligence", accuracy: 78, status: "active" },
+          { name: "SalesAgent", objective: "Sales · Pipeline Optimization", accuracy: 85, status: "reviewing" },
         ].map((agent, i) => (
           <div key={i} className="rounded-lg border border-border/50 bg-background/60 p-3">
             <div className="flex items-center justify-between">

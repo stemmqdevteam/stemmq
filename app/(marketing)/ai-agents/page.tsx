@@ -27,11 +27,11 @@ const agentTypes = [
 ];
 
 const canDo = [
-  "Propose pricing changes backed by historical data",
-  "Suggest campaign timing based on pattern recognition",
-  "Flag emerging risks before they become decisions",
-  "Recommend budget reallocations with DQS support",
-  "Cross-reference CRM outcomes against past predictions",
+  "Propose decisions backed by historical data and outcomes",
+  "Reference similar past decisions from organizational memory",
+  "Flag emerging risks before they become incidents",
+  "Recommend budget reallocations with confidence scores",
+  "Collaborate with other agents on joint decisions",
   "Generate structured decision objects automatically",
 ];
 
@@ -41,7 +41,7 @@ const cannotDo = [
   "Modify production systems without approval",
   "Make irreversible decisions autonomously",
   "Operate outside defined risk boundaries",
-  "Act without generating an auditable record",
+  "Act without referencing organizational memory",
 ];
 
 const perfMetrics = [
@@ -73,8 +73,7 @@ export default function AIAgentsPage() {
                   <br />Infrastructure that governs.
                 </h1>
                 <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  Every AI agent in StemmQ operates through a Decision Gate.
-                  No action executes without a structured decision object — giving you complete intelligence and control.
+                  Create agents with a no-code builder or connect external systems. Every action generates a structured decision object — with organizational memory, conditional human oversight, and outcome tracking.
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-3">
                   <Link href={ROUTES.auth}>
@@ -124,21 +123,22 @@ export default function AIAgentsPage() {
 
           {/* Desktop flow */}
           <FadeIn delay={0.2}>
-            <div className="hidden md:flex items-center justify-between gap-2 max-w-5xl mx-auto">
+            <div className="hidden md:flex items-center justify-between gap-2 max-w-6xl mx-auto">
               {[
                 { step: "1", label: "Intent", desc: "Agent proposes action", color: "border-accent/40 bg-accent/10 text-accent" },
-                { step: "2", label: "Evaluation", desc: "Risk + pattern analysis", color: "border-purple-500/40 bg-purple-500/10 text-purple-400" },
-                { step: "3", label: "Decision Gate", desc: "Approve / Reject / Escalate", color: "border-warning/40 bg-warning/10 text-warning" },
-                { step: "4", label: "Execution", desc: "Only approved actions run", color: "border-success/40 bg-success/10 text-success" },
-                { step: "5", label: "Outcome Tracking", desc: "Log + learn + improve", color: "border-blue-400/40 bg-blue-400/10 text-blue-400" },
+                { step: "2", label: "Decision Object", desc: "Structured decision created", color: "border-blue-400/40 bg-blue-400/10 text-blue-400" },
+                { step: "3", label: "Evaluation", desc: "Risk + pattern + assumption", color: "border-purple-500/40 bg-purple-500/10 text-purple-400" },
+                { step: "4", label: "Decision Gate", desc: "Approve / Revise / Escalate", color: "border-warning/40 bg-warning/10 text-warning" },
+                { step: "5", label: "Execution", desc: "Only approved actions run", color: "border-success/40 bg-success/10 text-success" },
+                { step: "6", label: "Outcome Tracking", desc: "Log + learn + improve", color: "border-emerald-400/40 bg-emerald-400/10 text-emerald-400" },
               ].map((item, i) => (
                 <div key={item.step} className="flex items-center gap-2">
-                  <div className={`rounded-xl border px-5 py-4 text-center min-w-[140px] ${item.color}`}>
+                  <div className={`rounded-xl border px-4 py-3 text-center min-w-[120px] ${item.color}`}>
                     <div className="text-xs font-bold mb-1 opacity-60">Step {item.step}</div>
                     <div className="text-sm font-semibold">{item.label}</div>
                     <div className="text-[10px] mt-1 opacity-70">{item.desc}</div>
                   </div>
-                  {i < 4 && <ArrowRight className="h-4 w-4 text-slate-600 shrink-0" />}
+                  {i < 5 && <ArrowRight className="h-4 w-4 text-slate-600 shrink-0" />}
                 </div>
               ))}
             </div>
@@ -156,7 +156,7 @@ export default function AIAgentsPage() {
           <SectionHeader
             eyebrow="Agent Types"
             title="Build or connect any agent"
-            subtitle="Create native agents with our no-code builder, or connect third-party AI systems through our API and webhook gateway."
+            subtitle="Create native agents with our no-code builder, or connect third-party AI systems. StemmQ acts as the decision gateway for all agents — internal and external."
           />
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {agentTypes.map((agent, i) => (
@@ -200,7 +200,7 @@ export default function AIAgentsPage() {
                   align="left"
                 />
                 <ul className="mt-8 space-y-3">
-                  {["Define agent identity and objective", "Set capability scope and system permissions", "Configure risk boundaries and approval thresholds", "Write natural-language instruction layer", "Agent begins operating — decisions logged automatically"].map((step, i) => (
+                  {["Define agent identity — name, role, department", "Set objective and decision scope", "Configure risk boundaries and approval thresholds", "Write natural-language instruction layer", "Agent begins operating — all decisions logged automatically"].map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-white text-xs font-bold shrink-0 mt-0.5">{i + 1}</span>
                       <span className="text-sm text-muted-foreground">{step}</span>
@@ -224,8 +224,10 @@ export default function AIAgentsPage() {
                   </div>
                   {[
                     { label: "Agent Name", value: "Q4RevenueAgent", type: "input" },
-                    { label: "Department", value: "Revenue · Pricing", type: "select" },
+                    { label: "Role", value: "Pricing Optimization", type: "input" },
+                    { label: "Department", value: "Revenue", type: "select" },
                     { label: "Objective", value: "Maximize Q4 revenue while minimizing churn risk", type: "textarea" },
+                    { label: "Decision Scope", value: "Pricing, Revenue", type: "select" },
                     { label: "Max Risk Level", value: "Medium — auto-escalate above", type: "select" },
                   ].map((field) => (
                     <div key={field.label}>
@@ -260,10 +262,11 @@ export default function AIAgentsPage() {
                   <p className="text-xs text-muted-foreground mb-3">
                     SalesAgent proposes reducing enterprise contract floor to $6,000/yr (−40%). Exceeds defined risk threshold.
                   </p>
-                  <div className="grid grid-cols-3 gap-2">
-                    <button className="text-[10px] py-2 rounded-lg bg-success/10 text-success font-semibold hover:bg-success/20 transition-colors">✓ Approve</button>
-                    <button className="text-[10px] py-2 rounded-lg bg-accent/10 text-accent font-semibold hover:bg-accent/20 transition-colors">⟳ Revise</button>
-                    <button className="text-[10px] py-2 rounded-lg bg-danger/10 text-danger font-semibold hover:bg-danger/20 transition-colors">✕ Reject</button>
+                  <div className="grid grid-cols-4 gap-2">
+                    <button className="text-[10px] py-2 rounded-lg bg-success/10 text-success font-semibold hover:bg-success/20 transition-colors">Approve</button>
+                    <button className="text-[10px] py-2 rounded-lg bg-accent/10 text-accent font-semibold hover:bg-accent/20 transition-colors">Revise</button>
+                    <button className="text-[10px] py-2 rounded-lg bg-warning/10 text-warning font-semibold hover:bg-warning/20 transition-colors">Escalate</button>
+                    <button className="text-[10px] py-2 rounded-lg bg-danger/10 text-danger font-semibold hover:bg-danger/20 transition-colors">Reject</button>
                   </div>
                 </div>
                 <div className="rounded-xl border border-success/20 bg-success/5 p-4">
@@ -416,6 +419,51 @@ export default function AIAgentsPage() {
                 )
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Agent Memory */}
+      <section className="py-20 bg-muted/30 border-y border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <SectionHeader
+            eyebrow="Agent Memory"
+            title="Agents that learn from your organization"
+            subtitle="Every agent maintains local memory of its own decisions and performance, plus shared access to the organization's global decision dataset and pattern recognition insights."
+          />
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FadeIn direction="left">
+              <div className="rounded-xl border border-border bg-card p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Eye className="h-5 w-5 text-accent" />
+                  <span className="font-semibold text-foreground">Local Memory</span>
+                </div>
+                <div className="space-y-3">
+                  {["Past decisions and their outcomes", "Performance history and accuracy trends", "Learned patterns from own decision scope"].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-accent mt-0.5 shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn direction="right" delay={0.1}>
+              <div className="rounded-xl border border-accent/20 bg-accent/5 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Network className="h-5 w-5 text-accent" />
+                  <span className="font-semibold text-foreground">Shared Organizational Memory</span>
+                </div>
+                <div className="space-y-3">
+                  {["Global decision dataset across all agents and humans", "Cross-agent pattern recognition insights", "Historical outcomes used to justify every new proposal"].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-accent mt-0.5 shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>

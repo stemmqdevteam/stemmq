@@ -62,7 +62,7 @@ const entries = [
     title: "Agent Performance Scoring",
     changes: [
       "New agent dashboard with five performance dimensions",
-      "Forecast Accuracy, DQS contribution, ROI, Risk Exposure, Success Rate",
+      "Forecast Accuracy, DQS contribution, ROI, Risk Exposure, Failure Rate, Success Rate",
       "Historical performance trends with 90-day rolling window",
       "Agents with sustained low scores auto-flagged for review",
     ],

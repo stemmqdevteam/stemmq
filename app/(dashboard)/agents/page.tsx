@@ -21,12 +21,19 @@ const priorityVariant = {
   low: "neutral" as const,
 };
 
+const riskColors = {
+  low: "text-success",
+  medium: "text-warning",
+  high: "text-danger",
+  critical: "text-danger",
+};
+
 export default function AgentsPage() {
   return (
     <PageTransition>
       <PageContainer
         title="Agents"
-        description="AI agents operating under governance and oversight frameworks."
+        description="AI agents operating as decision-making systems under StemmQ governance."
       >
         {/* Agent cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -44,30 +51,29 @@ export default function AgentsPage() {
                 </div>
               </CardHeader>
               <CardContent>
+                <p className="text-xs text-accent font-medium mb-1">{agent.role} · {agent.department}</p>
                 <p className="text-xs text-muted-foreground mb-4">{agent.objective}</p>
 
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <p className="text-lg font-semibold text-card-foreground">{agent.accuracyScore}%</p>
-                    <p className="text-[10px] text-muted-foreground">Accuracy</p>
+                    <p className="text-lg font-semibold text-card-foreground">{agent.forecastAccuracy}%</p>
+                    <p className="text-[10px] text-muted-foreground">Forecast</p>
                   </div>
                   <div>
-                    <p className="text-lg font-semibold text-card-foreground">{agent.decisionsProcessed}</p>
-                    <p className="text-[10px] text-muted-foreground">Processed</p>
+                    <p className="text-lg font-semibold text-card-foreground">{agent.dqsScore}</p>
+                    <p className="text-[10px] text-muted-foreground">DQS</p>
                   </div>
                   <div>
-                    <p className={cn(
-                      "text-lg font-semibold",
-                      agent.pendingProposals > 0 ? "text-warning" : "text-card-foreground"
-                    )}>
-                      {agent.pendingProposals}
-                    </p>
-                    <p className="text-[10px] text-muted-foreground">Pending</p>
+                    <p className="text-lg font-semibold text-card-foreground">{agent.successRate}%</p>
+                    <p className="text-[10px] text-muted-foreground">Success</p>
                   </div>
                 </div>
 
                 <p className="text-xs text-muted-foreground mt-3">
                   Last active {formatRelativeTime(agent.lastActive)}
+                  {agent.pendingProposals > 0 && (
+                    <span className="text-warning"> · {agent.pendingProposals} pending</span>
+                  )}
                 </p>
               </CardContent>
             </Card>
@@ -75,7 +81,7 @@ export default function AgentsPage() {
         </div>
 
         {/* Approval Queue */}
-        <InsightPanel title="Approval Queue" actions={<Badge variant="warning">{mockAgentProposals.length} pending</Badge>}>
+        <InsightPanel title="Decision Gate Queue" actions={<Badge variant="warning">{mockAgentProposals.length} pending</Badge>}>
           <div className="space-y-3">
             {mockAgentProposals.map((proposal) => (
               <div key={proposal.id} className="rounded-lg border border-border p-4 hover:bg-muted/30 transition-colors">
@@ -86,14 +92,21 @@ export default function AgentsPage() {
                       by {proposal.agentName} &middot; {formatRelativeTime(proposal.createdAt)}
                     </p>
                   </div>
-                  <Badge variant={priorityVariant[proposal.priority]}>
-                    {proposal.priority}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="neutral">{proposal.confidenceScore}% confidence</Badge>
+                    <Badge variant={priorityVariant[proposal.priority]}>
+                      {proposal.priority}
+                    </Badge>
+                  </div>
                 </div>
+                <p className="text-[10px] text-muted-foreground mb-1">
+                  Risk: <span className={riskColors[proposal.riskLevel]}>{proposal.riskLevel}</span>
+                </p>
                 <p className="text-xs text-muted-foreground mb-3">{proposal.description}</p>
                 <div className="flex items-center gap-2">
                   <Button variant="accent" size="sm">Approve</Button>
-                  <Button variant="outline" size="sm">Modify</Button>
+                  <Button variant="outline" size="sm">Revise</Button>
+                  <Button variant="ghost" size="sm" className="text-warning">Escalate</Button>
                   <Button variant="ghost" size="sm" className="text-danger">Reject</Button>
                 </div>
               </div>

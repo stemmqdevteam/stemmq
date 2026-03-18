@@ -48,7 +48,7 @@ export const MARKETING_NAV: MarketingNavItem[] = [
     label: "Solutions",
     children: [
       { label: "Decision Intelligence", href: ROUTES.decisionIntelligence, description: "Structured decision objects, quality scoring, and outcome tracking" },
-      { label: "AI Agents", href: ROUTES.aiAgents, description: "Govern AI agents through the decision intelligence layer" },
+      { label: "AI Agents", href: ROUTES.aiAgents, description: "Create and govern AI agents that operate as decision-making systems" },
       { label: "Use Cases", href: ROUTES.useCases, description: "See how teams across every function use StemmQ" },
     ],
   },
@@ -118,7 +118,7 @@ export const PRICING_TIERS: PricingTier[] = [
       "Unlimited decisions",
       "Advanced assumption calibration",
       "AI-powered simulations",
-      "Agent decision governance",
+      "Autonomous Agent Layer with Decision Gate",
       "Strategy graph visualization",
       "Document intelligence",
       "Priority support",
@@ -211,9 +211,9 @@ export const FEATURES_LIST: FeatureItem[] = [
   },
   {
     icon: "Bot",
-    title: "Agent Governance",
+    title: "Autonomous Agent Layer",
     description:
-      "Govern AI agent decisions with approval gates, audit trails, and human-in-the-loop oversight frameworks.",
+      "Create AI agents with a no-code builder. Every agent action generates a structured decision that flows through the Decision Gate with organizational memory.",
   },
   {
     icon: "ShieldCheck",

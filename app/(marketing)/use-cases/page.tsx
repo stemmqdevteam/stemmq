@@ -25,7 +25,7 @@ const teams = [
     color: "text-accent bg-accent/10",
     problem: "Campaign decisions made on gut feel, no way to track which assumptions drove performance.",
     solution: "Every campaign becomes a structured decision with captured assumptions and outcome tracking.",
-    outcomes: ["34% improvement in campaign assumption accuracy", "Agents surface timing patterns humans miss", "Full audit trail for every budget decision"],
+    outcomes: ["34% improvement in campaign assumption accuracy", "MarketingAgent surfaces timing patterns from organizational memory", "Full audit trail for every budget decision"],
     mockType: "agent" as const,
   },
   {
@@ -35,7 +35,7 @@ const teams = [
     color: "text-purple-500 bg-purple-500/10",
     problem: "Feature prioritization is political, not data-driven. No visibility into which bets paid off.",
     solution: "Each feature decision captures strategic intent, assumptions, and links to outcome metrics.",
-    outcomes: ["DQS scoring cuts prioritization debates by 60%", "Historical decision accuracy improves roadmap confidence", "Agents cross-reference user data before proposing features"],
+    outcomes: ["DQS scoring cuts prioritization debates by 60%", "Historical decision accuracy improves roadmap confidence", "Agents reference past decisions before proposing features"],
     mockType: "decision" as const,
   },
   {
@@ -55,7 +55,7 @@ const teams = [
     color: "text-success bg-success/10",
     problem: "Process changes happen without impact tracking, creating invisible organizational debt.",
     solution: "Every process change is a decision with owner, assumptions, and measurable outcomes.",
-    outcomes: ["Full audit trail for compliance and governance", "Process agents flag risk before changes execute", "Cross-team decision visibility reduces conflicts"],
+    outcomes: ["Full audit trail for compliance and governance", "OpsAgent flags risk through Decision Gate before changes execute", "Cross-team decision visibility reduces conflicts"],
     mockType: "agent" as const,
   },
   {
@@ -65,7 +65,7 @@ const teams = [
     color: "text-blue-500 bg-blue-500/10",
     problem: "At scale, decisions happen everywhere — siloed, untracked, and impossible to govern.",
     solution: "StemmQ becomes the organizational decision layer — every team, every agent, one system of record.",
-    outcomes: ["Cross-org decision governance from one platform", "SSO + SAML + immutable audit logs", "AI agent supervision across entire org stack"],
+    outcomes: ["Cross-org decision governance from one platform", "SSO + SAML + immutable audit logs", "Autonomous Agent Layer supervises all agents org-wide"],
     mockType: "agent" as const,
   },
 ];
@@ -93,7 +93,7 @@ const quotes = [
     initials: "PS",
   },
   {
-    quote: "We have 40 AI agents running. Without StemmQ's Decision Gate, that would be terrifying.",
+    quote: "We have 40 AI agents running. Without StemmQ's Decision Gate and organizational memory, that would be terrifying.",
     name: "Marcus Webb",
     role: "VP Engineering",
     company: "Enterprise SaaS",

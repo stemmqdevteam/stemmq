@@ -18,7 +18,15 @@ export async function approveProposal(id: string): Promise<void> {
   await delay(600);
 }
 
+export async function reviseProposal(id: string): Promise<void> {
+  await delay(600);
+}
+
 export async function rejectProposal(id: string): Promise<void> {
+  await delay(600);
+}
+
+export async function escalateProposal(id: string): Promise<void> {
   await delay(600);
 }
 

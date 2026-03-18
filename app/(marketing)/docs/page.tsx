@@ -40,8 +40,8 @@ const client = new StemmQ({
 
 const apiSections = [
   { icon: Book, label: "Decisions", endpoints: ["POST /decisions", "GET /decisions/:id", "PATCH /decisions/:id", "DELETE /decisions/:id"] },
-  { icon: Bot, label: "Agents", endpoints: ["POST /agents", "GET /agents", "POST /agents/:id/propose", "GET /agents/:id/performance"] },
-  { icon: Shield, label: "Decision Gate", endpoints: ["POST /gate/evaluate", "POST /gate/approve", "POST /gate/reject", "GET /gate/pending"] },
+  { icon: Bot, label: "Agents", endpoints: ["POST /agents", "GET /agents", "POST /agents/:id/propose", "GET /agents/:id/performance", "POST /external-agent/decision"] },
+  { icon: Shield, label: "Decision Gate", endpoints: ["POST /gate/evaluate", "POST /gate/approve", "POST /gate/revise", "POST /gate/reject", "POST /gate/escalate"] },
   { icon: BarChart3, label: "Assumptions", endpoints: ["POST /assumptions", "PATCH /assumptions/:id/status", "GET /assumptions/accuracy"] },
   { icon: Code2, label: "Simulations", endpoints: ["POST /simulations", "POST /simulations/:id/run", "GET /simulations/:id/outcomes"] },
   { icon: Zap, label: "Webhooks", endpoints: ["POST /webhooks", "GET /webhooks", "DELETE /webhooks/:id"] },
@@ -55,12 +55,12 @@ const sdks = [
 ];
 
 const guides = [
-  { title: "Governing AI Agents with Decision Gates", desc: "Connect external agents and enforce structured decision-making." },
+  { title: "Building Agents with the No-Code Builder", desc: "Create agents with identity, capabilities, decision scope, and risk boundaries." },
   { title: "Assumption Calibration Workflow", desc: "Build a team-wide assumption tracking and validation process." },
-  { title: "Setting Up Multi-Agent Orchestration", desc: "Configure agents that depend on each other's outputs." },
+  { title: "Setting Up Multi-Agent Orchestration", desc: "Configure agents that collaborate and propose joint decisions." },
   { title: "Compliance Audit Log Export", desc: "Export decision history for regulatory reporting." },
   { title: "Integrating with Salesforce CRM", desc: "Cross-reference decisions against CRM data automatically." },
-  { title: "Building a Custom Agent with the SDK", desc: "Create a native agent with full Decision Gate integration." },
+  { title: "Connecting External Agents via Webhook", desc: "Route third-party agent actions through StemmQ's Decision Gate." },
 ];
 
 export default function DocsPage() {

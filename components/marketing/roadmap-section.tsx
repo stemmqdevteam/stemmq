@@ -8,7 +8,7 @@ import { staggerContainer, staggerItem } from "@/components/animations/motion-pr
 const roadmapItems = [
   { status: "shipped" as const, title: "Structured Decision Objects", description: "Core decision capture with quality scoring", quarter: "Q4 2025" },
   { status: "shipped" as const, title: "Assumption Calibration", description: "Track, validate, and challenge assumptions", quarter: "Q4 2025" },
-  { status: "shipped" as const, title: "AI Agent Governance", description: "Human-in-the-loop approval workflows", quarter: "Q1 2026" },
+  { status: "shipped" as const, title: "Autonomous Agent Layer", description: "No-code agent builder with Decision Gate governance", quarter: "Q1 2026" },
   { status: "in-progress" as const, title: "Strategy Graph Visualization", description: "Interactive decision network mapping", quarter: "Q1 2026" },
   { status: "in-progress" as const, title: "Document Intelligence", description: "AI-powered strategic signal extraction", quarter: "Q1 2026" },
   { status: "planned" as const, title: "CRM Validation Layer", description: "Cross-reference decisions with customer data", quarter: "Q2 2026" },

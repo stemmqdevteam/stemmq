@@ -5,15 +5,15 @@ import { Bot, CheckCircle, AlertTriangle, TrendingUp } from "lucide-react";
 import { staggerContainer, staggerItem } from "@/components/animations/motion-presets";
 
 const agents = [
-  { name: "Agent Aria", role: "Customer Success", accuracy: 92, icon: TrendingUp, decisions: 34 },
-  { name: "Agent Nova", role: "Predictive Analytics", accuracy: 87, icon: TrendingUp, decisions: 18 },
-  { name: "Agent Sentinel", role: "Security & Risk", accuracy: 95, icon: AlertTriangle, decisions: 56 },
+  { name: "PricingAgent", role: "Revenue · Pricing Optimization", accuracy: 81, icon: TrendingUp, decisions: 34 },
+  { name: "MarketingAgent", role: "Marketing · Campaign Intelligence", accuracy: 78, icon: TrendingUp, decisions: 22 },
+  { name: "SalesAgent", role: "Sales · Pipeline Optimization", accuracy: 85, icon: AlertTriangle, decisions: 48 },
 ];
 
 const proposals = [
-  { agent: "Aria", text: "Reduce onboarding steps from 7 to 4", type: "Proposal", time: "2m ago" },
-  { agent: "Sentinel", text: "Flag elevated API abuse pattern", type: "Alert", time: "5m ago" },
-  { agent: "Nova", text: "Refresh churn model with Q1 data", type: "Proposal", time: "12m ago" },
+  { agent: "PricingAgent", text: "Launch 15% Q4 discount campaign", type: "Decision", time: "2m ago" },
+  { agent: "SalesAgent", text: "Reduce enterprise contract floor to $8k/yr", type: "Decision", time: "5m ago" },
+  { agent: "MarketingAgent", text: "Increase paid ad spend by $12k", type: "Decision", time: "12m ago" },
 ];
 
 export function AIAgentsSection() {
@@ -23,9 +23,9 @@ export function AIAgentsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-accent">AI Governance</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-foreground">AI agents you can trust</h2>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-foreground">Agents that decide. You stay in control.</h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              StemmQ&apos;s AI agents analyze data, propose decisions, and challenge assumptions — all with human-in-the-loop governance. Every action is auditable, every proposal requires approval.
+              Create AI agents with a no-code builder or connect external systems. Every agent action generates a structured decision object — giving you complete intelligence, memory, and governance.
             </p>
 
             {/* Agent cards */}
@@ -49,7 +49,7 @@ export function AIAgentsSection() {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-bold text-foreground">{agent.accuracy}%</p>
-                    <p className="text-[10px] text-muted-foreground">{agent.decisions} decisions</p>
+                    <p className="text-[10px] text-muted-foreground">Forecast · {agent.decisions} decisions</p>
                   </div>
                 </motion.div>
               ))}
@@ -86,7 +86,7 @@ export function AIAgentsSection() {
                     <p className="text-sm text-muted-foreground mt-0.5">{p.text}</p>
                     <div className="flex items-center gap-3 mt-2">
                       <button className="text-[10px] font-medium text-success flex items-center gap-1"><CheckCircle className="h-3 w-3" /> Approve</button>
-                      <button className="text-[10px] font-medium text-muted-foreground">Modify</button>
+                      <button className="text-[10px] font-medium text-muted-foreground">Revise</button>
                       <span className="text-[10px] text-muted-foreground/50 ml-auto">{p.time}</span>
                     </div>
                   </div>

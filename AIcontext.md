@@ -108,49 +108,96 @@ Based on:
 
 ⸻
 
-4. AGENT DECISION GOVERNANCE LAYER
+4. AUTONOMOUS AGENT LAYER
 
-StemmQ introduces governance for autonomous AI agents operating inside organizations.
+StemmQ enables users to create AI agents (no-code / low-code) and connect external agents. ALL agent decisions flow through StemmQ's Decision Intelligence System.
 
-Agents operating in systems such as marketing automation, pricing optimization, or sales automation must submit decision proposals before executing strategic actions.
+Core Principle (Non-Negotiable)
 
-Agent Decision Proposal (ADP)
+Every agent action must be treated as a decision object.
+No agent (internal or external) can execute actions, trigger workflows, or modify systems without generating a structured decision inside StemmQ.
 
-Before executing a strategic action, agents must submit:
-	•	Agent Name
-	•	Agent Objective
-	•	Proposed Action
-	•	Strategic Intent Tag
-	•	Expected KPI Impact
-	•	Expected Revenue / Margin Effect
-	•	Assumptions Used
-	•	Confidence Estimate
+Agent Types Supported
+
+A. Native Agents (Built Inside StemmQ)
+Users create agents using a simple no-code builder interface.
+Examples: PricingAgent, MarketingAgent, SalesAgent, OpsAgent
+
+B. External Agents (Connected)
+Users connect third-party agents via APIs, webhooks, or external platforms.
+StemmQ acts as the decision gateway and intelligence layer.
+
+Agent Creation Interface (No-Code Builder)
+
+Users define:
+	•	Agent Identity — Name, Role, Department, Objective
+	•	Capabilities — Actions the agent is allowed to take, systems it can interact with (CRM, payments, etc.)
+	•	Decision Scope — Types of decisions the agent can propose (Pricing, Campaigns, Hiring, Operations)
+	•	Risk Boundaries — Max discount percentage, max spend threshold, irreversible decision restrictions
+	•	Instruction Layer — Natural-language prompting for agent behavior
+
+Agent Execution Flow
+
+Step 1 — Agent Intends Action
+Agent proposes an action (e.g., launching a 15% discount campaign).
+
+Step 2 — Mandatory Decision Generation
+System creates a structured decision object containing: Title, Intent, Assumptions, Expected Outcomes, Risk Level, Confidence Score.
+
+Step 3 — StemmQ Evaluation
+Run through: Decision Intelligence Engine, Pattern Recognition Engine, Assumption Calibration Engine, Risk Modeling.
+
+Step 4 — Decision Gate (Human-in-the-Loop)
+System determines: Approve, Revise, Escalate, or Reject.
+Human review is triggered ONLY when predefined conditions are met:
+	•	Risk exceeds defined thresholds
+	•	Financial exposure exceeds limits
+	•	Confidence score falls below acceptable range
+	•	Decision is marked irreversible or high-impact
+If NOT triggered → Decision proceeds automatically with no human involvement.
+All human interactions are logged as decision metadata, not separate workflows.
+
+Step 5 — Execution
+Only approved decisions trigger API calls, workflows, or external system updates.
+
+Step 6 — Outcome Tracking
+System logs actual results, forecast deviation, and assumption accuracy.
+
+Agent Memory
+
+Each agent has:
+	•	Local Memory — Past decisions, performance history
+	•	Shared Organizational Memory — Global decision dataset, pattern recognition insights
+Agents must reference similar past decisions and justify actions using historical outcomes.
+
+Agent Performance Model
+
+Each agent is continuously evaluated using:
+	•	Forecast Accuracy
+	•	Decision Quality Score
+	•	ROI Contribution
 	•	Risk Exposure
+	•	Failure Rate
+	•	Success Rate
 
-Decision Gate Workflow
+Multi-Agent Orchestration
 
-AI Agent
-→ Decision Proposal
-→ StemmQ Evaluation
-→ Approve / Modify / Reject
-→ Execution
+Agents can collaborate, propose joint decisions, and depend on outputs from other agents.
+Example: PricingAgent proposes discount → triggers MarketingAgent campaign proposal → combined decision evaluated as one unit.
 
-This prevents uncontrolled strategic drift by autonomous systems.
+External Agent Integration
 
-Evaluation Criteria
+Option A — Webhook: POST /external-agent/decision
+Option B — Passive Observation: Detect system actions and convert them into structured decisions.
+All external actions must be converted into structured decision objects.
 
-StemmQ evaluates agent decisions using:
-	•	Historical decision patterns
-	•	Assumption calibration models
-	•	Risk exposure models
-	•	Strategic similarity detection
-	•	Volatility indicators
+Strategic Positioning
 
-Outputs include:
-	•	Decision Confidence Score
-	•	Risk Score
-	•	Historical Success Probability
-	•	Strategic Alignment Score
+StemmQ is: A decision intelligence system, an organizational memory layer, an agent supervisor, and an agent optimization engine.
+Do NOT turn StemmQ into a generic automation tool. Do NOT compete with Zapier or workflow engines.
+Always prioritize: Decisions, Reasoning, Outcomes, Intelligence.
+
+Users should not feel like they built an AI agent. They should feel like they built a decision-making system that executes itself.
 
 ⸻
 
@@ -385,7 +432,8 @@ StemmQ is:
 	•	Organizational Calibration Engine
 	•	Probabilistic Strategy Platform
 	•	Institutional Memory Graph
-	•	AI Decision Governance System
+	•	Agent Supervisor and Optimization Engine
+	•	Organizational Memory Layer
 
 It is not:
 	•	A wiki
@@ -394,6 +442,7 @@ It is not:
 	•	A BI dashboard tool
 	•	A productivity workspace
 	•	An automation engine
+	•	A generic workflow tool (not Zapier)
 
 It sits above operational systems and models organizational cognition and strategic behavior.
 
