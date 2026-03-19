@@ -312,8 +312,10 @@ const slideVariants = {
   center: { x: 0, opacity: 1 },
   exit: (dir: number) => ({ x: dir > 0 ? -40 : 40, opacity: 0 }),
 };
-const slideTransition = { duration: 0.3, ease: [0.22, 1, 0.36, 1] };
-
+const slideTransition = {
+  duration: 0.3,
+  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+};
 function Step1({ data, update }: { data: FormData; update: (k: keyof FormData, v: string) => void }) {
   return (
     <div className="space-y-4">

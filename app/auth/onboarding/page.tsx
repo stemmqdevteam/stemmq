@@ -330,7 +330,7 @@ const slide = {
   center: { x: 0, opacity: 1, filter: "blur(0px)" },
   exit: (dir: number) => ({ x: dir > 0 ? -48 : 48, opacity: 0, filter: "blur(4px)" }),
 };
-const slideT = { duration: 0.3, ease: [0.22, 1, 0.36, 1] };
+const slideT = { duration: 0.3, ease: [0.22, 1, 0.36, 1]as [number, number, number, number] };
 
 /* ═══════════════════════════════════════════════════
    STEP PANELS
