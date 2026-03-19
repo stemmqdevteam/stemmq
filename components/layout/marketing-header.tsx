@@ -26,7 +26,9 @@ function MarketingHeader() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   // Close dropdown when navigating
@@ -46,7 +48,9 @@ function MarketingHeader() {
 
   function isDropdownActive(item: MarketingNavItem) {
     if (!item.children) return false;
-    return item.children.some((c) => pathname === c.href || pathname.startsWith(c.href + "/"));
+    return item.children.some(
+      (c) => pathname === c.href || pathname.startsWith(c.href + "/"),
+    );
   }
 
   return (
@@ -56,12 +60,15 @@ function MarketingHeader() {
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
             ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-            : "bg-transparent"
+            : "bg-transparent",
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 relative z-10 shrink-0">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 relative z-10 shrink-0"
+          >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -69,7 +76,9 @@ function MarketingHeader() {
             >
               <span className="text-sm font-bold text-white">S</span>
             </motion.div>
-            <span className="text-lg font-semibold text-foreground">StemmQ</span>
+            <span className="text-lg font-semibold text-foreground">
+              StemmQ
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -84,7 +93,9 @@ function MarketingHeader() {
                     href={item.href}
                     className={cn(
                       "relative px-3.5 py-2 text-sm font-medium transition-colors rounded-lg",
-                      isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     {item.label}
@@ -92,7 +103,11 @@ function MarketingHeader() {
                       <motion.div
                         layoutId="nav-underline"
                         className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-accent"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </Link>
@@ -113,21 +128,25 @@ function MarketingHeader() {
                       "flex items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors rounded-lg",
                       isActive || activeDropdown === item.label
                         ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     {item.label}
                     <ChevronDown
                       className={cn(
                         "h-3.5 w-3.5 transition-transform duration-200",
-                        activeDropdown === item.label ? "rotate-180" : ""
+                        activeDropdown === item.label ? "rotate-180" : "",
                       )}
                     />
                     {isActive && (
                       <motion.div
                         layoutId="nav-underline"
                         className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-accent"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </button>
@@ -138,7 +157,10 @@ function MarketingHeader() {
                         initial={{ opacity: 0, y: -8, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -8, scale: 0.97 }}
-                        transition={{ duration: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        transition={{
+                          duration: 0.15,
+                          ease: [0.21, 0.47, 0.32, 0.98],
+                        }}
                         className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-border bg-card/98 backdrop-blur-xl shadow-2xl shadow-black/10 p-2 z-50"
                       >
                         {item.children.map((child) => (
@@ -147,13 +169,17 @@ function MarketingHeader() {
                             href={child.href}
                             className={cn(
                               "flex flex-col gap-0.5 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted/80",
-                              pathname === child.href ? "bg-accent/5" : ""
+                              pathname === child.href ? "bg-accent/5" : "",
                             )}
                           >
-                            <span className={cn(
-                              "text-sm font-medium",
-                              pathname === child.href ? "text-accent" : "text-foreground"
-                            )}>
+                            <span
+                              className={cn(
+                                "text-sm font-medium",
+                                pathname === child.href
+                                  ? "text-accent"
+                                  : "text-foreground",
+                              )}
+                            >
                               {child.label}
                             </span>
                             {child.description && (
@@ -174,17 +200,21 @@ function MarketingHeader() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3 shrink-0">
             <Link href={ROUTES.auth}>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                Log in
-              </Button>
-            </Link>
-            <Link href={ROUTES.auth}>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button variant="accent" size="sm" className="shadow-md shadow-accent/20">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative group flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-lg shadow-indigo-500/20"
+                style={{
+                  background: "linear-gradient(135deg,#6366f1,#4f46e5)",
+                }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
                   Get Started
-                  <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                </Button>
-              </motion.div>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </span>
+                {/* Shimmer */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+              </motion.button>
             </Link>
           </div>
 
@@ -196,11 +226,23 @@ function MarketingHeader() {
           >
             <AnimatePresence mode="wait">
               {mobileOpen ? (
-                <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
                   <X className="h-5 w-5" />
                 </motion.div>
               ) : (
-                <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
                   <Menu className="h-5 w-5" />
                 </motion.div>
               )}
@@ -237,7 +279,7 @@ function MarketingHeader() {
                             "flex items-center rounded-xl px-4 py-3.5 text-base font-medium transition-colors",
                             pathname === item.href
                               ? "bg-accent/10 text-accent"
-                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground",
                           )}
                         >
                           {item.label}
@@ -255,17 +297,22 @@ function MarketingHeader() {
                       transition={{ delay: idx * 0.06 }}
                     >
                       <button
-                        onClick={() => setMobileExpanded(isOpen ? null : item.label)}
+                        onClick={() =>
+                          setMobileExpanded(isOpen ? null : item.label)
+                        }
                         className={cn(
                           "flex items-center justify-between w-full rounded-xl px-4 py-3.5 text-base font-medium transition-colors",
                           isDropdownActive(item)
                             ? "bg-accent/10 text-accent"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
                         )}
                       >
                         {item.label}
                         <ChevronDown
-                          className={cn("h-4 w-4 transition-transform duration-200", isOpen ? "rotate-180" : "")}
+                          className={cn(
+                            "h-4 w-4 transition-transform duration-200",
+                            isOpen ? "rotate-180" : "",
+                          )}
                         />
                       </button>
                       <AnimatePresence>
@@ -287,12 +334,16 @@ function MarketingHeader() {
                                     "flex flex-col rounded-lg px-4 py-3 transition-colors",
                                     pathname === child.href
                                       ? "bg-accent/5 text-accent"
-                                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
                                   )}
                                 >
-                                  <span className="text-sm font-medium text-foreground">{child.label}</span>
+                                  <span className="text-sm font-medium text-foreground">
+                                    {child.label}
+                                  </span>
                                   {child.description && (
-                                    <span className="text-xs text-muted-foreground mt-0.5">{child.description}</span>
+                                    <span className="text-xs text-muted-foreground mt-0.5">
+                                      {child.description}
+                                    </span>
                                   )}
                                 </Link>
                               ))}
@@ -311,15 +362,25 @@ function MarketingHeader() {
                 transition={{ delay: 0.35 }}
                 className="flex flex-col gap-3 mt-8 pt-6 border-t border-border"
               >
-                <Link href={ROUTES.auth} onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full h-12 text-base">Log in</Button>
-                </Link>
-                <Link href={ROUTES.auth} onClick={() => setMobileOpen(false)}>
-                  <Button variant="accent" className="w-full h-12 text-base shadow-md shadow-accent/20">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
+                <div className="w-full flex justify-center items-center">
+                  <Link href={ROUTES.auth} className="w-full">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="relative group w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-lg shadow-indigo-500/20"
+                      style={{
+                        background: "linear-gradient(135deg,#6366f1,#4f46e5)",
+                      }}
+                    >
+                      <span className="relative z-10 flex items-center gap-2">
+                        Get Started
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                    </motion.button>
+                  </Link>
+                </div>
               </motion.div>
             </div>
           </motion.div>
