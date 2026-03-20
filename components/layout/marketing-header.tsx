@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, SetStateAction } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, Brain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MARKETING_NAV, ROUTES } from "@/lib/constants";
@@ -73,7 +73,7 @@ function MarketingHeader() {
               whileTap={{ scale: 0.95 }}
               className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/20 transition-transform"
             >
-              <span className="text-sm font-bold text-white">S</span>
+              <Brain className="h-4 w-4 text-white" />
             </motion.div>
             <span className="text-lg font-bold tracking-tight text-foreground group-hover:opacity-80 transition-opacity">
               StemmQ
