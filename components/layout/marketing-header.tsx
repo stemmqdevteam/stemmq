@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, SetStateAction } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MARKETING_NAV, ROUTES } from "@/lib/constants";
-import type { MarketingNavItem } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
 function MarketingHeader() {
@@ -37,7 +36,7 @@ function MarketingHeader() {
     setMobileOpen(false);
   }, [pathname]);
 
-  function handleMouseEnter(label: string) {
+  function handleMouseEnter(label: SetStateAction<string | null>) {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     setActiveDropdown(label);
   }
@@ -46,10 +45,10 @@ function MarketingHeader() {
     closeTimerRef.current = setTimeout(() => setActiveDropdown(null), 150);
   }
 
-  function isDropdownActive(item: MarketingNavItem) {
+  function isDropdownActive(item: { label?: string; href?: undefined; children: any; }) {
     if (!item.children) return false;
     return item.children.some(
-      (c) => pathname === c.href || pathname.startsWith(c.href + "/"),
+      (c: { href: string; }) => pathname === c.href || pathname.startsWith(c.href + "/")
     );
   }
 
@@ -59,30 +58,30 @@ function MarketingHeader() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-            : "bg-transparent",
+            ? "bg-background/70 backdrop-blur-2xl border-b border-border/40 shadow-sm"
+            : "bg-transparent"
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 relative z-10 shrink-0"
+            className="flex items-center gap-2.5 relative z-10 shrink-0 group"
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex h-8 w-8 items-center justify-center rounded-lg gradient-bg shadow-md shadow-accent/20"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/20 transition-transform"
             >
               <span className="text-sm font-bold text-white">S</span>
             </motion.div>
-            <span className="text-lg font-semibold text-foreground">
+            <span className="text-lg font-bold tracking-tight text-foreground group-hover:opacity-80 transition-opacity">
               StemmQ
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav className="hidden md:flex items-center gap-1">
             {MARKETING_NAV.map((item) => {
               if (!item.children) {
                 // Direct link
@@ -92,24 +91,13 @@ function MarketingHeader() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "relative px-3.5 py-2 text-sm font-medium transition-colors rounded-lg",
+                      "relative px-4 py-2 text-sm font-medium transition-colors rounded-full",
                       isActive
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
+                        ? "text-foreground bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                     )}
                   >
                     {item.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-underline"
-                        className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-accent"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30,
-                        }}
-                      />
-                    )}
                   </Link>
                 );
               }
@@ -125,59 +113,48 @@ function MarketingHeader() {
                 >
                   <button
                     className={cn(
-                      "flex items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors rounded-lg",
+                      "flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-colors rounded-full",
                       isActive || activeDropdown === item.label
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
+                        ? "text-foreground bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                     )}
                   >
                     {item.label}
                     <ChevronDown
                       className={cn(
-                        "h-3.5 w-3.5 transition-transform duration-200",
-                        activeDropdown === item.label ? "rotate-180" : "",
+                        "h-3.5 w-3.5 transition-transform duration-200 opacity-70",
+                        activeDropdown === item.label ? "rotate-180" : ""
                       )}
                     />
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-underline"
-                        className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-accent"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30,
-                        }}
-                      />
-                    )}
                   </button>
 
                   <AnimatePresence>
                     {activeDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{
-                          duration: 0.15,
-                          ease: [0.21, 0.47, 0.32, 0.98],
+                          duration: 0.2,
+                          ease: [0.16, 1, 0.3, 1],
                         }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-border bg-card/98 backdrop-blur-xl shadow-2xl shadow-black/10 p-2 z-50"
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl shadow-black/5 p-2 z-50"
                       >
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             className={cn(
-                              "flex flex-col gap-0.5 rounded-lg px-3 py-2.5 transition-colors hover:bg-muted/80",
-                              pathname === child.href ? "bg-accent/5" : "",
+                              "flex flex-col gap-1 rounded-xl px-4 py-3 transition-colors hover:bg-muted/80",
+                              pathname === child.href ? "bg-accent/5" : ""
                             )}
                           >
                             <span
                               className={cn(
-                                "text-sm font-medium",
+                                "text-sm font-semibold",
                                 pathname === child.href
-                                  ? "text-accent"
-                                  : "text-foreground",
+                                  ? "text-indigo-500"
+                                  : "text-foreground"
                               )}
                             >
                               {child.label}
@@ -198,22 +175,31 @@ function MarketingHeader() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3 shrink-0">
+          <div className="hidden md:flex items-center gap-2 shrink-0">
+            <Link href="/auth">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+              >
+                Log in
+              </motion.button>
+            </Link>
+            
             <Link href={ROUTES.auth}>
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="relative group flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-lg shadow-indigo-500/20"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/30"
                 style={{
-                  background: "linear-gradient(135deg,#6366f1,#4f46e5)",
+                  background: "linear-gradient(135deg, #6366f1, #4f46e5)",
                 }}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Get Started
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
-                {/* Shimmer */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer transition-transform duration-700" />
               </motion.button>
             </Link>
           </div>
@@ -222,7 +208,7 @@ function MarketingHeader() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden relative z-10 rounded-lg p-2 text-muted-foreground hover:bg-muted/80 transition-colors"
+            className="md:hidden relative z-10 rounded-xl p-2.5 text-foreground bg-muted/50 hover:bg-muted transition-colors"
           >
             <AnimatePresence mode="wait">
               {mobileOpen ? (
@@ -255,31 +241,31 @@ function MarketingHeader() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 md:hidden bg-background/98 backdrop-blur-xl overflow-y-auto"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 md:hidden bg-background/95 backdrop-blur-2xl overflow-y-auto"
           >
             <div className="flex flex-col px-6 pt-24 pb-8 min-h-full">
-              <nav className="flex flex-col gap-1 w-full">
+              <nav className="flex flex-col gap-2 w-full">
                 {MARKETING_NAV.map((item, idx) => {
                   if (!item.children) {
                     return (
                       <motion.div
                         key={item.href}
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.06 }}
+                        initial={{ opacity: 0, x: -16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.05 }}
                       >
                         <Link
                           href={item.href}
                           onClick={() => setMobileOpen(false)}
                           className={cn(
-                            "flex items-center rounded-xl px-4 py-3.5 text-base font-medium transition-colors",
+                            "flex items-center rounded-2xl px-5 py-4 text-base font-semibold transition-colors",
                             pathname === item.href
-                              ? "bg-accent/10 text-accent"
-                              : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                              ? "bg-indigo-500/10 text-indigo-500"
+                              : "text-foreground bg-muted/30 hover:bg-muted"
                           )}
                         >
                           {item.label}
@@ -292,26 +278,26 @@ function MarketingHeader() {
                   return (
                     <motion.div
                       key={item.label}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.06 }}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
                     >
                       <button
                         onClick={() =>
                           setMobileExpanded(isOpen ? null : item.label)
                         }
                         className={cn(
-                          "flex items-center justify-between w-full rounded-xl px-4 py-3.5 text-base font-medium transition-colors",
+                          "flex items-center justify-between w-full rounded-2xl px-5 py-4 text-base font-semibold transition-colors",
                           isDropdownActive(item)
-                            ? "bg-accent/10 text-accent"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                            ? "bg-indigo-500/10 text-indigo-500"
+                            : "text-foreground bg-muted/30 hover:bg-muted"
                         )}
                       >
                         {item.label}
                         <ChevronDown
                           className={cn(
-                            "h-4 w-4 transition-transform duration-200",
-                            isOpen ? "rotate-180" : "",
+                            "h-5 w-5 transition-transform duration-300 opacity-50",
+                            isOpen ? "rotate-180" : ""
                           )}
                         />
                       </button>
@@ -321,30 +307,25 @@ function MarketingHeader() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
+                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             className="overflow-hidden"
                           >
-                            <div className="pl-4 py-1 space-y-0.5">
+                            <div className="pt-2 pb-1 space-y-1">
                               {item.children.map((child) => (
                                 <Link
                                   key={child.href}
                                   href={child.href}
                                   onClick={() => setMobileOpen(false)}
                                   className={cn(
-                                    "flex flex-col rounded-lg px-4 py-3 transition-colors",
+                                    "flex flex-col rounded-xl px-5 py-3.5 transition-colors",
                                     pathname === child.href
-                                      ? "bg-accent/5 text-accent"
-                                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                                      ? "bg-indigo-500/5 text-indigo-500"
+                                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                   )}
                                 >
-                                  <span className="text-sm font-medium text-foreground">
+                                  <span className="text-sm font-semibold">
                                     {child.label}
                                   </span>
-                                  {child.description && (
-                                    <span className="text-xs text-muted-foreground mt-0.5">
-                                      {child.description}
-                                    </span>
-                                  )}
                                 </Link>
                               ))}
                             </div>
@@ -357,30 +338,29 @@ function MarketingHeader() {
               </nav>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="flex flex-col gap-3 mt-8 pt-6 border-t border-border"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-col gap-3 mt-8 pt-6 border-t border-border/50"
               >
-                <div className="w-full flex justify-center items-center">
-                  <Link href={ROUTES.auth} className="w-full">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="relative group w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-lg shadow-indigo-500/20"
-                      style={{
-                        background: "linear-gradient(135deg,#6366f1,#4f46e5)",
-                      }}
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        Get Started
-                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
+                <Link href="/auth" className="w-full">
+                  <button className="w-full flex items-center justify-center py-3.5 rounded-xl text-sm font-semibold text-foreground bg-muted/50 hover:bg-muted transition-colors">
+                    Log in
+                  </button>
+                </Link>
 
-                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/12 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                    </motion.button>
-                  </Link>
-                </div>
+                <Link href={ROUTES.auth} className="w-full">
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    className="relative w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-white shadow-lg shadow-indigo-500/25"
+                    style={{
+                      background: "linear-gradient(135deg, #6366f1, #4f46e5)",
+                    }}
+                  >
+                    Get Started
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>

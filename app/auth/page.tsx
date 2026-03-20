@@ -47,7 +47,7 @@ export default function AuthPage() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 1000));
     setLoading(false);
-    router.push("/dashboard");
+    router.push("/auth/onboarding");
   };
 
   const handleOTP = async () => {
@@ -62,7 +62,7 @@ export default function AuthPage() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 800));
     setLoading(false);
-    router.push("/auth/dashboard");
+    router.push("/dashboard");
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
