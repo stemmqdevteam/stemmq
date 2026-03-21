@@ -377,7 +377,7 @@ function MainSection() {
             </Reveal>
 
             {/* Trusted by */}
-            <Reveal delay={0.12}>
+            {/* <Reveal delay={0.12}>
               <div className="rounded-2xl border border-white/8 bg-white/2 p-5">
                 <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mb-3.5">Trusted by teams at</p>
                 <div className="grid grid-cols-3 gap-2">
@@ -392,7 +392,7 @@ function MainSection() {
                   ))}
                 </div>
               </div>
-            </Reveal>
+            </Reveal> */}
 
             {/* Direct contact */}
             <Reveal delay={0.16}>

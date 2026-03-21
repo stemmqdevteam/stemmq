@@ -1,26 +1,66 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Quote, Star, TrendingUp, Users, Zap, Award } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import {
+  Quote,
+  Star,
+  TrendingUp,
+  Users,
+  Zap,
+  Award,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import Image from "next/image";
 
-/* ─────────────────────────────────────────────
-   Data
-───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   LOGOS
+   ─────────────────────────────────────────────────
+   Just add your logo files to /public/logos/
+   Then list the filenames here. That's it.
+═══════════════════════════════════════════════════ */
+
 const logos = [
-  { name: "Acme Corp", abbr: "AC" },
-  { name: "TechFlow", abbr: "TF" },
-  { name: "Meridian AI", abbr: "MA" },
-  { name: "Nexus Labs", abbr: "NL" },
-  { name: "Quantum Ops", abbr: "QO" },
-  { name: "Stratos", abbr: "ST" },
+  "/logos/Salesforce_idN3OdcTG__0.svg",
+  "/logos/Anthropic_Logo_0.svg",
+  "/logos/OpenAI_Logo_0.svg",
+  "/logos/HubSpot_idPJcOROpd_0.svg",
+  "/logos/Snowflake_idj3qWXVFZ_0.svg",
+  "/logos/Linear_Logo_0.svg",
+  "/logos/Stripe_Logo_0.svg",
+  "/logos/Amplitude_idPo7J6YFZ_0.svg",
 ];
 
+/* ═══════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════ */
+
 const stats = [
-  { icon: TrendingUp, value: "34%", label: "avg assumption accuracy lift", color: "#6366f1" },
-  { icon: Users, value: "2,400+", label: "enterprise teams onboarded", color: "#8b5cf6" },
-  { icon: Zap, value: "8 wks", label: "avg time to first insight", color: "#3b82f6" },
-  { icon: Award, value: "97%", label: "decision confidence score", color: "#a855f7" },
+  {
+    icon: TrendingUp,
+    value: "34%",
+    label: "avg assumption accuracy lift",
+    color: "#6366f1",
+  },
+  {
+    icon: Users,
+    value: "2,400+",
+    label: "enterprise teams onboarded",
+    color: "#8b5cf6",
+  },
+  {
+    icon: Zap,
+    value: "8 wks",
+    label: "avg time to first insight",
+    color: "#3b82f6",
+  },
+  {
+    icon: Award,
+    value: "97%",
+    label: "decision confidence score",
+    color: "#a855f7",
+  },
 ];
 
 const testimonials = [
@@ -56,41 +96,54 @@ const testimonials = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   Animated counter
-───────────────────────────────────────────── */
-function AnimatedStat({ value, label, icon: Icon, color }: (typeof stats)[0]) {
+/* ═══════════════════════════════════════════════════
+   STAT CARD
+═══════════════════════════════════════════════════ */
+
+function StatCard({
+  icon: Icon,
+  value,
+  label,
+  color,
+  delay,
+}: (typeof stats)[0] & { delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-30px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, ease: "easeOut" }}
-      className="relative flex flex-col items-center gap-2 p-6 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all group"
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex flex-col items-center gap-2 sm:gap-2.5 p-4 sm:p-6 rounded-2xl border border-white/8 bg-white/2 hover:border-white/14 hover:bg-white/4 transition-all overflow-hidden"
     >
-      {/* glow */}
       <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur-xl"
-        style={{ background: `radial-gradient(circle at 50% 50%, ${color}18, transparent 70%)` }}
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${color}10, transparent 65%)`,
+        }}
       />
       <div
-        className="relative h-10 w-10 rounded-xl flex items-center justify-center"
-        style={{ background: `${color}18`, border: `1px solid ${color}30` }}
+        className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-xl flex items-center justify-center"
+        style={{ background: `${color}14`, border: `1px solid ${color}25` }}
       >
-        <Icon className="h-5 w-5" style={{ color }} />
+        <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color }} />
       </div>
-      <p className="relative text-2xl sm:text-3xl font-bold text-white tabular-nums">{value}</p>
-      <p className="relative text-[11px] text-white/40 text-center leading-snug">{label}</p>
+      <p className="relative text-xl sm:text-2xl lg:text-3xl font-bold text-white tabular-nums">
+        {value}
+      </p>
+      <p className="relative text-[10px] sm:text-[11px] text-white/40 text-center leading-snug">
+        {label}
+      </p>
     </motion.div>
   );
 }
 
-/* ─────────────────────────────────────────────
-   Testimonial card
-───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   TESTIMONIAL CARD
+═══════════════════════════════════════════════════ */
+
 function TestimonialCard({
   t,
   active,
@@ -103,49 +156,50 @@ function TestimonialCard({
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{ y: -4 }}
-      animate={{ scale: active ? 1 : 0.97, opacity: active ? 1 : 0.55 }}
+      whileHover={{ y: active ? -6 : -3 }}
+      animate={{ opacity: active ? 1 : 0.45, scale: active ? 1 : 0.975 }}
       transition={{ duration: 0.3 }}
-      className={`relative rounded-2xl border p-5 sm:p-6 cursor-pointer transition-colors ${
+      className={`relative flex flex-col rounded-2xl border p-4 sm:p-6 cursor-pointer h-full transition-all ${
         active
-          ? "border-indigo-500/40 bg-indigo-500/8"
-          : "border-white/8 bg-white/3 hover:border-white/15"
+          ? "border-indigo-500/35 bg-gradient-to-br from-indigo-500/8 to-violet-500/4 shadow-lg shadow-indigo-500/10"
+          : "border-white/8 bg-white/2 hover:border-white/14"
       }`}
     >
-      {active && (
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 pointer-events-none" />
-      )}
-
-      {/* Stars */}
-      <div className="flex gap-0.5 mb-3">
+      <div className="flex gap-0.5 mb-3.5">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
         ))}
       </div>
 
-      {/* Quote mark */}
-      <Quote className="h-6 w-6 text-indigo-400/40 mb-2" />
+      <Quote className="h-5 w-5 text-indigo-400/30 mb-2.5 flex-shrink-0" />
+      <p className="text-xs sm:text-sm text-white/65 leading-relaxed flex-1 mb-5">
+        {t.quote}
+      </p>
 
-      <p className="text-sm text-white/70 leading-relaxed mb-5">{t.quote}</p>
-
-      <div className="flex items-center gap-3">
-        {/* Avatar */}
+      <div className="flex items-center gap-2.5 mt-auto">
         <div
-          className="h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-          style={{ background: `linear-gradient(135deg, ${t.color}, ${t.color}88)` }}
+          className="h-8 w-8 sm:h-9 sm:w-9 rounded-full flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-white flex-shrink-0"
+          style={{
+            background: `linear-gradient(135deg, ${t.color}, ${t.color}77)`,
+          }}
         >
           {t.avatar}
         </div>
-        <div className="min-w-0">
-          <p className="text-xs font-semibold text-white truncate">{t.author}</p>
-          <p className="text-[10px] text-white/40 truncate">
+        <div className="min-w-0 flex-1">
+          <p className="text-[11px] sm:text-xs font-semibold text-white truncate">
+            {t.author}
+          </p>
+          <p className="text-[9px] sm:text-[10px] text-white/35 truncate">
             {t.role} · {t.company}
           </p>
         </div>
-        {/* Stat pill */}
         <span
-          className="ml-auto flex-shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full"
-          style={{ background: `${t.color}20`, color: t.color, border: `1px solid ${t.color}30` }}
+          className="flex-shrink-0 text-[8px] sm:text-[9px] font-semibold px-2 py-1 rounded-full"
+          style={{
+            background: `${t.color}16`,
+            color: t.color,
+            border: `1px solid ${t.color}25`,
+          }}
         >
           {t.stat}
         </span>
@@ -154,50 +208,56 @@ function TestimonialCard({
   );
 }
 
-/* ─────────────────────────────────────────────
-   Main Section
-───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   MAIN SECTION
+═══════════════════════════════════════════════════ */
+
 function TrustSection() {
-  const [activeIdx, setActiveIdx] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(
+      () => setActiveIdx((i) => (i + 1) % testimonials.length),
+      5000,
+    );
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 sm:py-28 overflow-hidden bg-[#030712] border-y border-white/6"
+      className="relative py-16 sm:py-24 overflow-hidden bg-[#030712] border-y border-white/5"
     >
-      {/* Ambient background blobs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/8 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-violet-600/8 rounded-full blur-[80px] pointer-events-none" />
-
-      {/* Subtle grid */}
+      <div className="absolute top-0 left-1/4 w-[360px] h-[360px] bg-indigo-600/7 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[320px] h-[320px] bg-violet-600/6 rounded-full blur-[100px] pointer-events-none" />
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        className="absolute inset-0 pointer-events-none opacity-[0.02]"
         style={{
-          backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.8) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.8) 1px,transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-
-        {/* ── Header ── */}
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-14"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
+            <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
             Proven Results
           </span>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-[1.1]">
             Trusted by teams who refuse{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #a855f7 100%)",
+                background:
+                  "linear-gradient(135deg,#818cf8 0%,#6366f1 50%,#a855f7 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -206,73 +266,85 @@ function TrustSection() {
               to fly blind
             </span>
           </h2>
-          <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-white/40 max-w-xs sm:max-w-md mx-auto leading-relaxed">
-            From seed-stage startups to Fortune 500 boardrooms — decisions made with StemmQ compound.
+          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto leading-relaxed">
+            From seed-stage startups to Fortune 500 boardrooms — decisions made
+            with StemmQ compound.
           </p>
         </motion.div>
 
-        {/* ── Logo Strip — infinite marquee ── */}
+        {/* Logo Marquee */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.15, duration: 0.7 }}
-          className="relative mb-14 sm:mb-20 overflow-hidden"
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.15, duration: 0.6 }}
+          className="relative mb-12 sm:mb-16"
         >
-          {/* Fade masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#030712] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#030712] to-transparent z-10 pointer-events-none" />
+          <p className="text-center text-[10px] sm:text-xs font-semibold text-white/22 uppercase tracking-widest mb-6">
+            Trusted by teams at
+          </p>
 
-          {/* Marquee track — duplicated for seamless loop */}
-          <div className="flex overflow-hidden">
+          {/* No container, no border — logos float directly on the section bg.
+              Wide hard-stop masks on both sides fade logos in/out of the same
+              #030712 background, creating the "appearing from nothing" effect. */}
+          <div className="relative overflow-hidden py-3">
+            {/* Left mask — wide, sharp-start fade */}
+            <div
+              className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none"
+              style={{
+                width: "20%",
+                background:
+                  "linear-gradient(to right, #030712 0%, #030712 30%, transparent 100%)",
+              }}
+            />
+            {/* Right mask — mirror */}
+            <div
+              className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none"
+              style={{
+                width: "20%",
+                background:
+                  "linear-gradient(to left, #030712 0%, #030712 30%, transparent 100%)",
+              }}
+            />
+
             <motion.div
-              className="flex items-center gap-6 sm:gap-10 flex-nowrap"
+              className="flex items-center gap-12 sm:gap-20 flex-nowrap"
               animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
               style={{ willChange: "transform" }}
             >
-              {/* render twice for seamless loop */}
-              {[...logos, ...logos].map((logo, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0 group cursor-default select-none"
-                >
-                  {/* monogram chip */}
-                  <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-md sm:rounded-lg bg-white/8 border border-white/10 flex items-center justify-center text-[8px] sm:text-[10px] font-bold text-white/50 group-hover:border-indigo-500/40 group-hover:text-indigo-300 transition-all flex-shrink-0">
-                    {logo.abbr}
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-white/25 group-hover:text-white/55 transition-colors whitespace-nowrap">
-                    {logo.name}
-                  </span>
-                  {/* dot separator */}
-                  <span className="ml-4 sm:ml-6 h-1 w-1 rounded-full bg-white/10 flex-shrink-0" />
+              {[...logos, ...logos].map((src, i) => (
+                <div key={i} className="flex-shrink-0 group cursor-pointer">
+                  <Image
+                    src={src}
+                    alt=""
+                    width={130}
+                    height={36}
+                    className="h-7 sm:h-8 w-auto object-contain
+                               opacity-55 brightness-[2.2] grayscale
+                               group-hover:opacity-95 group-hover:grayscale-0 group-hover:brightness-100
+                               transition-all duration-300"
+                  />
                 </div>
               ))}
             </motion.div>
           </div>
         </motion.div>
 
-        {/* ── Stats Grid ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-14 sm:mb-20">
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12 sm:mb-16">
           {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.25 + i * 0.08 }}
-            >
-              <AnimatedStat {...s} />
-            </motion.div>
+            <StatCard key={s.label} {...s} delay={0.18 + i * 0.08} />
           ))}
         </div>
 
-        {/* ── Testimonials ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+        {/* Testimonials — desktop */}
+        <div className="hidden sm:grid grid-cols-3 gap-4 sm:gap-5">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35 + i * 0.1 }}
+              transition={{ delay: 0.28 + i * 0.1 }}
             >
               <TestimonialCard
                 t={t}
@@ -283,19 +355,63 @@ function TrustSection() {
           ))}
         </div>
 
-        {/* ── Dot nav (mobile-friendly) ── */}
-        <div className="flex justify-center gap-2 mt-6 sm:hidden">
+        {/* Testimonials — mobile */}
+        <div className="sm:hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIdx}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.28 }}
+            >
+              <TestimonialCard
+                t={testimonials[activeIdx]}
+                active={true}
+                onClick={() => {}}
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="flex items-center justify-center gap-3 mt-5">
+            <button
+              onClick={() =>
+                setActiveIdx(
+                  (i) => (i - 1 + testimonials.length) % testimonials.length,
+                )
+              }
+              className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <div className="flex gap-1.5 items-center">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIdx(i)}
+                  className={`rounded-full transition-all duration-300 ${activeIdx === i ? "w-5 h-1.5 bg-indigo-400" : "w-1.5 h-1.5 bg-white/20"}`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setActiveIdx((i) => (i + 1) % testimonials.length)}
+              className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop dot nav */}
+        <div className="hidden sm:flex justify-center gap-2 mt-6">
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => setActiveIdx(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                activeIdx === i ? "w-6 bg-indigo-400" : "w-1.5 bg-white/20"
-              }`}
+              className={`rounded-full transition-all duration-300 ${activeIdx === i ? "w-6 h-1.5 bg-indigo-400" : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"}`}
             />
           ))}
         </div>
-
       </div>
     </section>
   );
