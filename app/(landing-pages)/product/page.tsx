@@ -1138,7 +1138,6 @@ export default function ProductPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {[
-              { value: "2,400+", label: "Enterprise Teams", color: "#6366f1" },
               { value: "91.2", label: "Avg Confidence Score", color: "#8b5cf6" },
               { value: "34%", label: "Accuracy Improvement", color: "#3b82f6" },
               { value: "8 wks", label: "Time to First Insight", color: "#10b981" },
