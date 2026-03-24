@@ -180,7 +180,7 @@ function HeroSection() {
         </motion.p>
 
         {/* Social proof avatars */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.35 }}
@@ -198,7 +198,7 @@ function HeroSection() {
           <span>
             Trusted by <strong className="text-foreground/80 font-semibold">400+ enterprise teams</strong>
           </span>
-        </motion.div>
+        </motion.div> */}
 
         {/* CTA buttons */}
         <motion.div
