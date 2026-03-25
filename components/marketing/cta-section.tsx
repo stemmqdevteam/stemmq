@@ -80,7 +80,7 @@ function CTASection() {
           transition={{ duration: 0.6, delay: 0.14 }}
           className="mt-5 text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto leading-relaxed"
         >
-          Join 2,400+ teams building strategic decision infrastructure.
+          Build your strategic decision infrastructure from day one.
           Start free — no credit card required.
         </motion.p>
 

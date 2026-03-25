@@ -52,14 +52,14 @@ export const MARKETING_NAV: MarketingNavItem[] = [
       { label: "Use Cases", href: ROUTES.useCases, description: "See how teams across every function use StemmQ" },
     ],
   },
-  {
-    label: "Developers",
-    children: [
-      { label: "Documentation", href: ROUTES.docs, description: "Guides, API reference, and SDKs" },
-      { label: "Integrations", href: ROUTES.marketingIntegrations, description: "Connect StemmQ to your existing stack" },
-      { label: "Changelog", href: ROUTES.changelog, description: "Latest updates and product releases" },
-    ],
-  },
+  // {
+  //   label: "Developers",
+  //   children: [
+  //     { label: "Documentation", href: ROUTES.docs, description: "Guides, API reference, and SDKs" },
+  //     { label: "Integrations", href: ROUTES.marketingIntegrations, description: "Connect StemmQ to your existing stack" },
+  //     { label: "Changelog", href: ROUTES.changelog, description: "Latest updates and product releases" },
+  //   ],
+  // },
   {
     label: "Company",
     children: [
