@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { SIDEBAR_NAV, SIDEBAR_SECONDARY_NAV, ROUTES } from "@/lib/constants";
 import { Avatar } from "@/components/ui/avatar";
+import { useAuth } from "@/lib/providers/auth-provider";
 import { Tooltip } from "@/components/ui/tooltip";
 import { useSidebar } from "@/lib/hooks/use-sidebar";
 
@@ -26,6 +27,10 @@ function SidebarContent() {
   const pathname = usePathname();
   const router = useRouter();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { profile, signOut } = useAuth();
+  const displayName = profile?.full_name || profile?.email?.split("@")[0] || "User";
+  const displayEmail = profile?.email || "";
+  const initials = displayName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() || "U";
 
   const handleNavClick = () => {
     closeMobile();
@@ -138,10 +143,10 @@ function SidebarContent() {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2 hover:bg-muted/80 transition-colors"
             >
-              <Avatar initials="SC" size="sm" status="online" />
+              <Avatar initials={initials} size="sm" status="online" />
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-sm font-medium text-foreground truncate">Sarah Chen</p>
-                <p className="text-xs text-muted-foreground truncate">CSO</p>
+                <p className="text-sm font-medium text-foreground truncate">{displayName}</p>
+                <p className="text-xs text-muted-foreground truncate">{profile?.role === "admin" ? "Admin" : "Member"}</p>
               </div>
               <ChevronDown className={cn("h-3.5 w-3.5 text-muted-foreground transition-transform", userMenuOpen && "rotate-180")} />
             </button>
@@ -158,8 +163,8 @@ function SidebarContent() {
                 >
                   {/* User info */}
                   <div className="px-4 py-3 border-b border-border">
-                    <p className="text-sm font-medium text-foreground">Sarah Chen</p>
-                    <p className="text-xs text-muted-foreground">sarah@stemmq.com</p>
+                    <p className="text-sm font-medium text-foreground">{displayName}</p>
+                    <p className="text-xs text-muted-foreground">{displayEmail}</p>
                   </div>
 
                   {/* Workspace */}
@@ -198,7 +203,7 @@ function SidebarContent() {
 
                   {/* Logout */}
                   <div className="border-t border-border px-2 py-1.5">
-                    <button className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-danger hover:bg-danger/10 transition-colors">
+                    <button onClick={async () => { await signOut(); router.push("/auth"); }} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-danger hover:bg-danger/10 transition-colors">
                       <LogOut className="h-3.5 w-3.5" />
                       Sign out
                     </button>

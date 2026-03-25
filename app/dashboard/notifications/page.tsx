@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bell, Check, CheckCheck, Filter } from "lucide-react";
 import { PageContainer } from "@/components/layout/page-container";
@@ -10,7 +10,19 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
 import { EmptyState } from "@/components/ui/empty-state";
 import { cn, formatRelativeTime } from "@/lib/utils";
-import { mockNotifications } from "@/lib/mock-data";
+import { useOrg } from "@/lib/hooks/use-org";
+import { createClient } from "@/lib/supabase/client";
+
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: string;
+  read: boolean;
+  actor?: { name: string; avatar: string };
+  actionUrl?: string;
+  createdAt: string;
+}
 
 const typeColors: Record<string, string> = {
   info: "bg-accent/10 text-accent",
@@ -22,19 +34,89 @@ const typeColors: Record<string, string> = {
 };
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const { orgId, isLoading: orgLoading } = useOrg();
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    const supabase = createClient();
+
+    async function fetchNotifications() {
+      setLoading(true);
+      const { data: userData } = await supabase.auth.getUser();
+      if (!userData.user) { setLoading(false); return; }
+
+      const { data } = await supabase
+        .from("notifications")
+        .select("*")
+        .eq("user_id", userData.user.id)
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setNotifications(
+          data.map((n: any) => ({
+            id: n.id,
+            title: n.title,
+            message: n.message || "",
+            type: n.type || "info",
+            read: n.read ?? false,
+            actor: n.actor_name ? { name: n.actor_name, avatar: n.actor_name.charAt(0) } : undefined,
+            actionUrl: n.action_url,
+            createdAt: n.created_at,
+          }))
+        );
+      }
+      setLoading(false);
+    }
+
+    fetchNotifications();
+  }, [orgId]);
 
   const unreadCount = notifications.filter(n => !n.read).length;
   const filtered = filter === "all" ? notifications : filter === "unread" ? notifications.filter(n => !n.read) : notifications.filter(n => n.type === filter);
 
-  const markAllRead = () => {
+  const markAllRead = async () => {
+    const supabase = createClient();
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return;
+
+    await supabase
+      .from("notifications")
+      .update({ read: true })
+      .eq("user_id", userData.user.id);
+
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
   };
 
-  const toggleRead = (id: string) => {
+  const toggleRead = async (id: string) => {
+    const notif = notifications.find(n => n.id === id);
+    if (!notif) return;
+
+    const supabase = createClient();
+    await supabase
+      .from("notifications")
+      .update({ read: !notif.read })
+      .eq("id", id);
+
     setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: !n.read } : n));
   };
+
+  if (orgLoading || loading) {
+    return (
+      <PageTransition>
+        <PageContainer title="Notifications" description="Loading...">
+          <div className="space-y-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="h-16 rounded-xl bg-muted animate-pulse" />
+            ))}
+          </div>
+        </PageContainer>
+      </PageTransition>
+    );
+  }
 
   return (
     <PageTransition>
@@ -88,7 +170,7 @@ export default function NotificationsPage() {
                   {notif.actor ? (
                     <Avatar initials={notif.actor.avatar} size="sm" />
                   ) : (
-                    <div className={cn("flex h-8 w-8 items-center justify-center rounded-full", typeColors[notif.type])}>
+                    <div className={cn("flex h-8 w-8 items-center justify-center rounded-full", typeColors[notif.type] || typeColors.info)}>
                       <Bell className="h-3.5 w-3.5" />
                     </div>
                   )}

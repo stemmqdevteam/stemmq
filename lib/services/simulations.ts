@@ -1,36 +1,25 @@
-import type { Simulation } from "@/lib/types";
-import { mockSimulations } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 
-const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
+export async function getSimulations(orgId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("simulations")
+    .select("*")
+    .eq("org_id", orgId)
+    .order("created_at", { ascending: false });
 
-export async function getSimulations(): Promise<Simulation[]> {
-  await delay(400);
-  return [...mockSimulations];
+  if (error) throw new Error(error.message);
+  return data ?? [];
 }
 
-export async function getSimulation(id: string): Promise<Simulation | null> {
-  await delay(300);
-  return mockSimulations.find(s => s.id === id) ?? null;
-}
+export async function getSimulation(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("simulations")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-export async function runSimulation(id: string): Promise<Simulation> {
-  await delay(2000);
-  const sim = mockSimulations.find(s => s.id === id);
-  if (!sim) throw new Error("Simulation not found");
-  return { ...sim, status: "running", updatedAt: new Date().toISOString() };
-}
-
-export async function createSimulation(data: Partial<Simulation>): Promise<Simulation> {
-  await delay(600);
-  return {
-    id: `sim-${String(mockSimulations.length + 1).padStart(3, "0")}`,
-    title: data.title ?? "Untitled Simulation",
-    description: data.description ?? "",
-    probability: 0,
-    status: "draft",
-    outcomeCount: 0,
-    linkedDecisions: 0,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
+  if (error) throw new Error(error.message);
+  return data;
 }

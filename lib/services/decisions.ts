@@ -1,62 +1,70 @@
-import type { Decision } from "@/lib/types";
-import { mockDecisions } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 
-const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
-
-export interface DecisionFilters {
+export async function getDecisions(orgId: string, options?: {
   status?: string;
-  strategicIntent?: string;
+  limit?: number;
+  offset?: number;
   search?: string;
-  owner?: string;
+}) {
+  const supabase = await createClient();
+  let query = supabase
+    .from("decisions")
+    .select("*, assumptions(count)", { count: "exact" })
+    .eq("org_id", orgId)
+    .order("created_at", { ascending: false });
+
+  if (options?.status) query = query.eq("status", options.status);
+  if (options?.search) query = query.ilike("title", `%${options.search}%`);
+  if (options?.limit) query = query.limit(options.limit);
+  if (options?.offset) query = query.range(options.offset, options.offset + (options.limit ?? 20) - 1);
+
+  const { data, error, count } = await query;
+  if (error) throw new Error(error.message);
+  return { decisions: data ?? [], total: count ?? 0 };
 }
 
-export async function getDecisions(filters?: DecisionFilters): Promise<Decision[]> {
-  await delay(400);
-  let results = [...mockDecisions];
-  if (filters?.status && filters.status !== "all") {
-    results = results.filter(d => d.status === filters.status);
-  }
-  if (filters?.strategicIntent && filters.strategicIntent !== "all") {
-    results = results.filter(d => d.strategicIntent === filters.strategicIntent);
-  }
-  if (filters?.search) {
-    const q = filters.search.toLowerCase();
-    results = results.filter(d => d.title.toLowerCase().includes(q) || d.description.toLowerCase().includes(q));
-  }
-  return results;
+export async function getDecision(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("decisions")
+    .select("*, assumptions(*)")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
 }
 
-export async function getDecision(id: string): Promise<Decision | null> {
-  await delay(300);
-  return mockDecisions.find(d => d.id === id) ?? null;
-}
+export async function getDecisionStats(orgId: string) {
+  const supabase = await createClient();
 
-export async function createDecision(data: Partial<Decision>): Promise<Decision> {
-  await delay(600);
-  const newDecision: Decision = {
-    id: `dec-${String(mockDecisions.length + 1).padStart(3, "0")}`,
-    title: data.title ?? "Untitled Decision",
-    description: data.description ?? "",
-    strategicIntent: data.strategicIntent ?? "Growth",
-    category: data.category ?? "General",
-    owner: data.owner ?? { name: "Sarah Chen", type: "human", avatar: "SC" },
-    status: "draft",
-    dqs: 0,
-    diw: 0,
-    assumptionCount: 0,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+  const [decisionsResult, assumptionsResult] = await Promise.all([
+    supabase.from("decisions").select("id, dqs, status, strategic_intent").eq("org_id", orgId),
+    supabase.from("assumptions").select("id, status").eq("org_id", orgId),
+  ]);
+
+  const decisions = decisionsResult.data ?? [];
+  const assumptions = assumptionsResult.data ?? [];
+
+  const activeDecisions = decisions.filter(d => d.status === "active").length;
+  const avgDqs = decisions.length > 0
+    ? Math.round(decisions.reduce((sum, d) => sum + (d.dqs ?? 0), 0) / decisions.length)
+    : 0;
+
+  const validatedAssumptions = assumptions.filter(a => a.status === "validated").length;
+  const assumptionAccuracy = assumptions.length > 0
+    ? Math.round((validatedAssumptions / assumptions.length) * 100)
+    : 0;
+
+  const strategicConfidence = Math.min(100, Math.round((avgDqs * 0.4 + assumptionAccuracy * 0.6)));
+
+  return {
+    activeDecisions,
+    totalDecisions: decisions.length,
+    avgDqs,
+    assumptionAccuracy,
+    strategicConfidence,
+    totalAssumptions: assumptions.length,
+    validatedAssumptions,
   };
-  return newDecision;
-}
-
-export async function updateDecision(id: string, data: Partial<Decision>): Promise<Decision> {
-  await delay(400);
-  const existing = mockDecisions.find(d => d.id === id);
-  if (!existing) throw new Error("Decision not found");
-  return { ...existing, ...data, updatedAt: new Date().toISOString() };
-}
-
-export async function deleteDecision(id: string): Promise<void> {
-  await delay(400);
 }

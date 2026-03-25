@@ -1,26 +1,25 @@
-import type { User, Workspace } from "@/lib/types";
-import { mockUser, mockWorkspaces } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 
-const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms));
+export async function getUserProfile(userId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", userId)
+    .single();
 
-export async function getCurrentUser(): Promise<User> {
-  await delay(300);
-  return { ...mockUser };
+  if (error) throw new Error(error.message);
+  return data;
 }
 
-export async function updateProfile(data: Partial<User>): Promise<User> {
-  await delay(500);
-  return { ...mockUser, ...data };
-}
+export async function getSubscription(orgId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("subscriptions")
+    .select("*")
+    .eq("org_id", orgId)
+    .single();
 
-export async function getWorkspaces(): Promise<Workspace[]> {
-  await delay(300);
-  return [...mockWorkspaces];
-}
-
-export async function switchWorkspace(workspaceId: string): Promise<Workspace> {
-  await delay(400);
-  const ws = mockWorkspaces.find(w => w.id === workspaceId);
-  if (!ws) throw new Error("Workspace not found");
-  return ws;
+  if (error) return null;
+  return data;
 }

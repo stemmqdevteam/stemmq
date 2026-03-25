@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Shield, Smartphone, Monitor, Globe, Trash2, Key, Lock } from "lucide-react";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageTransition } from "@/components/animations/page-transition";
@@ -9,7 +9,26 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn, formatRelativeTime } from "@/lib/utils";
-import { mockActiveSessions, mockSecurityEvents } from "@/lib/mock-data";
+import { useOrg } from "@/lib/hooks/use-org";
+import { createClient } from "@/lib/supabase/client";
+
+interface Session {
+  id: string;
+  browser: string;
+  device: string;
+  location: string;
+  ipAddress: string;
+  current: boolean;
+  lastActive: string;
+}
+
+interface SecurityEvent {
+  id: string;
+  description: string;
+  device: string;
+  location: string;
+  timestamp: string;
+}
 
 const deviceIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   macOS: Monitor,
@@ -18,7 +37,75 @@ const deviceIcons: Record<string, React.ComponentType<{ className?: string }>> =
 };
 
 export default function SecurityPage() {
+  const { orgId, isLoading: orgLoading } = useOrg();
   const [twoFAEnabled, setTwoFAEnabled] = useState(true);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [securityEvents, setSecurityEvents] = useState<SecurityEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    const supabase = createClient();
+
+    async function fetchSecurity() {
+      setLoading(true);
+
+      // Fetch recent audit logs for security events
+      const { data: logs } = await supabase
+        .from("audit_logs")
+        .select("*")
+        .eq("org_id", orgId!)
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (logs) {
+        setSecurityEvents(
+          logs
+            .filter((l: any) => l.resource_type === "auth" || l.action?.includes("login") || l.action?.includes("auth"))
+            .slice(0, 10)
+            .map((l: any) => ({
+              id: l.id,
+              description: l.action || "Security event",
+              device: "Unknown",
+              location: "Unknown",
+              timestamp: l.created_at,
+            }))
+        );
+      }
+
+      // Sessions are not stored in a table — show current session only
+      setSessions([
+        {
+          id: "current",
+          browser: "Current Browser",
+          device: "macOS",
+          location: "Current Session",
+          ipAddress: "127.0.0.1",
+          current: true,
+          lastActive: new Date().toISOString(),
+        },
+      ]);
+
+      setLoading(false);
+    }
+
+    fetchSecurity();
+  }, [orgId]);
+
+  if (orgLoading || loading) {
+    return (
+      <PageTransition>
+        <PageContainer title="Security" description="Manage your security settings and sessions">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="h-48 rounded-lg bg-muted animate-pulse" />
+            ))}
+          </div>
+        </PageContainer>
+      </PageTransition>
+    );
+  }
 
   return (
     <PageTransition>
@@ -82,34 +169,38 @@ export default function SecurityPage() {
             <CardTitle>Active Sessions</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {mockActiveSessions.map(session => {
-                const DeviceIcon = deviceIcons[session.device] || Globe;
-                return (
-                  <div key={session.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
-                        <DeviceIcon className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm font-medium text-foreground">{session.browser} on {session.device}</p>
-                          {session.current && <Badge variant="success" className="text-[10px]">Current</Badge>}
+            {sessions.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">No active sessions found.</p>
+            ) : (
+              <div className="space-y-3">
+                {sessions.map(session => {
+                  const DeviceIcon = deviceIcons[session.device] || Globe;
+                  return (
+                    <div key={session.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
+                          <DeviceIcon className="h-4 w-4 text-muted-foreground" />
                         </div>
-                        <p className="text-xs text-muted-foreground">
-                          {session.location} · {session.ipAddress} · {formatRelativeTime(session.lastActive)}
-                        </p>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-medium text-foreground">{session.browser} on {session.device}</p>
+                            {session.current && <Badge variant="success" className="text-[10px]">Current</Badge>}
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            {session.location} · {session.ipAddress} · {formatRelativeTime(session.lastActive)}
+                          </p>
+                        </div>
                       </div>
+                      {!session.current && (
+                        <Button variant="ghost" size="sm" className="text-danger hover:text-danger hover:bg-danger/10">
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
                     </div>
-                    {!session.current && (
-                      <Button variant="ghost" size="sm" className="text-danger hover:text-danger hover:bg-danger/10">
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </Button>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -119,19 +210,23 @@ export default function SecurityPage() {
             <CardTitle>Security Log</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {mockSecurityEvents.map(event => (
-                <div key={event.id} className="flex items-start gap-3 py-2">
-                  <div className="h-2 w-2 rounded-full bg-muted-foreground/30 mt-1.5 shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground">{event.description}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {event.device} · {event.location} · {formatRelativeTime(event.timestamp)}
-                    </p>
+            {securityEvents.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">No security events recorded.</p>
+            ) : (
+              <div className="space-y-3">
+                {securityEvents.map(event => (
+                  <div key={event.id} className="flex items-start gap-3 py-2">
+                    <div className="h-2 w-2 rounded-full bg-muted-foreground/30 mt-1.5 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-foreground">{event.description}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {event.device} · {event.location} · {formatRelativeTime(event.timestamp)}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </PageContainer>

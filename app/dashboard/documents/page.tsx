@@ -1,12 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Upload, FileText, File, Table2 } from "lucide-react";
 import { PageContainer } from "@/components/layout/page-container";
 import { DataTable, type Column } from "@/components/dashboard/data-table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageTransition } from "@/components/animations/page-transition";
-import { mockDocuments } from "@/lib/mock-data";
+import { useOrg } from "@/lib/hooks/use-org";
+import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/utils";
 import type { Document } from "@/lib/types";
 
@@ -18,11 +20,11 @@ const typeIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   CSV: Table2,
 };
 
-const processingVariant = {
-  processed: "success" as const,
-  processing: "info" as const,
-  queued: "warning" as const,
-  failed: "danger" as const,
+const processingVariant: Record<string, "success" | "info" | "warning" | "danger"> = {
+  processed: "success",
+  processing: "info",
+  queued: "warning",
+  failed: "danger",
 };
 
 const columns: Column<Document>[] = [
@@ -58,7 +60,7 @@ const columns: Column<Document>[] = [
     key: "status",
     label: "Status",
     render: (d) => (
-      <Badge variant={processingVariant[d.processingStatus]}>
+      <Badge variant={processingVariant[d.processingStatus] || "neutral"}>
         {d.processingStatus.charAt(0).toUpperCase() + d.processingStatus.slice(1)}
       </Badge>
     ),
@@ -76,6 +78,57 @@ const columns: Column<Document>[] = [
 ];
 
 export default function DocumentsPage() {
+  const { orgId, isLoading: orgLoading } = useOrg();
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    const supabase = createClient();
+
+    async function fetchDocuments() {
+      setLoading(true);
+      const { data } = await supabase
+        .from("documents")
+        .select("*")
+        .eq("org_id", orgId!)
+        .order("created_at", { ascending: false });
+
+      if (data) {
+        setDocuments(
+          data.map((d: any) => ({
+            id: d.id,
+            name: d.name,
+            type: (d.type || "PDF").toUpperCase(),
+            size: d.size || "0 KB",
+            uploadedBy: d.uploaded_by || "Unknown",
+            processingStatus: d.processing_status || "queued",
+            linkedDecisions: d.linked_decisions ?? 0,
+            uploadedAt: d.created_at,
+          }))
+        );
+      }
+      setLoading(false);
+    }
+
+    fetchDocuments();
+  }, [orgId]);
+
+  if (orgLoading || loading) {
+    return (
+      <PageTransition>
+        <PageContainer title="Documents" description="Upload and analyze documents for strategic intelligence extraction.">
+          <div className="space-y-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-14 rounded-lg bg-muted animate-pulse" />
+            ))}
+          </div>
+        </PageContainer>
+      </PageTransition>
+    );
+  }
+
   return (
     <PageTransition>
       <PageContainer
@@ -101,7 +154,7 @@ export default function DocumentsPage() {
 
         <DataTable
           columns={columns}
-          data={mockDocuments}
+          data={documents}
           keyExtractor={(d) => d.id}
           emptyMessage="No documents uploaded yet"
         />

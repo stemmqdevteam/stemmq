@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { CreditCard, ArrowUpRight, Download, Check } from "lucide-react";
 import { PageContainer } from "@/components/layout/page-container";
 import { PageTransition } from "@/components/animations/page-transition";
@@ -8,10 +9,103 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress";
 import { formatDate } from "@/lib/utils";
-import { mockBillingData, mockInvoices } from "@/lib/mock-data";
+import { useOrg } from "@/lib/hooks/use-org";
+import { createClient } from "@/lib/supabase/client";
+
+interface BillingData {
+  plan: string;
+  price: number;
+  features: string[];
+  usage: {
+    members: { used: number; limit: number };
+    storage: { used: number; limit: number; unit: string };
+    apiCalls: { used: number; limit: number };
+    decisions: { used: number };
+  };
+}
+
+interface Invoice {
+  id: string;
+  amount: number;
+  date: string;
+  status: string;
+}
 
 export default function BillingPage() {
-  const plan = mockBillingData;
+  const { orgId, plan: orgPlan, isLoading: orgLoading } = useOrg();
+  const [billingData, setBillingData] = useState<BillingData | null>(null);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    const supabase = createClient();
+
+    async function fetchBilling() {
+      setLoading(true);
+
+      // Fetch subscription data
+      const { data: sub } = await supabase
+        .from("subscriptions")
+        .select("*")
+        .eq("org_id", orgId!)
+        .single();
+
+      // Fetch member count
+      const { count: memberCount } = await supabase
+        .from("org_members")
+        .select("id", { count: "exact", head: true })
+        .eq("org_id", orgId!);
+
+      // Fetch decision count
+      const { count: decisionCount } = await supabase
+        .from("decisions")
+        .select("id", { count: "exact", head: true })
+        .eq("org_id", orgId!);
+
+      const planName = sub?.plan || orgPlan || "free";
+      const planPrices: Record<string, number> = { free: 0, starter: 29, pro: 99, enterprise: 299 };
+      const planFeatures: Record<string, string[]> = {
+        free: ["5 team members", "100 decisions", "1GB storage"],
+        starter: ["15 team members", "Unlimited decisions", "10GB storage", "API access"],
+        pro: ["50 team members", "Unlimited decisions", "50GB storage", "API access", "Priority support"],
+        enterprise: ["Unlimited members", "Unlimited decisions", "Unlimited storage", "Full API", "Dedicated support"],
+      };
+
+      setBillingData({
+        plan: planName,
+        price: planPrices[planName] ?? 0,
+        features: planFeatures[planName] ?? planFeatures.free,
+        usage: {
+          members: { used: memberCount ?? 0, limit: planName === "enterprise" ? 999 : planName === "pro" ? 50 : planName === "starter" ? 15 : 5 },
+          storage: { used: 0, limit: planName === "enterprise" ? 999 : planName === "pro" ? 50 : planName === "starter" ? 10 : 1, unit: "GB" },
+          apiCalls: { used: 0, limit: planName === "enterprise" ? 100000 : planName === "pro" ? 50000 : planName === "starter" ? 10000 : 1000 },
+          decisions: { used: decisionCount ?? 0 },
+        },
+      });
+
+      setInvoices([]);
+      setLoading(false);
+    }
+
+    fetchBilling();
+  }, [orgId, orgPlan]);
+
+  if (orgLoading || loading || !billingData) {
+    return (
+      <PageTransition>
+        <PageContainer title="Billing" description="Manage your subscription and billing">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 h-48 rounded-lg bg-muted animate-pulse" />
+            <div className="h-48 rounded-lg bg-muted animate-pulse" />
+          </div>
+        </PageContainer>
+      </PageTransition>
+    );
+  }
+
+  const plan = billingData;
 
   return (
     <PageTransition>
@@ -107,27 +201,31 @@ export default function BillingPage() {
             <CardTitle>Invoice History</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="divide-y divide-border">
-              {mockInvoices.map(invoice => (
-                <div key={invoice.id} className="flex items-center justify-between py-3">
-                  <div className="flex items-center gap-4">
-                    <CreditCard className="h-4 w-4 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium text-foreground">${invoice.amount}.00</p>
-                      <p className="text-xs text-muted-foreground">{formatDate(invoice.date)}</p>
+            {invoices.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-4 text-center">No invoices yet.</p>
+            ) : (
+              <div className="divide-y divide-border">
+                {invoices.map(invoice => (
+                  <div key={invoice.id} className="flex items-center justify-between py-3">
+                    <div className="flex items-center gap-4">
+                      <CreditCard className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm font-medium text-foreground">${invoice.amount}.00</p>
+                        <p className="text-xs text-muted-foreground">{formatDate(invoice.date)}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge variant={invoice.status === "paid" ? "success" : invoice.status === "pending" ? "warning" : "danger"}>
+                        {invoice.status}
+                      </Badge>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
+                        <Download className="h-3.5 w-3.5" />
+                      </Button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Badge variant={invoice.status === "paid" ? "success" : invoice.status === "pending" ? "warning" : "danger"}>
-                      {invoice.status}
-                    </Badge>
-                    <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                      <Download className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </PageContainer>

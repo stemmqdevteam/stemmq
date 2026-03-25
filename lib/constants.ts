@@ -40,6 +40,13 @@ export const ROUTES = {
   security: "/dashboard/security",
   activity: "/dashboard/activity",
   onboarding: "/auth/onboarding",
+  // Admin routes
+  admin: "/admin",
+  adminUsers: "/admin/users",
+  adminOrganizations: "/admin/organizations",
+  adminSubscriptions: "/admin/subscriptions",
+  adminLeads: "/admin/enterprise-leads",
+  adminAuditLogs: "/admin/audit-logs",
 } as const;
 
 export const MARKETING_NAV: MarketingNavItem[] = [

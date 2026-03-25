@@ -10,8 +10,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { mockIntegrations } from "@/lib/mock-data";
 import { staggerContainer, staggerItem } from "@/components/animations/motion-presets";
+
+// Integrations are a static catalog — no need to fetch from Supabase
+const integrationsCatalog = [
+  { id: "salesforce", name: "Salesforce", description: "Validate revenue outcomes against CRM pipeline data.", icon: "Building2", category: "crm", status: "available" as const },
+  { id: "hubspot", name: "HubSpot", description: "Connect HubSpot CRM for deal and revenue validation.", icon: "Target", category: "crm", status: "available" as const },
+  { id: "pipedrive", name: "Pipedrive", description: "Sync Pipedrive deal data for outcome validation.", icon: "GitBranch", category: "crm", status: "coming_soon" as const },
+  { id: "slack", name: "Slack", description: "Receive decision notifications and approval requests in Slack.", icon: "MessageSquare", category: "communication", status: "available" as const },
+  { id: "teams", name: "Microsoft Teams", description: "Get decision alerts and collaborate in Teams.", icon: "Users", category: "communication", status: "coming_soon" as const },
+  { id: "jira", name: "Jira", description: "Link decisions to Jira issues and track execution.", icon: "LayoutDashboard", category: "project", status: "available" as const },
+  { id: "linear", name: "Linear", description: "Connect Linear for seamless decision-to-task tracking.", icon: "Zap", category: "project", status: "coming_soon" as const },
+  { id: "webhook", name: "Webhooks", description: "Send decision events to any external endpoint.", icon: "Webhook", category: "developer", status: "available" as const },
+  { id: "api", name: "REST API", description: "Full programmatic access to StemmQ's decision intelligence.", icon: "Code", category: "developer", status: "available" as const },
+];
 
 const statusConfig = {
   connected: { label: "Connected", variant: "success" as const },
@@ -23,13 +35,13 @@ export default function IntegrationsPage() {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
 
-  const filtered = mockIntegrations.filter(i => {
+  const filtered = integrationsCatalog.filter(i => {
     const matchesSearch = !search || i.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = categoryFilter === "all" || i.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
 
-  const categories = ["all", ...new Set(mockIntegrations.map(i => i.category))];
+  const categories = ["all", ...new Set(integrationsCatalog.map(i => i.category))];
 
   return (
     <PageTransition>
@@ -90,7 +102,7 @@ export default function IntegrationsPage() {
                 <h3 className="text-sm font-semibold text-foreground">{integration.name}</h3>
                 <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{integration.description}</p>
                 <div className="mt-4">
-                  {integration.status === "connected" ? (
+                  {(integration.status as string) === "connected" ? (
                     <Button variant="outline" size="sm" className="w-full text-xs">Configure</Button>
                   ) : integration.status === "available" ? (
                     <Button variant="accent" size="sm" className="w-full text-xs">Connect</Button>

@@ -1,14 +1,87 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Network, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { PageContainer } from "@/components/layout/page-container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SearchBar } from "@/components/dashboard/search-bar";
 import { PageTransition } from "@/components/animations/page-transition";
-import { mockDecisions } from "@/lib/mock-data";
+import { useOrg } from "@/lib/hooks/use-org";
+import { createClient } from "@/lib/supabase/client";
+
+interface GraphDecision {
+  id: string;
+  title: string;
+  strategicIntent: string;
+}
+
+interface GraphCounts {
+  decisions: number;
+  assumptions: number;
+  simulations: number;
+  agents: number;
+}
 
 export default function StrategyGraphPage() {
+  const { orgId, isLoading: orgLoading } = useOrg();
+  const [decisions, setDecisions] = useState<GraphDecision[]>([]);
+  const [counts, setCounts] = useState<GraphCounts>({ decisions: 0, assumptions: 0, simulations: 0, agents: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    const supabase = createClient();
+
+    async function fetchGraphData() {
+      setLoading(true);
+
+      const [
+        { data: decisionsData, count: dCount },
+        { count: aCount },
+        { count: sCount },
+        { count: agCount },
+      ] = await Promise.all([
+        supabase.from("decisions").select("id, title, strategic_intent", { count: "exact" }).eq("org_id", orgId!).order("created_at", { ascending: false }).limit(6),
+        supabase.from("assumptions").select("id", { count: "exact", head: true }).eq("org_id", orgId!),
+        supabase.from("simulations").select("id", { count: "exact", head: true }).eq("org_id", orgId!),
+        supabase.from("agents").select("id", { count: "exact", head: true }).eq("org_id", orgId!),
+      ]);
+
+      if (decisionsData) {
+        setDecisions(
+          decisionsData.map((d: any) => ({
+            id: d.id,
+            title: d.title,
+            strategicIntent: d.strategic_intent || "growth",
+          }))
+        );
+      }
+
+      setCounts({
+        decisions: dCount ?? 0,
+        assumptions: aCount ?? 0,
+        simulations: sCount ?? 0,
+        agents: agCount ?? 0,
+      });
+
+      setLoading(false);
+    }
+
+    fetchGraphData();
+  }, [orgId]);
+
+  if (orgLoading || loading) {
+    return (
+      <PageTransition>
+        <PageContainer title="Strategy Graph" description="Visualize relationships between decisions, assumptions, and outcomes.">
+          <div className="h-[calc(100vh-200px)] rounded-xl bg-muted animate-pulse" />
+        </PageContainer>
+      </PageTransition>
+    );
+  }
+
   return (
     <PageTransition>
       <PageContainer title="Strategy Graph" description="Visualize relationships between decisions, assumptions, and outcomes.">
@@ -51,7 +124,7 @@ export default function StrategyGraphPage() {
                   Interactive graph powered by force-directed layout
                 </p>
                 <p className="text-xs text-muted-foreground/50 mt-4">
-                  {mockDecisions.length} decisions &middot; 24 assumptions &middot; 6 simulations
+                  {counts.decisions} decisions &middot; {counts.assumptions} assumptions &middot; {counts.simulations} simulations
                 </p>
 
                 {/* Decorative nodes */}
@@ -88,10 +161,10 @@ export default function StrategyGraphPage() {
 
             <div className="space-y-1 mb-4">
               {[
-                { label: "Decisions", count: 12, color: "bg-accent" },
-                { label: "Assumptions", count: 24, color: "bg-warning" },
-                { label: "Simulations", count: 6, color: "bg-purple-500" },
-                { label: "Agents", count: 5, color: "bg-success" },
+                { label: "Decisions", count: counts.decisions, color: "bg-accent" },
+                { label: "Assumptions", count: counts.assumptions, color: "bg-warning" },
+                { label: "Simulations", count: counts.simulations, color: "bg-purple-500" },
+                { label: "Agents", count: counts.agents, color: "bg-success" },
               ].map((type) => (
                 <div
                   key={type.label}
@@ -108,19 +181,23 @@ export default function StrategyGraphPage() {
 
             <div className="border-t border-border pt-3">
               <h4 className="text-xs font-medium text-muted-foreground mb-2">Recent Decisions</h4>
-              <div className="space-y-1">
-                {mockDecisions.slice(0, 6).map((d) => (
-                  <div
-                    key={d.id}
-                    className="px-2 py-1.5 rounded-md hover:bg-muted/50 cursor-pointer transition-colors"
-                  >
-                    <p className="text-xs text-card-foreground truncate">{d.title}</p>
-                    <Badge intent={d.strategicIntent} className="text-[9px] mt-0.5">
-                      {d.strategicIntent}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
+              {decisions.length === 0 ? (
+                <p className="text-xs text-muted-foreground">No decisions yet.</p>
+              ) : (
+                <div className="space-y-1">
+                  {decisions.map((d) => (
+                    <div
+                      key={d.id}
+                      className="px-2 py-1.5 rounded-md hover:bg-muted/50 cursor-pointer transition-colors"
+                    >
+                      <p className="text-xs text-card-foreground truncate">{d.title}</p>
+                      <Badge intent={d.strategicIntent as import("@/lib/types").StrategicIntent} className="text-[9px] mt-0.5">
+                        {d.strategicIntent}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
