@@ -604,9 +604,9 @@ function AgentBuilderSection() {
                 <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Agent Builder</span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
-                Create an agent like creating{" "}
+                Create an agent or connect{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                  a Notion page
+                  external systems in minutes
                 </span>
               </h2>
               <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
