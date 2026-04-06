@@ -1,51 +1,16 @@
-import { createClient } from "@/lib/supabase/client";
-
-const supabase = createClient();
-
 /**
- * Sign in with Google OAuth.
- * Redirects the browser to Google's consent screen.
+ * UI-only authentication stubs for demo mode.
  */
 export async function signInWithGoogle(redirectTo?: string) {
-  const callbackUrl = new URL("/auth/callback", window.location.origin);
-  if (redirectTo) {
-    callbackUrl.searchParams.set("redirect", redirectTo);
-  }
-
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: callbackUrl.toString(),
-    },
-  });
-
-  if (error) throw error;
+  const destination = redirectTo || "/dashboard";
+  window.location.href = destination;
 }
 
-/**
- * Sign in with email magic link.
- * Sends a one-time login link to the user's email.
- */
-export async function signInWithMagicLink(email: string, redirectTo?: string) {
-  const callbackUrl = new URL("/auth/callback", window.location.origin);
-  if (redirectTo) {
-    callbackUrl.searchParams.set("redirect", redirectTo);
-  }
-
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: callbackUrl.toString(),
-    },
-  });
-
-  if (error) throw error;
+export async function signInWithMagicLink(_email: string, redirectTo?: string) {
+  const destination = redirectTo || "/dashboard";
+  window.location.href = destination;
 }
 
-/**
- * Sign out the current user.
- */
 export async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  window.location.href = "/auth";
 }

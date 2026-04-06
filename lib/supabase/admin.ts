@@ -1,20 +1,56 @@
-import { createClient as createServerClient } from "@supabase/supabase-js";
-import type { Database } from "./database.types";
-
 /**
- * Admin Supabase client using service role key.
- * Bypasses RLS — only use in admin server components/actions.
- * Never import this in client-side code.
+ * Admin Supabase client stub for UI-only mode.
+ * This module exists to keep legacy imports working without a Supabase backend.
  */
 export function createAdminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const noopResponse = {
+    data: [],
+    error: null,
+    count: 0,
+    session: null,
+    user: null,
+    subscription: { unsubscribe: () => {} },
+  };
 
-  if (!url || !serviceKey) {
-    throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL");
-  }
+  const createChainableQuery = () => {
+    const handler: ProxyHandler<any> = {
+      get(_, prop) {
+        if (prop === "then") {
+          return (resolve: (value: any) => unknown, reject?: (reason: unknown) => unknown) =>
+            Promise.resolve(noopResponse).then(resolve, reject);
+        }
+        if (prop === "catch") {
+          return (reject: (reason: unknown) => unknown) => Promise.resolve(noopResponse).catch(reject);
+        }
+        if (prop === Symbol.toStringTag) return "Promise";
+        return createChainableQuery();
+      },
+      apply() {
+        return createChainableQuery();
+      },
+    };
 
-  return createServerClient<Database>(url, serviceKey, {
-    auth: { persistSession: false },
-  });
+    const query = function () {
+      return createChainableQuery();
+    };
+
+    return new Proxy(query, handler);
+  };
+
+  return {
+    auth: {
+      getSession: async () => ({ data: { session: null }, error: null }),
+      getUser: async () => ({ data: { user: null }, error: null }),
+      onAuthStateChange: async () => ({
+        data: { subscription: { unsubscribe: () => {} } },
+        error: null,
+      }),
+      signInWithOAuth: async () => ({ data: { url: "/auth" }, error: null }),
+      signInWithOtp: async () => ({ data: { user: null }, error: null }),
+      signOut: async () => ({ error: null }),
+      exchangeCodeForSession: async () => ({ data: { session: null }, error: null }),
+    },
+    from: () => createChainableQuery(),
+    rpc: async () => ({ data: null, error: null }),
+  };
 }

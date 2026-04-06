@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/providers/auth-provider";
 
 interface OrgContext {
@@ -24,32 +23,10 @@ export function useOrg(): OrgContext {
       return;
     }
 
-    const supabase = createClient();
-
-    async function fetchOrg() {
-      const { data: membership } = await supabase
-        .from("org_members")
-        .select("org_id, role")
-        .eq("user_id", user!.id)
-        .limit(1)
-        .single();
-
-      if (membership) {
-        setOrgId(membership.org_id);
-        setOrgRole(membership.role);
-
-        const { data: subscription } = await supabase
-          .from("subscriptions")
-          .select("plan")
-          .eq("org_id", membership.org_id)
-          .single();
-
-        setPlan(subscription?.plan ?? "free");
-      }
-      setIsLoading(false);
-    }
-
-    fetchOrg();
+    setOrgId("demo-org");
+    setOrgRole("admin");
+    setPlan("growth");
+    setIsLoading(false);
   }, [user]);
 
   return { orgId, orgRole, plan, isLoading };

@@ -1,29 +1,63 @@
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
-import type { Database } from "./database.types";
+type NoopResponse = {
+  data: any;
+  error: null;
+  count?: number;
+  session?: null;
+  user?: null;
+  subscription?: { unsubscribe: () => void };
+};
+
+const noopResponse: NoopResponse = {
+  data: [],
+  error: null,
+  count: 0,
+  session: null,
+  user: null,
+  subscription: { unsubscribe: () => {} },
+};
+
+function createChainableQuery() {
+  const handler: ProxyHandler<any> = {
+    get(_, prop) {
+      if (prop === "then") {
+        return (resolve: (value: NoopResponse) => unknown, reject?: (reason: unknown) => unknown) =>
+          Promise.resolve(noopResponse).then(resolve, reject);
+      }
+      if (prop === "catch") {
+        return (reject: (reason: unknown) => unknown) => Promise.resolve(noopResponse).catch(reject);
+      }
+      if (prop === Symbol.toStringTag) return "Promise";
+      return createChainableQuery();
+    },
+    apply() {
+      return createChainableQuery();
+    },
+  };
+
+  const query = function () {
+    return createChainableQuery();
+  };
+
+  return new Proxy(query, handler);
+}
 
 export async function createClient() {
-  const cookieStore = await cookies();
+  const auth = {
+    getSession: async () => ({ data: { session: null }, error: null }),
+    getUser: async () => ({ data: { user: null }, error: null }),
+    onAuthStateChange: async () => ({
+      data: { subscription: { unsubscribe: () => {} } },
+      error: null,
+    }),
+    signInWithOAuth: async () => ({ data: { url: "/auth" }, error: null }),
+    signInWithOtp: async () => ({ data: { user: null }, error: null }),
+    signOut: async () => ({ error: null }),
+    exchangeCodeForSession: async () => ({ data: { session: null }, error: null }),
+  };
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // The `setAll` method is called from a Server Component.
-            // This can be ignored if you have middleware refreshing sessions.
-          }
-        },
-      },
-    }
-  );
+  return {
+    auth,
+    from: () => createChainableQuery(),
+    rpc: async () => ({ data: null, error: null }),
+  };
 }

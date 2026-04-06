@@ -1,23 +1,24 @@
 "use client";
 
-import {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  type ReactNode,
-} from "react";
-import { createClient } from "@/lib/supabase/client";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
-import type { Tables } from "@/lib/supabase/database.types";
+import { createContext, useState, useCallback, useContext, type ReactNode } from "react";
 
-type UserProfile = Tables<"users">;
+type SupabaseUser = {
+  id: string;
+  email?: string | null;
+  user_metadata?: Record<string, unknown> | null;
+};
+
+type UserProfile = {
+  id: string;
+  email: string;
+  full_name: string;
+  avatar_url: string | null;
+  role: string;
+  onboarding_completed: boolean;
+};
 
 interface AuthContextValue {
-  /** Supabase auth user */
   user: SupabaseUser | null;
-  /** User profile from public.users table */
   profile: UserProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -34,78 +35,40 @@ export function useAuth() {
   return ctx;
 }
 
+const demoUser: SupabaseUser = {
+  id: "demo-user",
+  email: "demo@stemmq.com",
+  user_metadata: { full_name: "Demo User" },
+};
+
+const demoProfile: UserProfile = {
+  id: "demo-user",
+  email: "demo@stemmq.com",
+  full_name: "Demo User",
+  avatar_url: null,
+  role: "admin",
+  onboarding_completed: true,
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<SupabaseUser | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const supabase = createClient();
+  const [user, setUser] = useState<SupabaseUser | null>(demoUser);
+  const [profile, setProfile] = useState<UserProfile | null>(demoProfile);
+  const [isLoading] = useState(false);
 
-  // Fetch user profile from public.users
-  const fetchProfile = useCallback(
-    async (userId: string) => {
-      const { data } = await supabase
-        .from("users")
-        .select("*")
-        .eq("id", userId)
-        .single();
-      setProfile(data);
-    },
-    [supabase]
-  );
+  const signInWithGoogle = useCallback(async (redirectTo?: string) => {
+    const destination = redirectTo || "/dashboard";
+    window.location.href = destination;
+  }, []);
 
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      if (currentUser) {
-        fetchProfile(currentUser.id);
-      }
-      setIsLoading(false);
-    });
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      if (currentUser) {
-        fetchProfile(currentUser.id);
-      } else {
-        setProfile(null);
-      }
-      setIsLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [supabase, fetchProfile]);
-
-  const signInWithGoogle = useCallback(
-    async (redirectTo?: string) => {
-      const { signInWithGoogle: signIn } = await import(
-        "@/lib/services/auth"
-      );
-      await signIn(redirectTo);
-    },
-    []
-  );
-
-  const signInWithMagicLink = useCallback(
-    async (email: string, redirectTo?: string) => {
-      const { signInWithMagicLink: signIn } = await import(
-        "@/lib/services/auth"
-      );
-      await signIn(email, redirectTo);
-    },
-    []
-  );
+  const signInWithMagicLink = useCallback(async (_email: string, redirectTo?: string) => {
+    const destination = redirectTo || "/dashboard";
+    window.location.href = destination;
+  }, []);
 
   const signOut = useCallback(async () => {
-    const { signOut: doSignOut } = await import("@/lib/services/auth");
-    await doSignOut();
     setUser(null);
     setProfile(null);
+    window.location.href = "/auth";
   }, []);
 
   return (

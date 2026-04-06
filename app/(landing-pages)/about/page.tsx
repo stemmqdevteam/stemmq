@@ -249,7 +249,12 @@ function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const counts = orgStats.map(s => useCounter(s.value, 1800, inView));
+  const counts = [
+    useCounter(orgStats[0].value, 1800, inView),
+    useCounter(orgStats[1].value, 1800, inView),
+    useCounter(orgStats[2].value, 1800, inView),
+    useCounter(orgStats[3].value, 1800, inView),
+  ];
 
   return (
     <section ref={ref} className="py-12 sm:py-14 border-y border-white/5 bg-white/[0.015]">
