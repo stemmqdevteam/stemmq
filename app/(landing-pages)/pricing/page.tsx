@@ -436,7 +436,7 @@ export default function PricingPage() {
       <PricingHero />
       <PricingCards />
       <ComparisonTable />
-      <TrustTestimonial />
+      {/* <TrustTestimonial /> */}
       <FAQSection />
       <BottomCTA />
       <MarketingFooter />
