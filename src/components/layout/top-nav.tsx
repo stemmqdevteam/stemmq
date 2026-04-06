@@ -9,12 +9,10 @@ import { cn } from "@/lib/utils";
 import { ROUTES } from "@/lib/constants";
 import { Avatar } from "@/components/ui/avatar";
 import { Dropdown } from "@/components/ui/dropdown";
-import { useSidebar } from "@/lib/hooks/use-sidebar";
 
 function TopNav() {
   const pathname = usePathname();
   const router = useRouter();
-  const { openMobile } = useSidebar();
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -38,7 +36,6 @@ function TopNav() {
         {/* Mobile hamburger */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={openMobile}
           className="lg:hidden rounded-lg p-2 -ml-2 text-muted-foreground hover:bg-muted transition-colors"
         >
           <Menu className="h-5 w-5" />
