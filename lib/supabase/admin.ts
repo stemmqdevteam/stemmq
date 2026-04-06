@@ -50,7 +50,7 @@ export function createAdminClient() {
       signOut: async () => ({ error: null }),
       exchangeCodeForSession: async () => ({ data: { session: null }, error: null }),
     },
-    from: () => createChainableQuery(),
-    rpc: async () => ({ data: null, error: null }),
+    from: (..._args: Array<unknown>) => createChainableQuery(),
+    rpc: async (..._args: Array<unknown>) => ({ data: null, error: null }),
   };
 }

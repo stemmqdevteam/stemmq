@@ -57,7 +57,7 @@ export async function createClient() {
 
   return {
     auth,
-    from: () => createChainableQuery(),
-    rpc: async () => ({ data: null, error: null }),
+    from: (..._args: Array<unknown>) => createChainableQuery(),
+    rpc: async (..._args: Array<unknown>) => ({ data: null, error: null }),
   };
 }
