@@ -1,6 +1,5 @@
 "use client";
 
-import { AuthProvider } from "@/lib/providers/auth-provider";
 import { ToastProvider } from "@/lib/providers/toast-provider";
 import { ToastContainer } from "@/components/ui/toast";
 import { useToast } from "@/lib/hooks/use-toast";
@@ -13,11 +12,9 @@ function ToastRenderer() {
 
 export function ClientProviders({ children }: { children: ReactNode }) {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        {children}
-        <ToastRenderer />
-      </ToastProvider>
-    </AuthProvider>
+    <ToastProvider>
+      {children}
+      <ToastRenderer />
+    </ToastProvider>
   );
 }
