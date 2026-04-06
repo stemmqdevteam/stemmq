@@ -43,16 +43,16 @@ function createChainableQuery() {
 
 export function createClient() {
   const auth = {
-    getSession: async () => ({ data: { session: null }, error: null }),
-    getUser: async () => ({ data: { user: null }, error: null }),
+    getSession: async () => ({ data: { session: null as any }, error: null }),
+    getUser: async () => ({ data: { user: null as any }, error: null }),
     onAuthStateChange: async () => ({
       data: { subscription: { unsubscribe: () => {} } },
       error: null,
     }),
     signInWithOAuth: async () => ({ data: { url: "/auth" }, error: null }),
-    signInWithOtp: async () => ({ data: { user: null }, error: null }),
+    signInWithOtp: async () => ({ data: { user: null as any }, error: null }),
     signOut: async () => ({ error: null }),
-    exchangeCodeForSession: async () => ({ data: { session: null }, error: null }),
+    exchangeCodeForSession: async () => ({ data: { session: null as any }, error: null }),
   };
 
   return {
