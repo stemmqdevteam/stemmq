@@ -1,62 +1,103 @@
-"use client";
+import { forwardRef, type ButtonHTMLAttributes } from 'react'
+import { Loader2 } from 'lucide-react'
+import { cn } from '@/utils'
 
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline' | 'brand-outline'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm'
 
-type ButtonVariant = "default" | "primary" | "accent" | "ghost" | "outline" | "danger";
-type ButtonSize = "sm" | "md" | "lg";
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  loading?: boolean;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  loading?: boolean
+  leftIcon?: React.ReactNode
+  rightIcon?: React.ReactNode
+  /** @deprecated Use a plain <Link> with className instead of asChild */
+  asChild?: boolean
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  default:
-    "bg-primary text-primary-foreground hover:opacity-90",
   primary:
-    "bg-primary text-primary-foreground hover:opacity-90",
-  accent:
-    "bg-accent text-accent-foreground hover:opacity-90",
+    'bg-[var(--accent)] text-white hover:opacity-90 active:opacity-80 shadow-sm hover:shadow-brand',
+  secondary:
+    'bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--muted-foreground)]/10',
   ghost:
-    "bg-transparent hover:bg-muted text-foreground",
-  outline:
-    "border border-border bg-transparent hover:bg-muted text-foreground",
+    'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
   danger:
-    "bg-danger text-danger-foreground hover:opacity-90",
-};
+    'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
+  outline:
+    'border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)]',
+  'brand-outline':
+    'border border-brand-500 text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-950/30',
+}
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-xs rounded-md gap-1.5",
-  md: "h-9 px-4 text-sm rounded-lg gap-2",
-  lg: "h-11 px-6 text-sm rounded-lg gap-2",
-};
+  xs:       'h-7 px-2.5 text-xs rounded-lg',
+  sm:       'h-8 px-3 text-sm rounded-[9px]',
+  md:       'h-10 px-4 text-sm rounded-[10px]',
+  lg:       'h-12 px-6 text-base rounded-[12px]',
+  icon:     'h-10 w-10 rounded-[10px]',
+  'icon-sm':'h-8 w-8 rounded-[9px]',
+}
+
+/**
+ * Shared className builder — use this when you need button styles on a
+ * non-button element (e.g. a Next.js Link).
+ *
+ * Example:
+ *   <Link href="/dashboard" className={buttonClass({ variant: 'primary', size: 'md' })}>
+ *     Go to dashboard
+ *   </Link>
+ */
+export function buttonClass({
+  variant = 'primary',
+  size = 'md',
+  className,
+}: {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  className?: string
+} = {}) {
+  return cn(
+    'inline-flex items-center justify-center gap-2 font-medium',
+    'transition-all duration-150 select-none cursor-pointer',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'active:scale-[0.98]',
+    variantStyles[variant],
+    sizeStyles[size],
+    className
+  )
+}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "md", loading, disabled, children, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={cn(
-          "inline-flex items-center justify-center font-medium transition-all duration-150 cursor-pointer",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          "disabled:opacity-50 disabled:pointer-events-none",
-          variantStyles[variant],
-          sizeStyles[size],
-          className
-        )}
-        disabled={disabled || loading}
-        {...props}
-      >
-        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-        {children}
-      </button>
-    );
-  }
-);
+  (
+    {
+      className,
+      variant = 'primary',
+      size = 'md',
+      loading = false,
+      leftIcon,
+      rightIcon,
+      children,
+      disabled,
+      asChild: _asChild, // consumed — never forwarded to DOM
+      ...props
+    },
+    ref
+  ) => (
+    <button
+      ref={ref}
+      className={buttonClass({ variant, size, className })}
+      disabled={disabled || loading}
+      {...props}
+    >
+      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : leftIcon}
+      {children}
+      {!loading && rightIcon}
+    </button>
+  )
+)
+Button.displayName = 'Button'
 
-Button.displayName = "Button";
-export { Button };
-export type { ButtonProps };
+export { Button }
+

@@ -2,14 +2,22 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label?: string;
   error?: string;
+  hint?: string;
   icon?: React.ReactNode;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, error, icon, type = "text", ...props }, ref) => {
+  ({ name, label, hint, className, error, icon, type = "text", ...props }, ref) => {
     return (
       <div className="relative">
+        {label && (
+          <label htmlFor={name} className="block text-sm font-medium text-foreground">
+            {label}
+          </label>
+        )}
         {icon && (
           <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
             {icon}

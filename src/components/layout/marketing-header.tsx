@@ -7,7 +7,6 @@ import { Menu, X, ArrowRight, ChevronDown, Brain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MARKETING_NAV, ROUTES } from "@/lib/constants";
-import { Button } from "@/components/ui/button";
 
 function MarketingHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -176,7 +175,7 @@ function MarketingHeader() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-2 shrink-0">
-            <Link href="/auth">
+            <Link href={ROUTES.login}>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -186,7 +185,7 @@ function MarketingHeader() {
               </motion.button>
             </Link>
             
-            <Link href={ROUTES.auth}>
+            <Link href={ROUTES.signup}>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

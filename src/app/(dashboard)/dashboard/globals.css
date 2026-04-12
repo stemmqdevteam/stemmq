@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+/* ============================================
+   StemmQ Design Token System
+   ============================================ */
+
+:root {
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --background: #fafbfc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --primary: #1e293b;
+  --primary-foreground: #f8fafc;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  --accent-secondary: #3b82f6;
+  --accent-muted: #eef2ff;
+  --warning: #f59e0b;
+  --warning-foreground: #ffffff;
+  --danger: #ef4444;
+  --danger-foreground: #ffffff;
+  --success: #10b981;
+  --success-foreground: #ffffff;
+  --ring: #6366f1;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #334155;
+  --sidebar-border: #f1f5f9;
+  --sidebar-active: #f1f5f9;
+  --sidebar-accent: #6366f1;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06),  0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.12),0 8px 24px rgba(0,0,0,0.08);
+}
+
+.dark {
+  --background: #030712;
+  --foreground: #f1f5f9;
+  --card: #0f172a;
+  --card-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --input: #1e293b;
+  --primary: #f1f5f9;
+  --primary-foreground: #0f172a;
+  --accent: #818cf8;
+  --accent-foreground: #ffffff;
+  --accent-secondary: #60a5fa;
+  --accent-muted: #1e1b4b;
+  --warning: #fbbf24;
+  --warning-foreground: #0f172a;
+  --danger: #f87171;
+  --danger-foreground: #0f172a;
+  --success: #34d399;
+  --success-foreground: #0f172a;
+  --ring: #818cf8;
+  --sidebar: #0f172a;
+  --sidebar-foreground: #94a3b8;
+  --sidebar-border: #1e293b;
+  --sidebar-active: #1e293b;
+  --sidebar-accent: #818cf8;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* ============================================
+   Fluid Typography Scale
+   ============================================ */
+:root {
+  --text-xs:   clamp(0.6875rem, 0.65rem + 0.10vw, 0.75rem);
+  --text-sm:   clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-base: clamp(0.875rem,  0.84rem + 0.18vw, 1rem);
+  --text-lg:   clamp(1rem,      0.95rem + 0.25vw, 1.125rem);
+  --text-xl:   clamp(1.125rem,  1.05rem + 0.35vw, 1.25rem);
+  --text-2xl:  clamp(1.25rem,   1.1rem  + 0.65vw, 1.5rem);
+  --text-3xl:  clamp(1.5rem,    1.2rem  + 1.20vw, 1.875rem);
+  --text-4xl:  clamp(1.75rem,   1.3rem  + 1.80vw, 2.25rem);
+  --text-5xl:  clamp(2rem,      1.4rem  + 2.50vw, 3rem);
+}
+
+/* ============================================
+   Base
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+::selection { background: rgba(99,102,241,0.2); color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   Scrollbars
+   ============================================ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-foreground); }
+
+/* ============================================
+   Utility classes
+   ============================================ */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 50%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 50%, #a855f7 100%);
+}
+
+/* Animated mesh for hero/onboarding sections */
+.gradient-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59,130,246,0.12) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(168,85,247,0.10) 0%, transparent 50%);
+}
+.dark .gradient-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.20) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59,130,246,0.15) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(168,85,247,0.12) 0%, transparent 50%);
+}
+
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.dark .glass {
+  background: rgba(15,23,42,0.7);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99,102,241,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* ============================================
+   Skeleton shimmer
+   ============================================ */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--muted);
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes slideUp   { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleIn   { from { opacity:0; transform:scale(0.96); }     to { opacity:1; transform:scale(1); } }
+@keyframes page-in   { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes checkmark-draw {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+}
+
+.page-enter    { animation: page-in 0.3s ease-out forwards; }
+.animate-check { stroke-dasharray: 100; animation: checkmark-draw 0.5s ease-out 0.2s forwards; }
+.animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
+.animate-pulse-ring    { animation: pulse-ring 2s ease-out infinite; }
+
+/* ============================================
+   Shadows
+   ============================================ */
+.shadow-brand    { box-shadow: 0 4px 24px rgba(99,102,241,0.25), 0 1px 4px rgba(99,102,241,0.15); }
+.shadow-glass    { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.08); }
+.shadow-elevated { box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04); }
+
+/* ============================================
+   Sonner toast overrides
+   ============================================ */
+[data-sonner-toaster] [data-styled='true'] {
+  font-family: var(--font-body) !important;
+  border-radius: 12px !important;
+}
+
+/* ============================================
+   Number input reset
+   ============================================ */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }

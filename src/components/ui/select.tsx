@@ -10,15 +10,18 @@ interface SelectOption {
 }
 
 interface SelectProps {
+  name: string;
   value: string;
   onChange: (value: string) => void;
   options: SelectOption[];
   placeholder?: string;
   className?: string;
   label?: string;
+  defaultValue?: string;
+  required
 }
 
-export function Select({ value, onChange, options, placeholder = "Select...", className, label }: SelectProps) {
+export function Select({ name, value, onChange, options, placeholder = "Select...", className, label, defaultValue,required }: SelectProps) {
   const selected = options.find(o => o.value === value);
 
   return (
