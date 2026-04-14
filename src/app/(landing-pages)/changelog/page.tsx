@@ -486,7 +486,7 @@ function SubscribeStrip() {
 
 export default function ChangelogPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <ChangelogHero />
 

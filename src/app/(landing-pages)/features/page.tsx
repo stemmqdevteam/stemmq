@@ -177,7 +177,7 @@ export default function FeaturesPage() {
       <FeatureGrid />
 
       {/* Stats Band */}
-      <section className="py-16 bg-primary">
+      <section className="py-16 bg-muted/40 border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             {stats.map((stat, i) => (
@@ -189,7 +189,7 @@ export default function FeaturesPage() {
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
-                <div className="text-sm text-slate-400">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </div>

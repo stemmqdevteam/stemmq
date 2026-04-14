@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { Sidebar } from '@/components/layout/sidebar'
 import { SessionProvider } from '@/components/providers/session-provider'
 import { ROUTES } from '@/constants'
+import './globals.css'
 
 export const dynamic = 'force-dynamic'
 
@@ -58,7 +59,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           occupy any space in this flex row on mobile.
           The <main> gets pt-14 to clear the fixed mobile top bar.
       */}
-      <div className="flex h-dvh bg-[var(--background)] overflow-hidden">
+      <div className="flex h-dvh bg-(--background) overflow-hidden">
         {/* Desktop: always-visible sidebar | Mobile: nothing here (drawer is fixed-positioned) */}
         <Sidebar serverProfile={serverProfile} />
 

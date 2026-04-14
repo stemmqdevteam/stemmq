@@ -61,14 +61,14 @@ function TypewriterWord() {
 
 function StatPill({ value, label, color }: { value: string; label: string; color: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/3 px-3.5 py-2.5 backdrop-blur-sm">
+    <div className="flex items-center gap-2 rounded-xl border border-border/50 bg-card/60 px-3.5 py-2.5 backdrop-blur-sm">
       <div className="h-7 w-7 rounded-lg flex items-center justify-center flex-shrink-0"
         style={{ background: `${color}14`, border: `1px solid ${color}25` }}>
         <TrendingUp className="h-3.5 w-3.5" style={{ color }} />
       </div>
       <div>
-        <p className="text-sm sm:text-base font-bold text-white tabular-nums leading-tight">{value}</p>
-        <p className="text-[9px] text-white/35 leading-tight">{label}</p>
+        <p className="text-sm sm:text-base font-bold text-foreground tabular-nums leading-tight">{value}</p>
+        <p className="text-[9px] text-muted-foreground leading-tight">{label}</p>
       </div>
     </div>
   );
@@ -289,7 +289,7 @@ function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#030712]">
+    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
 
       {/* ── Background ── */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
@@ -311,7 +311,7 @@ function HeroSection() {
           {/* Badge */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-6">
             <a href="#"
-              className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-indigo-300 hover:bg-indigo-500/15 transition-colors backdrop-blur-sm group">
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/15 transition-colors backdrop-blur-sm group">
               <Sparkles className="h-3.5 w-3.5" />
               Introducing DQS 2.0 — Decision Quality Score
               <ArrowRight className="h-3 w-3 opacity-50 group-hover:translate-x-0.5 transition-transform" />
@@ -323,12 +323,12 @@ function HeroSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] mb-5"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.05] mb-5"
           >
             The Operating System
             <br />
             <span className="inline-flex flex-wrap items-center justify-center gap-x-4">
-              <span className="text-white/50">for</span>
+              <span className="text-foreground/50">for</span>
               <TypewriterWord />
             </span>
           </motion.h1>
@@ -338,7 +338,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-white/45 leading-relaxed mb-8 sm:mb-10"
+            className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 sm:mb-10"
           >
             StemmQ captures every strategic decision, tracks assumptions in real-time, and
             simulates outcomes — giving your team the clarity to move fast without breaking things.
@@ -364,7 +364,7 @@ function HeroSection() {
             </Link>
             <Link href={ROUTES.product}>
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm sm:text-base font-semibold text-white/60 border border-white/12 bg-white/4 hover:bg-white/8 hover:text-white/85 transition-all w-full sm:w-auto justify-center">
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm sm:text-base font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/60 hover:text-foreground/85 transition-all w-full sm:w-auto justify-center">
                 Watch demo
               </motion.button>
             </Link>
@@ -384,7 +384,7 @@ function HeroSection() {
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.label} className="flex items-center gap-1.5 text-xs text-white/35">
+                <div key={item.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Icon className="h-3.5 w-3.5" style={{ color: item.color }} />
                   {item.label}
                 </div>
@@ -453,7 +453,7 @@ function HeroSection() {
           className="mt-12 sm:mt-16 flex justify-center"
         >
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex flex-col items-center gap-1 text-white/20 cursor-pointer hover:text-white/40 transition-colors">
+            className="flex flex-col items-center gap-1 text-foreground/20 cursor-pointer hover:text-foreground/45 transition-colors">
             <span className="text-[9px] tracking-widest uppercase font-semibold">Explore</span>
             <ChevronDown className="h-4 w-4" />
           </motion.div>

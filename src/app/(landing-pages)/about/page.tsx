@@ -142,7 +142,7 @@ function AboutHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-background">
       <AnimatedGradient intensity="subtle" />
       <Orb delay={0} className="absolute top-[-8%] right-[-3%] w-[440px] h-[440px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
       <Orb delay={4} className="absolute bottom-[-5%] left-[-3%] w-[360px] h-[360px] rounded-full bg-violet-600/8 blur-[90px] pointer-events-none" />
@@ -159,7 +159,7 @@ function AboutHero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <Reveal delay={0.07}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
                 Decisions should be an{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   asset
@@ -168,7 +168,7 @@ function AboutHero() {
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="text-sm sm:text-base md:text-lg text-white/45 leading-relaxed mb-8">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
                 StemmQ was founded on a simple observation: organizations invest heavily in data,
                 product, and engineering infrastructure — but leave the most consequential thing
                 they do to chance. Decision-making.
@@ -189,7 +189,7 @@ function AboutHero() {
                 </Link>
                 <Link href={ROUTES.product}>
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/80 border border-border/50 bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     See the Platform
                   </motion.button>
                 </Link>
@@ -257,16 +257,16 @@ function StatsSection() {
   ];
 
   return (
-    <section ref={ref} className="py-12 sm:py-14 border-y border-white/5 bg-white/[0.015]">
+    <section ref={ref} className="py-12 sm:py-14 border-y border-border/50 bg-card/40">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {orgStats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.08}>
-              <div className="text-center p-4 sm:p-5 rounded-2xl border border-white/6 bg-white/2 hover:border-white/12 transition-colors">
+              <div className="text-center p-4 sm:p-5 rounded-2xl border border-border/50 bg-card/40 hover:border-border transition-colors">
                 <p className="text-2xl sm:text-3xl md:text-4xl font-bold tabular-nums mb-1" style={{ color: stat.color }}>
                   {counts[i]}{stat.suffix}
                 </p>
-                <p className="text-[10px] sm:text-xs text-white/35">{stat.label}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">{stat.label}</p>
               </div>
             </Reveal>
           ))}
@@ -282,13 +282,13 @@ function StatsSection() {
 
 function MissionVisionSection() {
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             Why We Exist
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Purpose-built for{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               organizational intelligence
@@ -320,10 +320,10 @@ function MissionVisionSection() {
                     style={{ background: `${item.color}15`, border: `1px solid ${item.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: item.color }} />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-3">{item.title}</h3>
-                  <p className="text-sm text-white/60 leading-relaxed mb-4">{item.desc}</p>
-                  <div className="rounded-xl border border-white/6 bg-white/2 p-3">
-                    <p className="text-xs text-white/35 leading-relaxed italic">{item.detail}</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
+                  <div className="rounded-xl border border-border/50 bg-card/40 p-3">
+                    <p className="text-xs text-muted-foreground leading-relaxed italic">{item.detail}</p>
                   </div>
                 </div>
               </Reveal>
@@ -341,19 +341,19 @@ function MissionVisionSection() {
 
 function BeforeAfterSection() {
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-card/40 border-y border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/6 px-4 py-1.5 text-xs font-medium text-red-300 mb-4">
             The Problem
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Organizations have no{" "}
             <span style={{ background: "linear-gradient(135deg,#ef4444,#f59e0b)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               decision infrastructure
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-xl mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             Every company has data infrastructure. Most have engineering infrastructure.
             Almost none have decision infrastructure.
           </p>
@@ -367,7 +367,7 @@ function BeforeAfterSection() {
                 <div className="h-10 w-10 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center">
                   <XCircle className="h-5 w-5 text-red-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Without StemmQ</span>
+                <span className="text-sm font-bold text-foreground">Without StemmQ</span>
               </div>
               <div className="space-y-3">
                 {beforeAfter.before.map((item, i) => (
@@ -378,7 +378,7 @@ function BeforeAfterSection() {
                     <div className="h-5 w-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <XCircle className="h-3 w-3 text-red-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/65">{item}</span>
+                    <span className="text-xs sm:text-sm text-foreground/80">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -392,7 +392,7 @@ function BeforeAfterSection() {
                 <div className="h-10 w-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
                   <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-bold text-white">With StemmQ</span>
+                <span className="text-sm font-bold text-foreground">With StemmQ</span>
               </div>
               <div className="space-y-3">
                 {beforeAfter.after.map((item, i) => (
@@ -403,7 +403,7 @@ function BeforeAfterSection() {
                     <div className="h-5 w-5 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <CheckCircle2 className="h-3 w-3 text-emerald-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/65">{item}</span>
+                    <span className="text-xs sm:text-sm text-foreground/80">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -421,19 +421,19 @@ function BeforeAfterSection() {
 
 function PrinciplesSection() {
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             Our Principles
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             How we{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               think
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">The values that drive every decision we make at StemmQ — including the decision to build StemmQ.</p>
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">The values that drive every decision we make at StemmQ — including the decision to build StemmQ.</p>
         </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
@@ -442,7 +442,7 @@ function PrinciplesSection() {
             return (
               <Reveal key={p.title} delay={i * 0.09}>
                 <motion.div whileHover={{ y: -5 }}
-                  className="group relative rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-7 h-full overflow-hidden transition-all hover:border-white/15">
+                  className="group relative rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-7 h-full overflow-hidden transition-all hover:border-border"
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                     style={{ background: `radial-gradient(circle at 30% 20%, ${p.color}08, transparent 60%)` }} />
                   <div className="relative">
@@ -450,8 +450,8 @@ function PrinciplesSection() {
                       style={{ background: `${p.color}15`, border: `1px solid ${p.color}25` }}>
                       <Icon className="h-5 w-5" style={{ color: p.color }} />
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-white mb-3">{p.title}</h3>
-                    <p className="text-xs sm:text-sm text-white/50 leading-relaxed">{p.desc}</p>
+                    <h3 className="text-sm sm:text-base font-bold text-foreground mb-3">{p.title}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                   </div>
                 </motion.div>
               </Reveal>
@@ -473,13 +473,13 @@ function TimelineSection() {
   const [active, setActive] = useState(4); // latest by default
 
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-card/40 border-y border-border/50">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-xs font-medium text-violet-300 mb-4">
             Our Journey
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             From insight to{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               infrastructure
@@ -489,7 +489,7 @@ function TimelineSection() {
 
         <div ref={ref} className="relative">
           {/* Vertical line desktop */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/6 -translate-x-1/2" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-border/50 -translate-x-1/2" />
 
           <div className="space-y-6 md:space-y-0">
             {milestones.map((m, i) => {
@@ -542,7 +542,7 @@ function TeamSection() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
@@ -611,7 +611,7 @@ function TeamSection() {
 
 function InvestorQuoteSection() {
   return (
-    <section className="py-12 sm:py-14 border-y border-white/5 bg-white/[0.01]">
+    <section className="py-12 sm:py-14 border-y border-border/50 bg-card/40">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <Reveal>
           <div className="relative rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/4 p-6 sm:p-10 text-center overflow-hidden">
@@ -650,7 +650,7 @@ function InvestorQuoteSection() {
 
 function AboutCTA() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/50">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center relative overflow-hidden">
@@ -697,7 +697,7 @@ function AboutCTA() {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <AboutHero />
       <StatsSection />

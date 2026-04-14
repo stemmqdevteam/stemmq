@@ -7,6 +7,7 @@ import { Menu, X, ArrowRight, ChevronDown, Brain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MARKETING_NAV, ROUTES } from "@/lib/constants";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 function MarketingHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,12 +25,10 @@ function MarketingHeader() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // Close dropdown when navigating
+  // Close dropdown / drawer on navigation
   useEffect(() => {
     setActiveDropdown(null);
     setMobileOpen(false);
@@ -44,56 +43,57 @@ function MarketingHeader() {
     closeTimerRef.current = setTimeout(() => setActiveDropdown(null), 150);
   }
 
-  function isDropdownActive(item: { label?: string; href?: undefined; children: any; }) {
+  function isDropdownActive(item: { label?: string; href?: undefined; children: { href: string }[] }) {
     if (!item.children) return false;
     return item.children.some(
-      (c: { href: string; }) => pathname === c.href || pathname.startsWith(c.href + "/")
+      (c) => pathname === c.href || pathname.startsWith(c.href + "/")
     );
   }
 
   return (
     <>
+      {/* ── Desktop/Tablet header bar ──────────────────────────────────────── */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-background/70 backdrop-blur-2xl border-b border-border/40 shadow-sm"
+            ? "bg-background/80 backdrop-blur-2xl border-b border-border/50 shadow-sm"
             : "bg-transparent"
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2.5 relative z-10 shrink-0 group"
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/20 transition-transform"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-gradient-to-br from-indigo-500 to-violet-600 shadow-md shadow-indigo-500/25"
             >
               <Brain className="h-4 w-4 text-white" />
             </motion.div>
-            <span className="text-lg font-bold tracking-tight text-foreground group-hover:opacity-80 transition-opacity">
+            <span className="text-[15px] font-bold tracking-tight text-foreground group-hover:opacity-80 transition-opacity">
               StemmQ
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-0.5">
             {MARKETING_NAV.map((item) => {
               if (!item.children) {
-                // Direct link
                 const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "relative px-4 py-2 text-sm font-medium transition-colors rounded-full",
+                      "relative px-3.5 py-2 text-sm font-medium transition-colors rounded-xl",
                       isActive
-                        ? "text-foreground bg-muted/50"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                        ? "text-foreground bg-muted/60"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                     )}
                   >
                     {item.label}
@@ -101,7 +101,6 @@ function MarketingHeader() {
                 );
               }
 
-              // Dropdown item
               const isActive = isDropdownActive(item);
               return (
                 <div
@@ -112,16 +111,16 @@ function MarketingHeader() {
                 >
                   <button
                     className={cn(
-                      "flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-colors rounded-full",
+                      "flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-colors rounded-xl",
                       isActive || activeDropdown === item.label
-                        ? "text-foreground bg-muted/50"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                        ? "text-foreground bg-muted/60"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
                     )}
                   >
                     {item.label}
                     <ChevronDown
                       className={cn(
-                        "h-3.5 w-3.5 transition-transform duration-200 opacity-70",
+                        "h-3.5 w-3.5 transition-transform duration-200 opacity-60",
                         activeDropdown === item.label ? "rotate-180" : ""
                       )}
                     />
@@ -130,30 +129,27 @@ function MarketingHeader() {
                   <AnimatePresence>
                     {activeDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{
-                          duration: 0.2,
-                          ease: [0.16, 1, 0.3, 1],
-                        }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl shadow-black/5 p-2 z-50"
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-2xl border border-border/60 bg-card/95 backdrop-blur-xl shadow-xl shadow-black/8 p-2 z-50"
                       >
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             className={cn(
-                              "flex flex-col gap-1 rounded-xl px-4 py-3 transition-colors hover:bg-muted/80",
-                              pathname === child.href ? "bg-accent/5" : ""
+                              "flex flex-col gap-0.5 rounded-xl px-3.5 py-3 transition-colors",
+                              pathname === child.href
+                                ? "bg-accent/8 text-accent"
+                                : "hover:bg-muted/80"
                             )}
                           >
                             <span
                               className={cn(
                                 "text-sm font-semibold",
-                                pathname === child.href
-                                  ? "text-indigo-500"
-                                  : "text-foreground"
+                                pathname === child.href ? "text-accent" : "text-foreground"
                               )}
                             >
                               {child.label}
@@ -173,87 +169,88 @@ function MarketingHeader() {
             })}
           </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-1 shrink-0">
+
+            {/* ── Theme toggle ── */}
+            <ThemeToggle variant="compact" modes={['light', 'dark']} />
+
+            {/* Divider */}
+            <div className="w-px h-5 bg-border mx-1" />
+
             <Link href={ROUTES.login}>
               <motion.button
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                whileTap={{ scale: 0.97 }}
+                className="px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
               >
                 Log in
               </motion.button>
             </Link>
-            
+
             <Link href={ROUTES.signup}>
               <motion.button
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/30"
-                style={{
-                  background: "linear-gradient(135deg, #6366f1, #4f46e5)",
-                }}
+                whileTap={{ scale: 0.97 }}
+                className="relative group flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold text-white overflow-hidden shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/30"
+                style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center gap-1.5">
                   Get Started
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer transition-transform duration-700" />
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </motion.button>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden relative z-10 rounded-xl p-2.5 text-foreground bg-muted/50 hover:bg-muted transition-colors"
-          >
-            <AnimatePresence mode="wait">
-              {mobileOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <X className="h-5 w-5" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <Menu className="h-5 w-5" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
+          {/* Mobile row: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggle variant="compact" modes={['light', 'dark']} />
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="relative z-10 rounded-xl p-2.5 text-foreground bg-muted/50 hover:bg-muted transition-colors"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              <AnimatePresence mode="wait">
+                {mobileOpen ? (
+                  <motion.div key="close"
+                    initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <X className="h-5 w-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu"
+                    initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <Menu className="h-5 w-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
         </div>
       </header>
 
-      {/* Mobile Full-Screen Drawer */}
+      {/* ── Mobile full-screen drawer ──────────────────────────────────────── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 md:hidden bg-background/95 backdrop-blur-2xl overflow-y-auto"
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 md:hidden bg-background/96 backdrop-blur-2xl overflow-y-auto"
           >
-            <div className="flex flex-col px-6 pt-24 pb-8 min-h-full">
-              <nav className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col px-5 pt-24 pb-8 min-h-full">
+              <nav className="flex flex-col gap-1.5 w-full">
                 {MARKETING_NAV.map((item, idx) => {
                   if (!item.children) {
                     return (
                       <motion.div
                         key={item.href}
-                        initial={{ opacity: 0, x: -16 }}
+                        initial={{ opacity: 0, x: -14 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.05 }}
                       >
@@ -263,7 +260,7 @@ function MarketingHeader() {
                           className={cn(
                             "flex items-center rounded-2xl px-5 py-4 text-base font-semibold transition-colors",
                             pathname === item.href
-                              ? "bg-indigo-500/10 text-indigo-500"
+                              ? "bg-accent/10 text-accent"
                               : "text-foreground bg-muted/30 hover:bg-muted"
                           )}
                         >
@@ -277,18 +274,16 @@ function MarketingHeader() {
                   return (
                     <motion.div
                       key={item.label}
-                      initial={{ opacity: 0, x: -16 }}
+                      initial={{ opacity: 0, x: -14 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
                     >
                       <button
-                        onClick={() =>
-                          setMobileExpanded(isOpen ? null : item.label)
-                        }
+                        onClick={() => setMobileExpanded(isOpen ? null : item.label)}
                         className={cn(
                           "flex items-center justify-between w-full rounded-2xl px-5 py-4 text-base font-semibold transition-colors",
                           isDropdownActive(item)
-                            ? "bg-indigo-500/10 text-indigo-500"
+                            ? "bg-accent/10 text-accent"
                             : "text-foreground bg-muted/30 hover:bg-muted"
                         )}
                       >
@@ -306,10 +301,10 @@ function MarketingHeader() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                             className="overflow-hidden"
                           >
-                            <div className="pt-2 pb-1 space-y-1">
+                            <div className="pt-1.5 pb-1 space-y-0.5 pl-2">
                               {item.children.map((child) => (
                                 <Link
                                   key={child.href}
@@ -318,13 +313,11 @@ function MarketingHeader() {
                                   className={cn(
                                     "flex flex-col rounded-xl px-5 py-3.5 transition-colors",
                                     pathname === child.href
-                                      ? "bg-indigo-500/5 text-indigo-500"
+                                      ? "bg-accent/8 text-accent"
                                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                   )}
                                 >
-                                  <span className="text-sm font-semibold">
-                                    {child.label}
-                                  </span>
+                                  <span className="text-sm font-semibold">{child.label}</span>
                                 </Link>
                               ))}
                             </div>
@@ -336,25 +329,30 @@ function MarketingHeader() {
                 })}
               </nav>
 
+              {/* Mobile CTA buttons */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.25 }}
                 className="flex flex-col gap-3 mt-8 pt-6 border-t border-border/50"
               >
-                <Link href="/auth" className="w-full">
+                {/* Theme segmented control in mobile menu */}
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-sm text-muted-foreground font-medium">Appearance</span>
+                  <ThemeToggle variant="segmented" modes={['light', 'dark']} />
+                </div>
+
+                <Link href={ROUTES.login} className="w-full">
                   <button className="w-full flex items-center justify-center py-3.5 rounded-xl text-sm font-semibold text-foreground bg-muted/50 hover:bg-muted transition-colors">
                     Log in
                   </button>
                 </Link>
 
-                <Link href={ROUTES.auth} className="w-full">
+                <Link href={ROUTES.signup} className="w-full">
                   <motion.button
                     whileTap={{ scale: 0.98 }}
                     className="relative w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-white shadow-lg shadow-indigo-500/25"
-                    style={{
-                      background: "linear-gradient(135deg, #6366f1, #4f46e5)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, #6366f1, #4f46e5)" }}
                   >
                     Get Started
                     <ArrowRight className="h-4 w-4" />

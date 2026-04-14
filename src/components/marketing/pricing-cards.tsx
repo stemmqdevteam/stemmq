@@ -83,8 +83,8 @@ function PriceDisplay({ plan, billing }: { plan: typeof plans[0]; billing: "mont
   if (current === null) {
     return (
       <div className="mb-5">
-        <p className="text-2xl sm:text-3xl font-bold text-white">Custom</p>
-        <p className="text-xs text-white/35 mt-1">pricing</p>
+        <p className="text-2xl sm:text-3xl font-bold text-foreground">Custom</p>
+        <p className="text-xs text-muted-foreground mt-1">pricing</p>
       </div>
     );
   }
@@ -93,8 +93,8 @@ function PriceDisplay({ plan, billing }: { plan: typeof plans[0]; billing: "mont
     return (
       <div className="mb-5">
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl sm:text-3xl font-bold text-white">$0</span>
-          <span className="text-sm text-white/35">{plan.unit}</span>
+          <span className="text-2xl sm:text-3xl font-bold text-foreground">$0</span>
+          <span className="text-sm text-muted-foreground">{plan.unit}</span>
         </div>
       </div>
     );
@@ -110,12 +110,12 @@ function PriceDisplay({ plan, billing }: { plan: typeof plans[0]; billing: "mont
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.16 }}
-            className="text-2xl sm:text-3xl font-bold text-white tabular-nums"
+            className="text-2xl sm:text-3xl font-bold text-foreground tabular-nums"
           >
             ${current}
           </motion.span>
         </AnimatePresence>
-        <span className="text-sm text-white/35">{plan.unit}</span>
+        <span className="text-sm text-muted-foreground">{plan.unit}</span>
       </div>
       <AnimatePresence>
         {billing === "yearly" && (
@@ -150,8 +150,8 @@ function PlanCard({ plan, billing }: { plan: typeof plans[0]; billing: "monthly"
       className={cn(
         "relative flex flex-col rounded-xl border h-full overflow-hidden",
         isPro
-          ? "border-[#6366f1]/45 bg-[#0c0f1e]"
-          : "border-white/8 bg-white/[0.025]"
+          ? "border-[var(--accent)]/45 bg-card"
+          : "border-border/60 bg-card/50"
       )}
     >
       {/* Pro — top accent line */}
@@ -169,20 +169,20 @@ function PlanCard({ plan, billing }: { plan: typeof plans[0]; billing: "monthly"
           <div
             className="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0"
             style={{
-              background: isPro ? "rgba(99,102,241,0.18)" : "rgba(255,255,255,0.06)",
-              border: isPro ? "1px solid rgba(99,102,241,0.3)" : "1px solid rgba(255,255,255,0.08)",
+              background: isPro ? "rgba(99,102,241,0.18)" : "var(--muted)",
+              border: isPro ? "1px solid rgba(99,102,241,0.3)" : "1px solid var(--border)",
             }}
           >
-            <Icon className="h-4 w-4" style={{ color: isPro ? "#818cf8" : "rgba(255,255,255,0.45)" }} />
+            <Icon className="h-4 w-4" style={{ color: isPro ? "#818cf8" : "var(--muted-foreground)" }} />
           </div>
-          <p className="text-sm font-bold text-white">{plan.name}</p>
+          <p className="text-sm font-bold text-foreground">{plan.name}</p>
         </div>
 
         {/* Price */}
         <PriceDisplay plan={plan} billing={billing} />
 
         {/* Description */}
-        <p className="text-xs text-white/40 leading-relaxed mb-5">{plan.desc}</p>
+        <p className="text-xs text-muted-foreground leading-relaxed mb-5">{plan.desc}</p>
 
         {/* CTA button */}
         <Link href={plan.ctaHref} className="block mb-6">
@@ -194,8 +194,8 @@ function PlanCard({ plan, billing }: { plan: typeof plans[0]; billing: "monthly"
               isPro
                 ? "text-white shadow-md shadow-indigo-500/20"
                 : plan.id === "enterprise"
-                  ? "text-white/60 border border-white/10 bg-transparent hover:bg-white/5 hover:text-white/80"
-                  : "text-indigo-300 border border-indigo-500/30 bg-indigo-500/8 hover:bg-indigo-500/14"
+                  ? "text-foreground/60 border border-border bg-transparent hover:bg-muted/40 hover:text-foreground/85"
+                  : "text-(--accent) border border-(--accent)/30 bg-(--accent)/8 hover:bg-(--accent)/14"
             )}
             style={isPro ? { background: "linear-gradient(135deg,#6366f1,#4f46e5)" } : {}}
           >
@@ -212,8 +212,8 @@ function PlanCard({ plan, billing }: { plan: typeof plans[0]; billing: "monthly"
         </Link>
 
         {/* Feature list */}
-        <div className="border-t border-white/[0.07] pt-5 flex-1">
-          <p className="text-[10px] font-semibold text-white/35 uppercase tracking-wider mb-3.5">
+        <div className="border-t border-border/50 pt-5 flex-1">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-3.5">
             {plan.sectionLabel}
           </p>
           <ul className="space-y-2.5">
@@ -221,9 +221,9 @@ function PlanCard({ plan, billing }: { plan: typeof plans[0]; billing: "monthly"
               <li key={f} className="flex items-start gap-2.5">
                 <Check
                   className="h-3.5 w-3.5 flex-shrink-0 mt-0.5"
-                  style={{ color: isPro ? "#818cf8" : "rgba(255,255,255,0.3)" }}
+                  style={{ color: isPro ? "#818cf8" : "var(--muted-foreground)" }}
                 />
-                <span className="text-xs text-white/55 leading-snug">{f}</span>
+                <span className="text-xs text-foreground/60 leading-snug">{f}</span>
               </li>
             ))}
           </ul>
@@ -242,7 +242,7 @@ function PricingCards() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
 
         {/* Header */}
@@ -251,7 +251,7 @@ function PricingCards() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-3"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-3"
           >
             Simple, transparent pricing
           </motion.h2>
@@ -260,7 +260,7 @@ function PricingCards() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.07 }}
-            className="text-sm sm:text-base text-white/40 max-w-sm mx-auto mb-8"
+            className="text-sm sm:text-base text-muted-foreground max-w-sm mx-auto mb-8"
           >
             Start free. Scale as your decision intelligence matures.
           </motion.p>
@@ -271,7 +271,7 @@ function PricingCards() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.12 }}
-            className="inline-flex items-center rounded-lg border border-white/10 bg-white/[0.04] p-0.5"
+            className="inline-flex items-center rounded-lg border border-border bg-muted/40 p-0.5"
           >
             {(["monthly", "yearly"] as const).map((b) => (
               <button
@@ -279,13 +279,13 @@ function PricingCards() {
                 onClick={() => setBilling(b)}
                 className={cn(
                   "relative px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all capitalize",
-                  billing === b ? "text-white" : "text-white/35 hover:text-white/60"
+                  billing === b ? "text-foreground" : "text-muted-foreground hover:text-foreground/75"
                 )}
               >
                 {billing === b && (
                   <motion.div
                     layoutId="billing-tab"
-                    className="absolute inset-0 rounded-md bg-white/10 border border-white/10"
+                    className="absolute inset-0 rounded-md bg-card border border-border/60"
                     transition={{ type: "spring", bounce: 0.18, duration: 0.32 }}
                   />
                 )}
@@ -296,7 +296,7 @@ function PricingCards() {
                       "relative z-10 ml-2 text-[9px] font-bold px-1.5 py-0.5 rounded-full",
                       billing === "yearly"
                         ? "bg-emerald-500/18 text-emerald-400"
-                        : "bg-white/5 text-white/25"
+                        : "bg-muted text-muted-foreground"
                     )}
                   >
                     −25%
@@ -320,10 +320,10 @@ function PricingCards() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-center text-xs text-white/22 mt-8"
+          className="text-center text-xs text-foreground/30 mt-8"
         >
           All plans include the Decision Gate.{" "}
-          <a href="/contact" className="text-white/40 hover:text-white/65 transition-colors underline underline-offset-2">
+          <a href="/contact" className="text-foreground/50 hover:text-foreground/75 transition-colors underline underline-offset-2">
             Talk to sales
           </a>{" "}
           for volume discounts or custom contracts.

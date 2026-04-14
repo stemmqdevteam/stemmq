@@ -188,7 +188,7 @@ function ProductHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden min-h-[92vh] flex items-center justify-center pt-28 pb-20 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden min-h-[92vh] flex items-center justify-center pt-28 pb-20 bg-background">
       <AnimatedGradient intensity="medium" />
 
       {/* Orbs */}
@@ -212,7 +212,7 @@ function ProductHero() {
 
         {/* Headline */}
         <Reveal delay={0.08}>
-          <h1 className="mx-auto max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+          <h1 className="mx-auto max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
             Infrastructure that makes<br className="hidden sm:block" /> decisions{" "}
             <RotatingWord />
           </h1>
@@ -220,7 +220,7 @@ function ProductHero() {
 
         {/* Sub */}
         <Reveal delay={0.16}>
-          <p className="mx-auto max-w-xl text-sm sm:text-base md:text-lg text-white/45 leading-relaxed mb-8">
+          <p className="mx-auto max-w-xl text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
             StemmQ replaces ad-hoc decisions with a structured, auditable, intelligent system
             that gets smarter with every call your organization makes.
           </p>
@@ -246,9 +246,9 @@ function ProductHero() {
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm sm:text-base font-semibold text-white/65 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm sm:text-base font-semibold text-foreground/65 border border-border/50 bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all backdrop-blur-sm"
               >
-                <div className="h-6 w-6 rounded-full bg-white/10 flex items-center justify-center">
+                <div className="h-6 w-6 rounded-full bg-muted/50 flex items-center justify-center">
                   <Play className="h-2.5 w-2.5 fill-current" />
                 </div>
                 See the System
@@ -260,11 +260,11 @@ function ProductHero() {
         {/* Pipeline viz — animated "GIF-like" flow */}
         <Reveal delay={0.3}>
           <div className="mx-auto max-w-3xl">
-            <p className="text-[10px] text-white/25 uppercase tracking-widest mb-4">The Decision Lifecycle</p>
-            <div className="rounded-2xl border border-white/8 bg-white/3 backdrop-blur-sm p-4 sm:p-5">
+            <p className="text-[10px] text-foreground/30 uppercase tracking-widest mb-4">The Decision Lifecycle</p>
+            <div className="rounded-2xl border border-border/50 bg-card/40 backdrop-blur-sm p-4 sm:p-5">
               <PipelineViz />
             </div>
-            <p className="text-[10px] text-white/20 mt-3">Watching a decision move through StemmQ in real-time</p>
+            <p className="text-[10px] text-foreground/30 mt-3">Watching a decision move through StemmQ in real-time</p>
           </div>
         </Reveal>
 
@@ -859,20 +859,20 @@ const features = [
 
 function FeatureGrid() {
   return (
-    <section className="py-20 sm:py-28 bg-[#030712] border-t border-white/5">
+    <section className="py-20 sm:py-28 bg-background border-t border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-16">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             <Sparkles className="h-3.5 w-3.5" />
             Platform Capabilities
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Everything your org needs to{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               decide well
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">From first draft to board approval, every decision has a home in StemmQ.</p>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">From first draft to board approval, every decision has a home in StemmQ.</p>
         </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -974,7 +974,7 @@ export default function ProductPage() {
           return (
             <section
               key={section.label}
-              className={`py-16 sm:py-24 ${isOdd ? "bg-white/[0.015] border-y border-white/6" : "bg-[#030712]"}`}
+              className={`py-16 sm:py-24 ${isOdd ? "bg-muted/20 border-y border-border" : "bg-background"}`}
             >
               <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${isOdd ? "lg:grid-flow-row-dense" : ""}`}>
@@ -984,22 +984,22 @@ export default function ProductPage() {
                     <div>
                       {/* Step tag */}
                       <div className="flex items-center gap-3 mb-5">
-                        <span className="text-[10px] font-bold text-white/20 tracking-widest uppercase">{section.step}</span>
-                        <div className="h-px flex-1 bg-white/8 max-w-[40px]" />
+                        <span className="text-[10px] font-bold text-foreground/30 tracking-widest uppercase">{section.step}</span>
+                        <div className="h-px flex-1 bg-border/50 max-w-[40px]" />
                         <div className="flex items-center gap-2 rounded-full border px-3 py-1" style={{ borderColor: `${section.color}30`, background: `${section.color}10` }}>
                           <Icon className="h-3.5 w-3.5" style={{ color: section.color }} />
                           <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: section.color }}>{section.label}</span>
                         </div>
                       </div>
 
-                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">{section.title}</h2>
-                      <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">{section.description}</p>
+                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">{section.title}</h2>
+                      <p className="text-sm sm:text-base text-foreground/60 leading-relaxed mb-6">{section.description}</p>
 
                       <ul className="space-y-3">
                         {section.features.map((f) => (
                           <li key={f} className="flex items-start gap-3">
                             <div className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: section.color }} />
-                            <span className="text-xs sm:text-sm text-white/50">{f}</span>
+                            <span className="text-xs sm:text-sm text-foreground/60">{f}</span>
                           </li>
                         ))}
                       </ul>
@@ -1032,20 +1032,20 @@ export default function ProductPage() {
       </div>
 
       {/* ── Decision Gate Section ── */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-[#030712] via-[#080d1a] to-[#030712] border-y border-white/6">
+      <section className="py-16 sm:py-24 bg-background border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal className="text-center mb-10 sm:mb-14">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Bot className="h-5 w-5 text-amber-400" />
               <span className="text-xs font-semibold uppercase tracking-widest text-amber-400">Autonomous Agent Layer</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
               Every agent action is a{" "}
               <span style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 decision object
               </span>
             </h2>
-            <p className="text-sm sm:text-base text-white/40 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
               Create agents with a no-code builder or connect external systems. Every action generates a
               structured decision that flows through evaluation, the Decision Gate, and outcome tracking.
             </p>
@@ -1053,7 +1053,7 @@ export default function ProductPage() {
 
           {/* Animated gate flow */}
           <Reveal delay={0.15}>
-            <div className="rounded-2xl border border-white/8 bg-white/2 p-6 sm:p-8 mb-10">
+            <div className="rounded-2xl border border-border/50 bg-card/40 p-6 sm:p-8 mb-10">
               <DecisionGateViz />
             </div>
           </Reveal>
@@ -1063,7 +1063,7 @@ export default function ProductPage() {
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold text-white border border-white/12 bg-white/5 hover:bg-white/10 transition-all"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground border border-border bg-muted/30 hover:bg-muted/50 transition-all"
               >
                 <Bot className="h-4 w-4 text-amber-400" />
                 Explore the Agent System
@@ -1075,7 +1075,7 @@ export default function ProductPage() {
       </section>
 
       {/* ── Agent Feed Section ── */}
-      <section className="py-16 sm:py-24 bg-[#030712]">
+      <section className="py-16 sm:py-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal>
@@ -1086,10 +1086,10 @@ export default function ProductPage() {
                   </div>
                   <span className="text-xs font-semibold uppercase tracking-widest text-emerald-400">Live Intelligence</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                   Every agent decision, structured and tracked
                 </h2>
-                <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+                <p className="text-sm sm:text-base text-foreground/60 leading-relaxed mb-6">
                   Agents propose decisions with assumptions, expected outcomes, and confidence scores.
                   The Decision Gate evaluates every action through organizational memory and risk modeling.
                   Nothing slips through untracked.
@@ -1103,7 +1103,7 @@ export default function ProductPage() {
                   ].map(f => (
                     <li key={f} className="flex items-start gap-3">
                       <CheckCircle2 className="h-4 w-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-xs sm:text-sm text-white/50">{f}</span>
+                      <span className="text-xs sm:text-sm text-foreground/60">{f}</span>
                     </li>
                   ))}
                 </ul>

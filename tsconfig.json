@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,29 +18,75 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/*": ["./src/app/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/features/*": ["./src/features/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/store/*": ["./src/store/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/types": ["./src/lib/types/index.ts"],
-      "@/types/*": ["./src/lib/types/*"],
-      "@/utils": ["./src/lib/utils/index.ts"],
-      "@/utils/*": ["./src/lib/utils/*"],
-      "@/constants": ["./src/lib/constants/index.ts"],
-      "@/constants/*": ["./src/lib/constants/*"],
-      "@/validations/*": ["./src/lib/validations/*"],
-      "@/supabase": ["./src/lib/supabase/index.ts"],
-      "@/supabase/*": ["./src/lib/supabase/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/features/*": [
+        "./src/features/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/store/*": [
+        "./src/store/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "@/types": [
+        "./src/lib/types/index.ts"
+      ],
+      "@/types/*": [
+        "./src/lib/types/*"
+      ],
+      "@/utils": [
+        "./src/lib/utils/index.ts"
+      ],
+      "@/utils/*": [
+        "./src/lib/utils/*"
+      ],
+      "@/constants": [
+        "./src/lib/constants/index.ts"
+      ],
+      "@/constants/*": [
+        "./src/lib/constants/*"
+      ],
+      "@/validations/*": [
+        "./src/lib/validations/*"
+      ],
+      "@/supabase": [
+        "./src/lib/supabase/index.ts"
+      ],
+      "@/supabase/*": [
+        "./src/lib/supabase/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

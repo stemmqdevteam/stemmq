@@ -88,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=JSON.parse(localStorage.getItem('stemmq:ui')||'{}');var t=s.state?.theme||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+            __html: `(function(){try{var s=JSON.parse(localStorage.getItem('stemmq:ui')||'{}');var t=s.state?.theme||'system';if(t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();(function(){requestAnimationFrame(function(){document.documentElement.setAttribute('data-theme-ready','1')})})()`,
           }}
         />
       </head>

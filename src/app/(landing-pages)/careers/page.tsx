@@ -294,7 +294,7 @@ function CareersHero() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-[#030712]"
+      className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-background"
     >
       {/* Background */}
       <div
@@ -325,7 +325,7 @@ function CareersHero() {
         </Reveal>
 
         <Reveal delay={0.07}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
             Build the future of{" "}
             <span
               style={{
@@ -342,7 +342,7 @@ function CareersHero() {
         </Reveal>
 
         <Reveal delay={0.14}>
-          <p className="text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
             A small, focused team building infrastructure that changes how
             organizations think and decide. Every person here owns a meaningful
             piece of that work.
@@ -351,7 +351,7 @@ function CareersHero() {
 
         {/* Stats strip */}
         <Reveal delay={0.2}>
-          <div className="inline-flex items-center gap-0 rounded-2xl border border-white/8 bg-white/3 overflow-hidden mb-10">
+          <div className="inline-flex items-center gap-0 rounded-2xl border border-border/50 bg-card/40 overflow-hidden mb-10">
             {[
               { value: "18", label: "Team members", color: "#6366f1" },
               { value: "12", label: "Countries", color: "#a855f7" },
@@ -360,7 +360,7 @@ function CareersHero() {
             ].map((s, i, arr) => (
               <div
                 key={s.label}
-                className={`px-5 sm:px-7 py-3 sm:py-4 text-center ${i < arr.length - 1 ? "border-r border-white/6" : ""}`}
+                className={`px-5 sm:px-7 py-3 sm:py-4 text-center ${i < arr.length - 1 ? "border-r border-border/50" : ""}`}
               >
                 <p
                   className="text-lg sm:text-2xl font-bold tabular-nums"
@@ -368,7 +368,7 @@ function CareersHero() {
                 >
                   {s.value}
                 </p>
-                <p className="text-[10px] sm:text-xs text-white/30 mt-0.5">
+                <p className="text-[10px] sm:text-xs text-foreground/30 mt-0.5">
                   {s.label}
                 </p>
               </div>
@@ -398,7 +398,7 @@ function CareersHero() {
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-muted-foreground border border-border/50 bg-muted/30 hover:bg-muted/60 hover:text-foreground transition-all w-full sm:w-auto justify-center"
               >
                 Send us a note
               </motion.button>
@@ -416,13 +416,13 @@ function CareersHero() {
 
 function WhySection() {
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-card/40 border-y border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             Why StemmQ
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             We treat our people like we treat{" "}
             <span
               style={{
@@ -435,7 +435,7 @@ function WhySection() {
               decisions
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             With structure, transparency, and a commitment to getting better
             over time.
           </p>
@@ -449,7 +449,7 @@ function WhySection() {
               <Reveal key={b.title} delay={i * 0.07}>
                 <motion.div
                   whileHover={{ y: -5 }}
-                  className="group relative rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6 overflow-hidden transition-all hover:border-white/15 h-full"
+                  className="group relative rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-6 overflow-hidden transition-all hover:border-border h-full"
                 >
                   <div
                     className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
@@ -467,10 +467,10 @@ function WhySection() {
                     >
                       <Icon className="h-5 w-5" style={{ color: b.color }} />
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-white mb-2">
+                    <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">
                       {b.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-white/50 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {b.desc}
                     </p>
                   </div>
@@ -482,8 +482,8 @@ function WhySection() {
 
         {/* Additional perks strip */}
         <Reveal>
-          <div className="rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-7">
-            <p className="text-[10px] text-white/30 uppercase tracking-widest font-semibold mb-4">
+          <div className="rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-7">
+            <p className="text-[10px] text-foreground/30 uppercase tracking-widest font-semibold mb-4">
               Additional Perks
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -492,7 +492,7 @@ function WhySection() {
                   <div className="h-5 w-5 rounded-full bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center flex-shrink-0">
                     <CheckCircle2 className="h-3 w-3 text-indigo-400" />
                   </div>
-                  <span className="text-xs sm:text-sm text-white/55">
+                  <span className="text-xs sm:text-sm text-muted-foreground">
                     {perk}
                   </span>
                 </div>
@@ -511,13 +511,13 @@ function WhySection() {
 
 function TeamValuesSection() {
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-xs font-medium text-violet-300 mb-4">
             Culture
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             How we work{" "}
             <span
               style={{
@@ -530,7 +530,7 @@ function TeamValuesSection() {
               together
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-sm mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-sm mx-auto">
             The values we hire for, promote on, and hold ourselves to.
           </p>
         </Reveal>
@@ -544,7 +544,7 @@ function TeamValuesSection() {
               <Reveal key={v.title} delay={i * 0.08}>
                 <motion.div
                   whileHover={{ y: -5 }}
-                  className="group rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6 text-center hover:border-white/15 transition-all h-full"
+                  className="group rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-6 text-center hover:border-border transition-all h-full"
                 >
                   <div
                     className="h-12 w-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
@@ -555,10 +555,10 @@ function TeamValuesSection() {
                   >
                     <Icon className="h-6 w-6" style={{ color }} />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white mb-2">
+                  <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">
                     {v.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/45 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {v.desc}
                   </p>
                 </motion.div>
@@ -585,11 +585,11 @@ function OpenRoleCard({
   return (
     <motion.div
       whileHover={{ x: 4 }}
-      className="group flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-white/8 bg-white/2 hover:border-white/18 hover:bg-white/4 transition-all"
+      className="group flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-border/50 bg-card/40 hover:border-border hover:bg-muted/30 transition-all"
     >
       <div className="flex-1 min-w-0 mr-4">
         <div className="flex items-center gap-2 flex-wrap mb-1">
-          <p className="text-xs sm:text-sm font-semibold text-white/85 group-hover:text-white transition-colors">
+          <p className="text-xs sm:text-sm font-semibold text-foreground/80 group-hover:text-foreground transition-colors">
             {role.title}
           </p>
           {role.hot && (
@@ -606,10 +606,10 @@ function OpenRoleCard({
           )}
         </div>
         <div className="flex items-center flex-wrap gap-2">
-          <span className="text-[10px] sm:text-xs text-white/35 flex items-center gap-1">
+          <span className="text-[10px] sm:text-xs text-muted-foreground flex items-center gap-1">
             <MapPin className="h-3 w-3" /> {role.location}
           </span>
-          <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full border border-white/8 bg-white/3 text-white/35">
+          <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full border border-border/50 bg-card/40 text-muted-foreground">
             {role.type}
           </span>
         </div>
@@ -639,14 +639,14 @@ function OpenRolesSection() {
   return (
     <section
       id="roles"
-      className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5"
+      className="py-16 sm:py-20 bg-card/40 border-y border-border/50"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-1.5 text-xs font-medium text-emerald-300 mb-4">
             <Briefcase className="h-3.5 w-3.5" /> Open Roles
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             {totalRoles} open{" "}
             <span
               style={{
@@ -659,7 +659,7 @@ function OpenRolesSection() {
               positions
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             We hire for slope, not just current ability. If you're curious and
             care deeply about the problem, apply.
           </p>
@@ -671,13 +671,13 @@ function OpenRolesSection() {
             const isOpen = openDept === dept.dept || openDept === null;
             return (
               <Reveal key={dept.dept} delay={di * 0.06}>
-                <div className="rounded-2xl border border-white/8 bg-white/2 overflow-hidden">
+                <div className="rounded-2xl border border-border/50 bg-card/40 overflow-hidden">
                   {/* Dept header */}
                   <button
                     onClick={() =>
                       setOpenDept(openDept === dept.dept ? null : dept.dept)
                     }
-                    className="w-full flex items-center justify-between px-4 sm:px-5 py-3.5 hover:bg-white/3 transition-colors"
+                    className="w-full flex items-center justify-between px-4 sm:px-5 py-3.5 hover:bg-muted/20 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <div
@@ -693,7 +693,7 @@ function OpenRolesSection() {
                         />
                       </div>
                       <div className="text-left">
-                        <span className="text-xs sm:text-sm font-bold text-white">
+                        <span className="text-xs sm:text-sm font-bold text-foreground">
                           {dept.dept}
                         </span>
                         <span
@@ -712,7 +712,7 @@ function OpenRolesSection() {
                       transition={{ duration: 0.25 }}
                     >
                       <ChevronDown
-                        className={`h-4 w-4 transition-colors ${openDept === dept.dept ? "text-white/60" : "text-white/25"}`}
+                        className={`h-4 w-4 transition-colors ${openDept === dept.dept ? "text-foreground/80" : "text-muted-foreground"}`}
                       />
                     </motion.div>
                   </button>
@@ -727,7 +727,7 @@ function OpenRolesSection() {
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-3 sm:px-4 pb-3 space-y-2 border-t border-white/6 pt-3">
+                        <div className="px-3 sm:px-4 pb-3 space-y-2 border-t border-border/50 pt-3">
                           {dept.roles.map((role, ri) => (
                             <OpenRoleCard
                               key={ri}
@@ -759,13 +759,13 @@ function InterviewSection() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             Interview Process
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Transparent{" "}
             <span
               style={{
@@ -778,7 +778,7 @@ function InterviewSection() {
               from the start
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             We respect your time. Our process is async-friendly and designed to
             give you as much signal as you give us.
           </p>
@@ -786,7 +786,7 @@ function InterviewSection() {
 
         <div ref={ref} className="relative max-w-2xl mx-auto">
           {/* Vertical connector */}
-          <div className="absolute left-5 top-6 bottom-6 w-px bg-white/6 hidden sm:block" />
+          <div className="absolute left-5 top-6 bottom-6 w-px bg-border/50 hidden sm:block" />
 
           <div className="space-y-3">
             {interviewSteps.map((step, i) => (
@@ -798,8 +798,8 @@ function InterviewSection() {
                 onClick={() => setActiveStep(i)}
                 className={`relative flex items-start gap-4 p-4 sm:pl-16 rounded-2xl border cursor-pointer transition-all ${
                   activeStep === i
-                    ? "border-white/18 bg-white/4"
-                    : "border-white/6 bg-white/2 hover:border-white/12"
+                    ? "border-border bg-muted/30"
+                    : "border-border/50 bg-card/40 hover:border-border"
                 }`}
                 style={
                   activeStep === i
@@ -842,10 +842,10 @@ function InterviewSection() {
                 </div>
 
                 <div className="flex-1">
-                  <p className="text-xs sm:text-sm font-bold text-white mb-1">
+                  <p className="text-xs sm:text-sm font-bold text-foreground mb-1">
                     {step.title}
                   </p>
-                  <p className="text-xs sm:text-sm text-white/50 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -870,15 +870,15 @@ function InterviewSection() {
 
           {/* Timeline note */}
           <Reveal delay={0.5}>
-            <div className="mt-5 rounded-2xl border border-white/6 bg-white/2 p-4 flex items-start gap-3">
+            <div className="mt-5 rounded-2xl border border-border/50 bg-card/40 p-4 flex items-start gap-3">
               <div className="h-8 w-8 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0">
                 <Zap className="h-4 w-4 text-emerald-400" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-white/70 mb-0.5">
+                <p className="text-xs font-semibold text-foreground/80 mb-0.5">
                   Typical timeline: 2–3 weeks total
                 </p>
-                <p className="text-xs text-white/35">
+                <p className="text-xs text-muted-foreground">
                   From first application to offer. We move fast and communicate
                   proactively at every step.
                 </p>
@@ -918,12 +918,12 @@ function TeamQuoteSection() {
   ];
 
   return (
-    <section className="py-12 sm:py-14 border-y border-white/5 bg-white/[0.01]">
+    <section className="py-12 sm:py-14 border-y border-border/50 bg-card/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
           {quotes.map((q, i) => (
             <Reveal key={i} delay={i * 0.08}>
-              <div className="rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6 h-full">
+              <div className="rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-6 h-full">
                 <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: 5 }).map((_, j) => (
                     <Star
@@ -932,7 +932,7 @@ function TeamQuoteSection() {
                     />
                   ))}
                 </div>
-                <p className="text-xs sm:text-sm text-white/65 leading-relaxed mb-5 italic">
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed mb-5 italic">
                   "{q.text}"
                 </p>
                 <div className="flex items-center gap-2.5">
@@ -945,10 +945,10 @@ function TeamQuoteSection() {
                     {q.author[0]}
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-white/65">
+                    <p className="text-xs font-semibold text-foreground/80">
                       {q.author}
                     </p>
-                    <p className="text-[10px] text-white/30">
+                    <p className="text-[10px] text-foreground/30">
                       {q.tenure} at StemmQ
                     </p>
                   </div>
@@ -968,7 +968,7 @@ function TeamQuoteSection() {
 
 function CareersCTA() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/50">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center relative overflow-hidden">
@@ -990,10 +990,10 @@ function CareersCTA() {
                   </div>
                 ))}
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Don't see your role?
               </h2>
-              <p className="text-sm text-white/45 max-w-md mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-7">
                 We're always interested in meeting exceptional people. If you
                 believe in what we're building, send us a note — we'd love to
                 hear from you.

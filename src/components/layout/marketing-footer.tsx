@@ -56,13 +56,13 @@ const socials = [
 function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <p className="text-[10px] font-bold text-white/35 uppercase tracking-widest mb-3.5">{title}</p>
+      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-3.5">{title}</p>
       <ul className="space-y-2.5">
         {links.map((link) => (
           <li key={link.label}>
             <Link
               href={link.href}
-              className="text-sm text-white/50 hover:text-white/90 transition-colors leading-none"
+              className="text-sm text-foreground/55 hover:text-foreground transition-colors leading-none"
             >
               {link.label}
             </Link>
@@ -89,8 +89,8 @@ function Newsletter() {
 
   return (
     <div>
-      <p className="text-sm font-semibold text-white mb-1">Stay up to date</p>
-      <p className="text-xs text-white/40 mb-3.5 leading-relaxed">
+      <p className="text-sm font-semibold text-foreground mb-1">Stay up to date</p>
+      <p className="text-xs text-muted-foreground mb-3.5 leading-relaxed">
         Decision intelligence insights, product updates, and more.
       </p>
 
@@ -109,7 +109,7 @@ function Newsletter() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              className="flex-1 min-w-0 h-9 rounded-lg border border-white/10 bg-white/5 px-3 text-xs text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all"
+              className="flex-1 min-w-0 h-9 rounded-lg border border-border bg-muted/40 px-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--ring)]/40 focus:border-[var(--ring)]/40 transition-all"
             />
             <motion.button
               type="submit"
@@ -133,7 +133,7 @@ function Newsletter() {
 
 function MarketingFooter() {
   return (
-    <footer className="bg-[#030712] border-t border-white/6">
+    <footer className="bg-background border-t border-border/40">
 
       {/* ── Top section ── */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
@@ -149,10 +149,10 @@ function MarketingFooter() {
               >
                 <Brain className="h-4 w-4 text-white" />
               </div>
-              <span className="text-base font-bold text-white tracking-tight">StemmQ</span>
+              <span className="text-base font-bold text-foreground tracking-tight">StemmQ</span>
             </Link>
 
-            <p className="text-xs sm:text-sm text-white/40 leading-relaxed mb-5 max-w-xs">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-5 max-w-xs">
               Decision Intelligence Infrastructure for the Enterprise. Make better strategic decisions that compound over time.
             </p>
 
@@ -167,7 +167,7 @@ function MarketingFooter() {
                   whileHover={{ scale: 1.12, y: -1 }}
                   whileTap={{ scale: 0.92 }}
                   aria-label={s.label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/4 text-white/40 hover:text-white hover:border-white/20 hover:bg-white/8 transition-all"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-muted/30 text-muted-foreground hover:text-foreground hover:border-border/60 hover:bg-muted/60 transition-all"
                 >
                   {s.icon}
                 </motion.a>
@@ -199,13 +199,13 @@ function MarketingFooter() {
       </div>
 
       {/* ── Divider ── */}
-      <div className="h-px mx-4 sm:mx-6 max-w-7xl sm:mx-auto" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }} />
+      <div className="h-px mx-4 sm:mx-6 max-w-7xl sm:mx-auto" style={{ background: "linear-gradient(90deg, transparent, var(--border), transparent)" }} />
 
       {/* ── Bottom bar ── */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
           {/* Copyright */}
-          <p className="text-[11px] text-white/25 order-2 sm:order-1">
+          <p className="text-[11px] text-foreground/30 order-2 sm:order-1">
             © {new Date().getFullYear()} StemmQ, Inc. All rights reserved.
           </p>
 
@@ -220,7 +220,7 @@ function MarketingFooter() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-[11px] text-white/30 hover:text-white/60 transition-colors"
+                className="text-[11px] text-foreground/35 hover:text-foreground/65 transition-colors"
               >
                 {link.label}
               </Link>
@@ -232,7 +232,7 @@ function MarketingFooter() {
             <div className="h-4 w-4 rounded bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
               <CheckCircle2 className="h-2.5 w-2.5 text-emerald-400" />
             </div>
-            <span className="text-[10px] text-white/25 font-semibold">SOC 2 Certified</span>
+            <span className="text-[10px] text-foreground/35 font-semibold">SOC 2 Certified</span>
           </div>
         </div>
       </div>

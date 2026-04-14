@@ -470,7 +470,7 @@ export default function BlogPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <BlogHero search={search} setSearch={setSearch} />
 

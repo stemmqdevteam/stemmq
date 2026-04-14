@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"bg-\\\\[#\\\\|text-white\\\\b\" /c/Users/HomePC/Desktop/stemmq/src/components/marketing/*.tsx)",
+      "Bash(grep -n \"border-white/\" src/**/*.tsx)",
+      "Bash(grep -n \"bg-white/\" src/**/*.tsx)",
+      "Bash(find c:/Users/HomePC/Desktop/stemmq/src -name \"*.tsx\" -type f -exec grep -l \"bg-\\\\[#0\" {} \\\\;)",
+      "Bash(find c:/Users/HomePC/Desktop/stemmq/src -name \"*.tsx\" -type f -exec grep -l \"bg-\\\\[#1\" {} \\\\;)",
+      "Bash(find c:/Users/HomePC/Desktop/stemmq/src -name \"*.tsx\" -type f -exec grep -l \"text-white\" {} \\\\;)"
+    ]
+  }
+}

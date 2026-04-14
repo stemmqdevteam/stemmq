@@ -11,7 +11,7 @@ function CTASection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative py-20 sm:py-24 overflow-hidden bg-[#030712]">
+    <section ref={ref} className="relative py-20 sm:py-24 overflow-hidden bg-background">
 
       {/* Ambient orbs */}
       <motion.div
@@ -46,9 +46,9 @@ function CTASection() {
           {[Brain, Shield, TrendingUp].map((Icon, i) => (
             <div
               key={i}
-              className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
+              className="h-9 w-9 rounded-xl bg-muted/50 border border-border flex items-center justify-center"
             >
-              <Icon className="h-4 w-4 text-white/40" />
+              <Icon className="h-4 w-4 text-muted-foreground" />
             </div>
           ))}
         </motion.div>
@@ -58,7 +58,7 @@ function CTASection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.07 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.08]"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.08]"
         >
           Ready to make decisions that{" "}
           <span
@@ -78,7 +78,7 @@ function CTASection() {
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.14 }}
-          className="mt-5 text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto leading-relaxed"
+          className="mt-5 text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed"
         >
           Build your strategic decision infrastructure from day one.
           Start free — no credit card required.
@@ -111,7 +111,7 @@ function CTASection() {
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/60 hover:text-foreground transition-all w-full sm:w-auto justify-center"
             >
               Talk to Sales
             </motion.button>
@@ -123,7 +123,7 @@ function CTASection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.35 }}
-          className="mt-5 text-[11px] text-white/20"
+          className="mt-5 text-[11px] text-foreground/30"
         >
           No credit card required · 14-day Pro trial · Cancel anytime
         </motion.p>

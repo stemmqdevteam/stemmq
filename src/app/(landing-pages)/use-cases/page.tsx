@@ -229,7 +229,7 @@ function UseCasesHero({ activeTeam, setActiveTeam }: {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 bg-background">
       <AnimatedGradient intensity="medium" />
       <Orb delay={0} className="absolute top-[-8%] left-[-3%] w-[440px] h-[440px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
       <Orb delay={3} className="absolute bottom-[-5%] right-[-3%] w-[380px] h-[380px] rounded-full bg-violet-600/8 blur-[90px] pointer-events-none" />
@@ -243,7 +243,7 @@ function UseCasesHero({ activeTeam, setActiveTeam }: {
           </span>
         </Reveal>
         <Reveal delay={0.07}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-4">
             Built for teams that{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               move the needle
@@ -251,7 +251,7 @@ function UseCasesHero({ activeTeam, setActiveTeam }: {
           </h1>
         </Reveal>
         <Reveal delay={0.14}>
-          <p className="text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
             From scrappy startups to enterprise orgs, StemmQ adapts to how your team makes decisions —
             then makes those decisions better over time.
           </p>
@@ -434,7 +434,7 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
   const Icon = team.icon;
 
   return (
-    <section className="py-12 sm:py-16 bg-white/[0.015] border-y border-white/5">
+    <section className="py-12 sm:py-16 bg-card/40 border-y border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <AnimatePresence mode="wait">
           <motion.div
@@ -454,7 +454,7 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
                 </div>
                 <div>
                   <p className="text-xs font-bold" style={{ color: team.color }}>{team.label} Teams</p>
-                  <p className="text-[10px] text-white/35">{team.tagline}</p>
+                  <p className="text-[10px] text-muted-foreground">{team.tagline}</p>
                 </div>
               </div>
 
@@ -464,7 +464,7 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
                   <XCircle className="h-3.5 w-3.5 text-red-400 flex-shrink-0" />
                   <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">The Problem</span>
                 </div>
-                <p className="text-xs sm:text-sm text-white/65 leading-relaxed">{team.problem}</p>
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">{team.problem}</p>
               </div>
 
               {/* Solution */}
@@ -473,7 +473,7 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
                   <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0" style={{ color: team.color }} />
                   <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: team.color }}>The StemmQ Way</span>
                 </div>
-                <p className="text-xs sm:text-sm text-white/65 leading-relaxed">{team.solution}</p>
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">{team.solution}</p>
               </div>
 
               {/* Outcomes */}
@@ -489,7 +489,7 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
                       style={{ background: `${team.color}15`, border: `1px solid ${team.color}25` }}>
                       <CheckCircle2 className="h-3 w-3" style={{ color: team.color }} />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/60">{outcome}</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">{outcome}</span>
                   </motion.div>
                 ))}
               </div>
@@ -524,17 +524,17 @@ function ActiveTeamSection({ activeTeam }: { activeTeam: string }) {
 
 function StatsSection() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-b border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-b border-border/50">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.07}>
               <motion.div
                 whileHover={{ y: -4, borderColor: `${stat.color}30` }}
-                className="text-center p-4 sm:p-6 rounded-2xl border border-white/8 bg-white/2 transition-all"
+                className="text-center p-4 sm:p-6 rounded-2xl border border-border/50 bg-card/40 transition-all"
               >
                 <p className="text-2xl sm:text-3xl md:text-4xl font-bold tabular-nums mb-2" style={{ color: stat.color }}>{stat.value}</p>
-                <p className="text-[10px] sm:text-xs text-white/35 leading-snug">{stat.label}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug">{stat.label}</p>
               </motion.div>
             </Reveal>
           ))}
@@ -550,19 +550,19 @@ function StatsSection() {
 
 function AllTeamsGrid({ setActiveTeam }: { setActiveTeam: (id: string) => void }) {
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             All Teams
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             One platform.{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               Every team.
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             StemmQ works where your team works — and connects decisions across the org.
           </p>
         </Reveal>
@@ -578,7 +578,7 @@ function AllTeamsGrid({ setActiveTeam }: { setActiveTeam: (id: string) => void }
                     setActiveTeam(team.id);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  className="group relative rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6 cursor-pointer overflow-hidden transition-all h-full"
+                  className="group relative rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-6 cursor-pointer overflow-hidden transition-all h-full"
                 >
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                     style={{ background: `radial-gradient(circle at 20% 20%, ${team.color}08, transparent 60%)` }} />
@@ -590,13 +590,13 @@ function AllTeamsGrid({ setActiveTeam }: { setActiveTeam: (id: string) => void }
                       </div>
                       <ChevronRight className="h-4 w-4 text-white/20 group-hover:text-white/50 group-hover:translate-x-1 transition-all" />
                     </div>
-                    <p className="text-sm font-bold text-white mb-1">{team.label} Teams</p>
-                    <p className="text-xs text-white/40 mb-4 leading-snug">{team.tagline}</p>
+                    <p className="text-sm font-bold text-foreground mb-1">{team.label} Teams</p>
+                    <p className="text-xs text-muted-foreground mb-4 leading-snug">{team.tagline}</p>
                     <div className="space-y-1.5">
                       {team.outcomes.slice(0, 2).map((o, j) => (
                         <div key={j} className="flex items-start gap-2">
                           <div className="h-1.5 w-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: team.color }} />
-                          <span className="text-[10px] sm:text-xs text-white/40 leading-snug">{o}</span>
+                          <span className="text-[10px] sm:text-xs text-muted-foreground leading-snug">{o}</span>
                         </div>
                       ))}
                     </div>
@@ -619,13 +619,13 @@ function TestimonialsSection() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-card/40 border-y border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             What Teams Say
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Decision intelligence{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               in practice
@@ -640,7 +640,7 @@ function TestimonialsSection() {
                 whileHover={{ y: -5 }}
                 onClick={() => setActive(i)}
                 className={`rounded-2xl border p-5 sm:p-6 cursor-pointer transition-all h-full ${
-                  active === i ? "border-indigo-500/40 bg-indigo-500/6" : "border-white/8 bg-white/2 hover:border-white/15"
+                  active === i ? "border-indigo-500/40 bg-indigo-500/6" : "border-border/50 bg-card/40 hover:border-border"
                 }`}
               >
                 {/* Stars */}
@@ -650,15 +650,15 @@ function TestimonialsSection() {
                   ))}
                 </div>
                 <Quote className="h-5 w-5 text-indigo-400/30 mb-2" />
-                <p className="text-xs sm:text-sm text-white/70 leading-relaxed mb-5">"{q.quote}"</p>
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed mb-5">"{q.quote}"</p>
                 <div className="flex items-center gap-3">
                   <div className="h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
                     style={{ background: `linear-gradient(135deg, ${q.color}, ${q.color}88)` }}>
                     {q.initials}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-white truncate">{q.name}</p>
-                    <p className="text-[10px] text-white/35 truncate">{q.role} · {q.company}</p>
+                    <p className="text-xs font-semibold text-foreground truncate">{q.name}</p>
+                    <p className="text-[10px] text-muted-foreground truncate">{q.role} · {q.company}</p>
                   </div>
                 </div>
               </motion.div>
@@ -685,19 +685,19 @@ function TestimonialsSection() {
 function BottomCTA({ activeTeam }: { activeTeam: string }) {
   const team = teams.find(t => t.id === activeTeam)!;
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/50">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none"
               style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.15), transparent 60%)" }} />
             <div className="relative">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Ready to make your{" "}
                 <span style={{ color: team.color }}>{team.label.toLowerCase()}</span> decisions{" "}
                 smarter?
               </h2>
-              <p className="text-sm text-white/45 max-w-md mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-7">
                 Join 2,400+ teams using StemmQ to build decision infrastructure that compounds over time.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -714,12 +714,12 @@ function BottomCTA({ activeTeam }: { activeTeam: string }) {
                 </Link>
                 <Link href={ROUTES.product}>
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/80 border border-border/50 bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     Explore the Platform
                   </motion.button>
                 </Link>
               </div>
-              <p className="text-[11px] text-white/20 mt-4">No credit card required · 14-day Pro trial</p>
+              <p className="text-[11px] text-foreground/30 mt-4">No credit card required · 14-day Pro trial</p>
             </div>
           </div>
         </Reveal>
@@ -736,7 +736,7 @@ export default function UseCasesPage() {
   const [activeTeam, setActiveTeam] = useState("marketing");
 
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <UseCasesHero activeTeam={activeTeam} setActiveTeam={setActiveTeam} />
       <ActiveTeamSection activeTeam={activeTeam} />

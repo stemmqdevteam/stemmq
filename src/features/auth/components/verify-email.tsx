@@ -18,7 +18,7 @@ export function VerifyEmail() {
           <Mail className="w-6 h-6 text-accent-600" />
         </div>
         <h2 className="font-display text-2xl font-bold mb-2">Check your inbox</h2>
-        <p className="text-surface-500 text-sm mb-8">
+        <p className="text-muted-foreground text-sm mb-8">
           We sent you a magic link. Click it to sign in — it expires in 10 minutes.
         </p>
         <Link href="/login" className={buttonClass({ variant: 'ghost', className: 'w-full' })}>

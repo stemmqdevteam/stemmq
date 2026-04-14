@@ -22,8 +22,8 @@ export function AuthError() {
           <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
         </div>
         <h2 className="font-display text-2xl font-bold mb-2">Authentication failed</h2>
-        <p className="text-surface-500 text-sm mb-2">{message}</p>
-        <p className="text-surface-400 text-xs mb-8">The link may have expired or already been used.</p>
+        <p className="text-muted-foreground text-sm mb-2">{message}</p>
+        <p className="text-muted-foreground/70 text-xs mb-8">The link may have expired or already been used.</p>
         <div className="flex flex-col gap-3">
           <Link href="/login" className={buttonClass({ variant: 'primary', className: 'w-full' })}>
             Try again
