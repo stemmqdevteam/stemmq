@@ -86,7 +86,7 @@ export function SignupForm() {
     getValues,
     formState: { errors, isSubmitting },
   } = useForm<SignupInput>({
-    resolver: zodResolver(signupSchema),
+    resolver: zodResolver(signupSchema as any ),
     defaultValues: { full_name: '', email: '', org_name: '' },
   })
 
@@ -219,7 +219,7 @@ export function SignupForm() {
 
             <div className="space-y-4">
               <Input
-                name="full_name"
+                // name="full_name"
                 label="Full name"
                 placeholder="Alex Johnson"
                 autoComplete="name"
@@ -230,7 +230,7 @@ export function SignupForm() {
               />
               <Input
                 type="email"
-                name="email"
+                // name="email"
                 label="Work email"
                 placeholder="you@company.com"
                 autoComplete="email"
@@ -261,7 +261,7 @@ export function SignupForm() {
           >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
               <Input
-                name="org_name"
+                // name="org_name"
                 label="Organization name"
                 placeholder="Acme Corp"
                 autoFocus

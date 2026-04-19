@@ -52,7 +52,7 @@ export function LoginForm() {
     handleSubmit,
     getValues,
     formState: { errors, isSubmitting },
-  } = useForm<LoginInput>({ resolver: zodResolver(loginSchema) })
+  } = useForm<LoginInput>({ resolver: zodResolver(loginSchema as any) })
 
   const onSubmit = async ({ email }: LoginInput) => {
     const supabase = createClient()
@@ -152,7 +152,6 @@ export function LoginForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <Input
           type="email"
-          name="email"
           label="Email address"
           placeholder="you@company.com"
           autoComplete="email"

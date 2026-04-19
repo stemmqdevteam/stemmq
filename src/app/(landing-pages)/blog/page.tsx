@@ -127,7 +127,7 @@ const topics = [
 
 function ReadBadge({ time }: { time: string }) {
   return (
-    <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-white/30">
+    <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-muted-foreground">
       <Clock className="h-3 w-3" /> {time}
     </span>
   );
@@ -158,7 +158,7 @@ function BlogHero({ search, setSearch }: { search: string; setSearch: (v: string
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-background">
       <div className="absolute inset-0 pointer-events-none opacity-[0.022]"
         style={{ backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.8) 1px,transparent 1px)`, backgroundSize: "60px 60px" }} />
       <Orb delay={0} className="absolute top-[-8%] left-[-4%] w-[440px] h-[440px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
@@ -166,12 +166,12 @@ function BlogHero({ search, setSearch }: { search: string; setSearch: (v: string
 
       <motion.div style={{ y, opacity }} className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5 backdrop-blur-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5 backdrop-blur-sm">
             <BookOpen className="h-3.5 w-3.5" /> Decision Intelligence Blog
           </span>
         </Reveal>
         <Reveal delay={0.07}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-4">
             Decision Intelligence{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               Insights
@@ -179,7 +179,7 @@ function BlogHero({ search, setSearch }: { search: string; setSearch: (v: string
           </h1>
         </Reveal>
         <Reveal delay={0.13}>
-          <p className="text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
             Thought leadership on AI governance, strategic decision-making, and building organizations that learn over time.
           </p>
         </Reveal>
@@ -187,17 +187,17 @@ function BlogHero({ search, setSearch }: { search: string; setSearch: (v: string
         {/* Search bar */}
         <Reveal delay={0.19}>
           <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25 pointer-events-none" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             <input
               type="text"
               placeholder="Search articles…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full h-12 rounded-2xl border border-white/10 bg-white/5 pl-11 pr-5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all backdrop-blur-sm"
+              className="w-full h-12 rounded-2xl border border-border bg-muted/40 pl-11 pr-5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/40 transition-all backdrop-blur-sm"
             />
             {search && (
               <button onClick={() => setSearch("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors text-xs">
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground/60 transition-colors text-xs">
                 ✕
               </button>
             )}
@@ -218,7 +218,7 @@ function FeaturedPost() {
   return (
     <Reveal className="mb-6">
       <motion.div whileHover={{ y: -4 }}
-        className="group rounded-2xl border border-white/10 bg-white/2 overflow-hidden cursor-pointer transition-all hover:border-white/18 hover:bg-white/3 shadow-xl shadow-black/30"
+        className="group rounded-2xl border border-border/60 bg-card/30 overflow-hidden cursor-pointer transition-all hover:border-border hover:bg-card/50 shadow-xl shadow-black/10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-5">
           {/* Text side (3/5) */}
@@ -230,27 +230,27 @@ function FeaturedPost() {
               <CategoryBadge cat={featuredPost.category} size="md" />
             </div>
 
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight mb-4 group-hover:text-indigo-200 transition-colors">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4 group-hover:text-indigo-400 transition-colors">
               {featuredPost.title}
             </h2>
-            <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6 flex-1">{featuredPost.excerpt}</p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 flex-1">{featuredPost.excerpt}</p>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-6">
               {featuredPost.tags.map(tag => (
-                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/8 bg-white/3 text-white/35">{tag}</span>
+                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border/60 bg-muted/30 text-muted-foreground">{tag}</span>
               ))}
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-white/6">
+            <div className="flex items-center justify-between pt-4 border-t border-border/40">
               <div className="flex items-center gap-2.5">
                 <div className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
                   style={{ background: `linear-gradient(135deg, ${featuredPost.authorColor}, ${featuredPost.authorColor}88)` }}>
                   {featuredPost.authorInitials}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-white/75">{featuredPost.author}</p>
-                  <div className="flex items-center gap-2 text-[10px] text-white/30">
+                  <p className="text-xs font-semibold text-foreground/75">{featuredPost.author}</p>
+                  <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                     <Clock className="h-3 w-3" />
                     <span>{featuredPost.readTime}</span>
                     <span>·</span>
@@ -265,7 +265,7 @@ function FeaturedPost() {
           </div>
 
           {/* Visual side (2/5) */}
-          <div className="lg:col-span-2 min-h-[160px] lg:min-h-0 flex items-center justify-center p-8 relative overflow-hidden border-t lg:border-t-0 lg:border-l border-white/6"
+          <div className="lg:col-span-2 min-h-[160px] lg:min-h-0 flex items-center justify-center p-8 relative overflow-hidden border-t lg:border-t-0 lg:border-l border-border/40"
             style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.06), rgba(59,130,246,0.04))" }}>
             <div className="absolute inset-0 pointer-events-none" style={{
               background: "radial-gradient(circle at 60% 40%, rgba(99,102,241,0.15), transparent 60%)"
@@ -280,7 +280,7 @@ function FeaturedPost() {
               >
                 DG
               </motion.div>
-              <p className="text-xs text-white/30 font-medium uppercase tracking-widest">Decision Gate</p>
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">Decision Gate</p>
               {/* Orbiting dots */}
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 className="absolute inset-0 pointer-events-none">
@@ -311,7 +311,7 @@ function PostCard({ post, i }: { post: typeof posts[0]; i: number }) {
   return (
     <Reveal delay={i * 0.06}>
       <motion.div whileHover={{ y: -5 }}
-        className="group relative flex flex-col rounded-2xl border border-white/8 bg-white/2 overflow-hidden h-full cursor-pointer transition-all hover:border-white/16 hover:bg-white/4"
+        className="group relative flex flex-col rounded-2xl border border-border/60 bg-card/30 overflow-hidden h-full cursor-pointer transition-all hover:border-border hover:bg-card/50"
       >
         {post.featured && (
           <div className="absolute top-3 right-3 z-10">
@@ -329,25 +329,25 @@ function PostCard({ post, i }: { post: typeof posts[0]; i: number }) {
           <div className="mb-3">
             <CategoryBadge cat={post.category} />
           </div>
-          <h3 className="text-sm sm:text-base font-bold text-white/85 mb-2.5 leading-snug group-hover:text-white transition-colors line-clamp-2">
+          <h3 className="text-sm sm:text-base font-bold text-foreground/85 mb-2.5 leading-snug group-hover:text-foreground transition-colors line-clamp-2">
             {post.title}
           </h3>
-          <p className="text-xs sm:text-sm text-white/40 leading-relaxed mb-4 line-clamp-2 flex-1">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2 flex-1">
             {post.excerpt}
           </p>
 
-          <div className="flex items-center justify-between pt-3 border-t border-white/6">
+          <div className="flex items-center justify-between pt-3 border-t border-border/40">
             <div className="flex items-center gap-2">
               <div className="h-6 w-6 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
                 style={{ background: `linear-gradient(135deg, ${post.authorColor}, ${post.authorColor}88)` }}>
                 {post.initials}
               </div>
-              <span className="text-[10px] sm:text-xs text-white/40">{post.author}</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground">{post.author}</span>
             </div>
             <div className="flex items-center gap-2">
               <ReadBadge time={post.readTime} />
               <motion.div whileHover={{ x: 2 }}>
-                <ArrowRight className="h-3.5 w-3.5 text-white/20 group-hover:text-indigo-400 transition-colors" />
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/50 group-hover:text-indigo-400 transition-colors" />
               </motion.div>
             </div>
           </div>
@@ -373,12 +373,14 @@ function TopicsFilter({ active, setActive }: { active: string; setActive: (t: st
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => setActive(topic)}
-            className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-medium transition-all"
-            style={{
-              borderColor: isActive ? (meta?.color ?? "#6366f1") + "50" : "rgba(255,255,255,0.08)",
-              background: isActive ? (meta?.color ?? "#6366f1") + "14" : "rgba(255,255,255,0.02)",
-              color: isActive ? (meta?.color ?? "#6366f1") : "rgba(255,255,255,0.35)",
-            }}
+            className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-medium transition-all ${
+              isActive ? "" : "border-border bg-muted/30 text-muted-foreground hover:border-border/80 hover:text-foreground"
+            }`}
+            style={isActive ? {
+              borderColor: (meta?.color ?? "#6366f1") + "50",
+              background: (meta?.color ?? "#6366f1") + "14",
+              color: meta?.color ?? "#6366f1",
+            } : undefined}
           >
             {topic}
           </motion.button>
@@ -403,7 +405,7 @@ function Newsletter() {
   };
 
   return (
-    <section className="py-14 sm:py-16 border-y border-white/5 bg-white/[0.01]">
+    <section className="py-14 sm:py-16 border-y border-border/30 bg-background">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 relative overflow-hidden">
@@ -413,10 +415,10 @@ function Newsletter() {
               <div className="h-12 w-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center mx-auto mb-4">
                 <Mail className="h-6 w-6 text-indigo-400" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Stay sharp on decision intelligence
               </h2>
-              <p className="text-sm text-white/40 mb-7 max-w-sm mx-auto">
+              <p className="text-sm text-muted-foreground mb-7 max-w-sm mx-auto">
                 New posts on AI governance, strategic decisions, and org intelligence. Every two weeks. No spam.
               </p>
 
@@ -435,7 +437,7 @@ function Newsletter() {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       required
-                      className="flex-1 h-11 rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
+                      className="flex-1 h-11 rounded-xl border border-border bg-muted/40 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
                     />
                     <motion.button type="submit" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                       className="h-11 px-5 rounded-xl text-sm font-semibold text-white flex-shrink-0"
@@ -446,7 +448,7 @@ function Newsletter() {
                 )}
               </AnimatePresence>
 
-              <p className="text-[10px] text-white/20 mt-4">No spam. Unsubscribe any time.</p>
+              <p className="text-[10px] text-foreground/20 mt-4">No spam. Unsubscribe any time.</p>
             </div>
           </div>
         </Reveal>
@@ -475,14 +477,14 @@ export default function BlogPage() {
       <BlogHero search={search} setSearch={setSearch} />
 
       {/* Featured */}
-      <section className="py-8 sm:py-10 bg-[#030712]">
+      <section className="py-8 sm:py-10 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {!search && activeTopic === "All" && <FeaturedPost />}
         </div>
       </section>
 
       {/* Topics filter */}
-      <section className="py-6 sm:py-8 border-y border-white/5 bg-white/[0.01]">
+      <section className="py-6 sm:py-8 border-y border-border/30 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
             <TopicsFilter active={activeTopic} setActive={setActiveTopic} />
@@ -491,7 +493,7 @@ export default function BlogPage() {
       </section>
 
       {/* Posts grid */}
-      <section className="py-10 sm:py-14 bg-[#030712]">
+      <section className="py-10 sm:py-14 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           {filtered.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -502,11 +504,11 @@ export default function BlogPage() {
           ) : (
             <Reveal>
               <div className="text-center py-16">
-                <div className="h-14 w-14 rounded-2xl bg-white/5 border border-white/8 flex items-center justify-center mx-auto mb-4">
-                  <Search className="h-6 w-6 text-white/25" />
+                <div className="h-14 w-14 rounded-2xl bg-muted/40 border border-border/60 flex items-center justify-center mx-auto mb-4">
+                  <Search className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <p className="text-white/50 font-semibold mb-1">No articles found</p>
-                <p className="text-xs text-white/30">Try a different search term or topic filter.</p>
+                <p className="text-foreground/50 font-semibold mb-1">No articles found</p>
+                <p className="text-xs text-muted-foreground">Try a different search term or topic filter.</p>
                 <button onClick={() => { setSearch(""); setActiveTopic("All"); }}
                   className="mt-4 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
                   Clear filters
@@ -519,7 +521,7 @@ export default function BlogPage() {
           {filtered.length > 0 && !search && activeTopic === "All" && (
             <Reveal delay={0.2} className="text-center mt-10">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-white/55 border border-white/10 bg-white/3 hover:bg-white/6 hover:text-white transition-all">
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/60 hover:text-foreground transition-all">
                 Load More Articles <ChevronRight className="h-4 w-4" />
               </motion.button>
             </Reveal>
@@ -528,13 +530,13 @@ export default function BlogPage() {
       </section>
 
       {/* Topics section */}
-      <section className="py-12 sm:py-14 border-t border-white/5 bg-white/[0.015]">
+      <section className="py-12 sm:py-14 border-t border-border/30 bg-background">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/25 bg-(--accent)/8 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5">
               All Topics
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Explore by category</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Explore by category</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <div className="flex flex-wrap justify-center gap-2">
@@ -547,7 +549,7 @@ export default function BlogPage() {
                     whileHover={{ scale: 1.05, y: -2 }}
                     onClick={() => { setActiveTopic(topic); document.getElementById("posts")?.scrollIntoView({ behavior: "smooth" }); }}
                     className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-xs font-medium transition-all"
-                    style={{ borderColor: meta ? `${meta.color}25` : "rgba(255,255,255,0.08)", background: meta ? `${meta.color}08` : "rgba(255,255,255,0.02)", color: meta ? `${meta.color}cc` : "rgba(255,255,255,0.35)" }}
+                    style={{ borderColor: meta ? `${meta.color}25` : "var(--border)", background: meta ? `${meta.color}08` : "var(--muted)", color: meta ? `${meta.color}cc` : "var(--muted-foreground)" }}
                   >
                     {meta && <Icon className="h-3 w-3" />}
                     {topic}

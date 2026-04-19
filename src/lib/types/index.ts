@@ -54,6 +54,10 @@ export interface OrgConfig {
 }
 
 export interface Organization {
+  industry: string
+  size: undefined
+  stage: undefined
+  website: string
   id:         string
   name:       string
   slug:       string

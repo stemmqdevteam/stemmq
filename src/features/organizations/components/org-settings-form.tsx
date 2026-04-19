@@ -1,7 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { Building2, Globe, Save } from 'lucide-react'
@@ -9,11 +9,11 @@ import { updateOrganization } from '@/features/organizations/actions'
 import { updateOrganizationSchema, type UpdateOrganizationInput } from '@/lib/validations/organization'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import { Input, Select } from '@/components/ui/input'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useOrgStore } from '@/store'
 import type { Organization } from '@/types'
+import { Input, Select } from '@/components/ui'
 
 const INDUSTRIES = [
   'Technology', 'Finance & Banking', 'Healthcare', 'E-commerce & Retail',
@@ -46,8 +46,8 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
   const { setOrg, updateConfig } = useOrgStore()
   const [isPending, startTransition] = useTransition()
 
-  const { register, handleSubmit, formState: { errors, isDirty } } = useForm<UpdateOrganizationInput>({
-    resolver: zodResolver(updateOrganizationSchema),
+  const { register, handleSubmit, control, formState: { errors, isDirty } } = useForm<UpdateOrganizationInput>({
+    resolver: zodResolver(updateOrganizationSchema as any),
     defaultValues: {
       name:     org.name,
       industry: org.industry ?? '',
@@ -65,7 +65,10 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
 
       if (result.success) {
         toast.success('Organization updated')
-        setOrg({ ...org, ...values })
+        const updatedValues = Object.fromEntries(
+          Object.entries(values).filter(([_, v]) => v !== undefined)
+        )
+        setOrg({ ...org, ...updatedValues } as Organization)
       } else {
         toast.error(result.error ?? 'Failed to update')
       }
@@ -76,16 +79,17 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
     <div className="space-y-6">
       {/* Profile card */}
       <Card>
-        <CardHeader
-          title="Organization profile"
-          description="Basic information about your workspace."
-          className="mb-6"
-          action={
-            <Badge variant={org.plan === 'free' ? 'default' : 'brand'} className="capitalize">
+        <CardHeader className="mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold">Organization profile</h3>
+              <p className="text-sm text-muted-foreground">Basic information about your workspace.</p>
+            </div>
+            <Badge variant="default" className="capitalize">
               {org.plan} plan
             </Badge>
-          }
-        />
+          </div>
+        </CardHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Input
@@ -97,29 +101,44 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
           />
 
           <div className="grid sm:grid-cols-2 gap-4">
-            <Select
-              label="Industry"
-              options={INDUSTRIES}
-              placeholder="Select industry"
-              disabled={!isAdmin}
-              {...register('industry')}
+            <Controller
+              name="industry"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  label="Industry"
+                  options={INDUSTRIES}
+                  placeholder="Select industry"
+                  value={field.value ?? ''}
+                  onChange={isAdmin ? field.onChange : () => { } } name={''} required={undefined}                />
+              )}
             />
-            <Select
-              label="Team size"
-              options={SIZES}
-              placeholder="Select size"
-              disabled={!isAdmin}
-              {...register('size')}
+            <Controller
+              name="size"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  label="Team size"
+                  options={SIZES}
+                  placeholder="Select size"
+                  value={field.value ?? ''}
+                  onChange={isAdmin ? field.onChange : () => { } } name={''} required={undefined}                />
+              )}
             />
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            <Select
-              label="Company stage"
-              options={STAGES}
-              placeholder="Select stage"
-              disabled={!isAdmin}
-              {...register('stage')}
+            <Controller
+              name="stage"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  label="Company stage"
+                  options={STAGES}
+                  placeholder="Select stage"
+                  value={field.value ?? ''}
+                  onChange={isAdmin ? field.onChange : () => { } } name={''} required={undefined}                />
+              )}
             />
             <Input
               label="Website"
@@ -148,11 +167,12 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
 
       {/* Config card */}
       <Card>
-        <CardHeader
-          title="Decision intelligence config"
-          description="Configure how StemmQ analyses your decisions."
-          className="mb-6"
-        />
+        <CardHeader className="mb-6">
+          <div>
+            <h3 className="text-lg font-semibold">Decision intelligence config</h3>
+            <p className="text-sm text-muted-foreground">Configure how StemmQ analyses your decisions.</p>
+          </div>
+        </CardHeader>
         <div className="space-y-4">
           {[
             { key: 'risk_profile', label: 'Risk profile', current: org.config?.risk_profile ?? 'moderate',
@@ -202,11 +222,12 @@ export function OrgSettingsForm({ org, isAdmin }: Props) {
       {/* Danger zone */}
       {isAdmin && (
         <Card className="border-red-100 ">
-          <CardHeader
-            title="Danger zone"
-            description="Irreversible actions. Proceed with caution."
-            className="mb-4"
-          />
+          <CardHeader className="mb-4">
+            <div>
+              <h3 className="text-lg font-semibold">Danger zone</h3>
+              <p className="text-sm text-muted-foreground">Irreversible actions. Proceed with caution.</p>
+            </div>
+          </CardHeader>
           <div className="flex items-center justify-between p-4 rounded-xl border border-red-100  bg-red-50/50 ">
             <div>
               <p className="text-sm font-medium text-red-700 ">Delete organization</p>

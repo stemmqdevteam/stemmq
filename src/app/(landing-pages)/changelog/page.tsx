@@ -164,7 +164,7 @@ function ChangelogHero() {
   const latestMeta = categoryMeta[latestVersion.category];
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-background">
       <div className="absolute inset-0 pointer-events-none opacity-[0.022]"
         style={{ backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.8) 1px,transparent 1px)`, backgroundSize: "52px 52px" }} />
       <Orb delay={0} className="absolute top-[-8%] left-[-3%] w-[400px] h-[400px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
@@ -174,17 +174,17 @@ function ChangelogHero() {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5">
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4 backdrop-blur-sm">
                 <TrendingUp className="h-3.5 w-3.5" /> Product Updates
               </span>
             </Reveal>
             <Reveal delay={0.07}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-3">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-3">
                 Changelog
               </h1>
             </Reveal>
             <Reveal delay={0.13}>
-              <p className="text-sm sm:text-base text-white/45 max-w-lg leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-lg leading-relaxed">
                 Every update to StemmQ — new features, performance improvements, security fixes.
                 Subscribe via RSS to stay current.
               </p>
@@ -194,7 +194,7 @@ function ChangelogHero() {
           {/* RSS subscribe */}
           <Reveal delay={0.18}>
             <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 bg-white/4 text-xs font-semibold text-white/55 hover:text-white/80 hover:border-white/20 transition-all self-start">
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-muted/30 text-xs font-semibold text-foreground/55 hover:text-foreground/80 hover:border-border/80 transition-all self-start">
               <Rss className="h-3.5 w-3.5" /> Subscribe to RSS
             </motion.button>
           </Reveal>
@@ -212,17 +212,17 @@ function ChangelogHero() {
                     style={{ color: latestMeta.color, background: latestMeta.bg, borderColor: latestMeta.border }}>
                     <Sparkles className="h-3 w-3" /> Latest
                   </span>
-                  <code className="text-xs font-mono font-bold text-white/75">{latestVersion.version}</code>
-                  <span className="text-[10px] text-white/30 flex items-center gap-1"><Clock className="h-3 w-3" /> {latestVersion.date}</span>
+                  <code className="text-xs font-mono font-bold text-foreground/75">{latestVersion.version}</code>
+                  <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> {latestVersion.date}</span>
                 </div>
-                <h2 className="text-base sm:text-lg font-bold text-white mb-2">{latestVersion.title}</h2>
-                <p className="text-sm text-white/50 leading-relaxed">{latestVersion.description}</p>
+                <h2 className="text-base sm:text-lg font-bold text-foreground mb-2">{latestVersion.title}</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">{latestVersion.description}</p>
               </div>
               <div className="flex-shrink-0 flex flex-wrap gap-1.5">
                 {latestVersion.changes.slice(0, 3).map((c, i) => (
-                  <div key={i} className="flex items-center gap-1.5 rounded-lg border border-white/8 bg-white/3 px-2.5 py-1.5">
+                  <div key={i} className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1.5">
                     <CheckCircle2 className="h-3 w-3 text-indigo-400 flex-shrink-0" />
-                    <span className="text-[10px] text-white/50 leading-snug">{c.slice(0, 40)}…</span>
+                    <span className="text-[10px] text-muted-foreground leading-snug">{c.slice(0, 40)}…</span>
                   </div>
                 ))}
               </div>
@@ -286,7 +286,7 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
           <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ color: entry.highlight ? "white" : meta.color }} />
         </motion.div>
         {/* Connector line */}
-        <div className="flex-1 w-px mt-2" style={{ background: "rgba(255,255,255,0.06)", minHeight: 24 }} />
+        <div className="flex-1 w-px mt-2 bg-border/40" style={{ minHeight: 24 }} />
       </div>
 
       {/* Content */}
@@ -296,10 +296,10 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
           whileHover={{ borderColor: `${meta.color}25` }}
           className="rounded-2xl border overflow-hidden transition-all"
           style={{
-            borderColor: entry.highlight ? `${meta.color}35` : "rgba(255,255,255,0.08)",
+            borderColor: entry.highlight ? `${meta.color}35` : "var(--border)",
             background: entry.highlight
-              ? `linear-gradient(135deg, ${meta.color}08, rgba(255,255,255,0.01))`
-              : "rgba(255,255,255,0.02)",
+              ? `linear-gradient(135deg, ${meta.color}08, var(--card))`
+              : "var(--card)",
           }}
         >
           {/* Card header */}
@@ -309,7 +309,7 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
           >
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                <code className="text-xs sm:text-sm font-mono font-bold text-white/80">{entry.version}</code>
+                <code className="text-xs sm:text-sm font-mono font-bold text-foreground/80">{entry.version}</code>
                 <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider"
                   style={{ color: meta.color, background: meta.bg, borderColor: meta.border }}>
                   <Icon className="h-2.5 w-2.5" /> {meta.label}
@@ -319,17 +319,17 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
                     <Star className="h-2.5 w-2.5 fill-amber-400" /> Major
                   </span>
                 )}
-                <span className="text-[10px] text-white/25 flex items-center gap-1 ml-auto sm:ml-0">
+                <span className="text-[10px] text-muted-foreground flex items-center gap-1 ml-auto sm:ml-0">
                   <Clock className="h-3 w-3" /> {entry.date}
                 </span>
               </div>
-              <h3 className="text-sm sm:text-base md:text-lg font-bold text-white leading-snug">{entry.title}</h3>
+              <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground leading-snug">{entry.title}</h3>
               {entry.description && !expanded && (
-                <p className="text-xs text-white/40 mt-1 line-clamp-1">{entry.description}</p>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{entry.description}</p>
               )}
             </div>
             <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.25 }} className="flex-shrink-0 mt-1">
-              <ChevronDown className="h-4 w-4 text-white/25" />
+              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </motion.div>
           </div>
 
@@ -343,9 +343,9 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div className="px-4 sm:px-6 pb-5 border-t border-white/5 pt-4">
+                <div className="px-4 sm:px-6 pb-5 border-t border-border/30 pt-4">
                   {entry.description && (
-                    <p className="text-sm text-white/50 leading-relaxed mb-4">{entry.description}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{entry.description}</p>
                   )}
                   <ul className="space-y-2.5">
                     {entry.changes.map((change, i) => (
@@ -360,7 +360,7 @@ function ChangelogEntry({ entry, index }: { entry: typeof entries[0]; index: num
                           style={{ background: meta.bg, border: `1px solid ${meta.border}` }}>
                           <div className="h-1.5 w-1.5 rounded-full" style={{ background: meta.color }} />
                         </div>
-                        <span className="text-xs sm:text-sm text-white/60 leading-relaxed">{change}</span>
+                        <span className="text-xs sm:text-sm text-foreground/60 leading-relaxed">{change}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -388,27 +388,27 @@ function WhatsNext() {
 
   return (
     <Reveal>
-      <div className="rounded-2xl border border-white/8 bg-white/2 overflow-hidden">
-        <div className="px-5 sm:px-6 py-4 border-b border-white/6 flex items-center gap-3">
+      <div className="rounded-2xl border border-border/60 bg-card/30 overflow-hidden">
+        <div className="px-5 sm:px-6 py-4 border-b border-border/40 flex items-center gap-3">
           <div className="h-8 w-8 rounded-xl bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center">
             <TrendingUp className="h-4 w-4 text-indigo-400" />
           </div>
           <div>
-            <p className="text-sm font-bold text-white">What's coming next</p>
-            <p className="text-[10px] text-white/30">StemmQ roadmap highlights</p>
+            <p className="text-sm font-bold text-foreground">What's coming next</p>
+            <p className="text-[10px] text-muted-foreground">StemmQ roadmap highlights</p>
           </div>
-          <span className="ml-auto text-[9px] text-white/20 font-semibold uppercase tracking-widest border border-white/8 bg-white/3 px-2 py-0.5 rounded-full">Roadmap</span>
+          <span className="ml-auto text-[9px] text-muted-foreground font-semibold uppercase tracking-widest border border-border/60 bg-muted/30 px-2 py-0.5 rounded-full">Roadmap</span>
         </div>
         <div className="p-4 sm:p-5 space-y-2.5">
           {upcoming.map((item, i) => {
             const Icon = item.icon;
             return (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-white/6 bg-white/2">
+              <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-border/40 bg-muted/20">
                 <div className="h-7 w-7 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: `${item.color}15`, border: `1px solid ${item.color}20` }}>
                   <Icon className="h-3.5 w-3.5" style={{ color: item.color }} />
                 </div>
-                <span className="text-xs sm:text-sm text-white/60 flex-1 leading-snug">{item.label}</span>
+                <span className="text-xs sm:text-sm text-foreground/60 flex-1 leading-snug">{item.label}</span>
                 <span className="text-[9px] font-semibold text-right flex-shrink-0 px-2 py-0.5 rounded-full border"
                   style={{ color: item.color, background: `${item.color}10`, borderColor: `${item.color}20` }}>
                   {item.status}
@@ -417,8 +417,8 @@ function WhatsNext() {
             );
           })}
         </div>
-        <div className="px-5 sm:px-6 py-4 border-t border-white/6">
-          <p className="text-xs text-white/30 text-center">
+        <div className="px-5 sm:px-6 py-4 border-t border-border/40">
+          <p className="text-xs text-muted-foreground text-center">
             Vote on features and suggest ideas in our{" "}
             <a href="#" className="text-indigo-400 hover:text-indigo-300 transition-colors">community roadmap →</a>
           </p>
@@ -441,8 +441,8 @@ function SubscribeStrip() {
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.12), transparent 60%)" }} />
         <div className="relative">
-          <h2 className="text-lg sm:text-xl font-bold text-white mb-2">Stay up to date</h2>
-          <p className="text-sm text-white/40 mb-6">
+          <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2">Stay up to date</h2>
+          <p className="text-sm text-muted-foreground mb-6">
             Get notified when we ship new features. No spam — just product updates.
           </p>
           <AnimatePresence mode="wait">
@@ -455,7 +455,7 @@ function SubscribeStrip() {
             ) : (
               <motion.div key="form" className="flex gap-2 max-w-sm mx-auto">
                 <input type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)}
-                  className="flex-1 h-10 rounded-xl border border-white/10 bg-white/5 px-3.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all" />
+                  className="flex-1 h-10 rounded-xl border border-border bg-muted/40 px-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all" />
                 <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                   onClick={() => email && setDone(true)}
                   className="h-10 px-5 rounded-xl text-xs font-semibold text-white flex-shrink-0"
@@ -466,13 +466,13 @@ function SubscribeStrip() {
             )}
           </AnimatePresence>
           <div className="flex items-center justify-center gap-4 mt-4">
-            <a href="#" className="flex items-center gap-1.5 text-[10px] text-white/30 hover:text-white/55 transition-colors">
+            <a href="#" className="flex items-center gap-1.5 text-[10px] text-muted-foreground hover:text-foreground/55 transition-colors">
               <Rss className="h-3 w-3" /> RSS Feed
             </a>
-            <span className="text-white/15">·</span>
-            <a href="#" className="text-[10px] text-white/30 hover:text-white/55 transition-colors">X / Twitter</a>
-            <span className="text-white/15">·</span>
-            <a href="#" className="text-[10px] text-white/30 hover:text-white/55 transition-colors">Discord</a>
+            <span className="text-foreground/15">·</span>
+            <a href="#" className="text-[10px] text-muted-foreground hover:text-foreground/55 transition-colors">X / Twitter</a>
+            <span className="text-foreground/15">·</span>
+            <a href="#" className="text-[10px] text-muted-foreground hover:text-foreground/55 transition-colors">Discord</a>
           </div>
         </div>
       </div>
@@ -504,9 +504,9 @@ export default function ChangelogPage() {
 
                 {/* End of timeline */}
                 <Reveal className="flex items-center gap-4 pl-12 sm:pl-16 pb-4">
-                  <div className="h-px flex-1 bg-white/6" />
-                  <span className="text-[10px] text-white/20 font-semibold uppercase tracking-widest flex-shrink-0">End of changelog</span>
-                  <div className="h-px flex-1 bg-white/6" />
+                  <div className="h-px flex-1 bg-border/40" />
+                  <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-widest flex-shrink-0">End of changelog</span>
+                  <div className="h-px flex-1 bg-border/40" />
                 </Reveal>
               </div>
             </div>
@@ -516,8 +516,8 @@ export default function ChangelogPage() {
 
               {/* Version summary */}
               <Reveal>
-                <div className="rounded-2xl border border-white/8 bg-white/2 p-4 sm:p-5">
-                  <p className="text-[9px] text-white/25 uppercase tracking-widest font-semibold mb-4">Release Summary</p>
+                <div className="rounded-2xl border border-border/60 bg-card/30 p-4 sm:p-5">
+                  <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-semibold mb-4">Release Summary</p>
                   <div className="space-y-2.5">
                     {Object.entries(categoryMeta).map(([cat, meta]) => {
                       const count = entries.filter(e => e.category === cat).length;
@@ -530,15 +530,15 @@ export default function ChangelogPage() {
                               style={{ background: meta.bg, border: `1px solid ${meta.border}` }}>
                               <Icon className="h-3 w-3" style={{ color: meta.color }} />
                             </div>
-                            <span className="text-xs text-white/55">{meta.label}</span>
+                            <span className="text-xs text-foreground/55">{meta.label}</span>
                           </div>
                           <span className="text-xs font-bold tabular-nums" style={{ color: meta.color }}>{count}</span>
                         </div>
                       );
                     })}
-                    <div className="pt-2 border-t border-white/6 flex items-center justify-between">
-                      <span className="text-xs text-white/35 font-medium">Total releases</span>
-                      <span className="text-xs font-bold text-white">{entries.length}</span>
+                    <div className="pt-2 border-t border-border/40 flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Total releases</span>
+                      <span className="text-xs font-bold text-foreground">{entries.length}</span>
                     </div>
                   </div>
                 </div>
@@ -546,21 +546,21 @@ export default function ChangelogPage() {
 
               {/* Jump to version */}
               <Reveal delay={0.06}>
-                <div className="rounded-2xl border border-white/8 bg-white/2 p-4 sm:p-5">
-                  <p className="text-[9px] text-white/25 uppercase tracking-widest font-semibold mb-3">Jump to Version</p>
+                <div className="rounded-2xl border border-border/60 bg-card/30 p-4 sm:p-5">
+                  <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-semibold mb-3">Jump to Version</p>
                   <div className="space-y-1">
                     {entries.map((e) => {
                       const meta = categoryMeta[e.category];
                       const Icon = meta.icon;
                       return (
                         <a key={e.version} href={`#${e.version}`}
-                          className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/4 transition-colors group">
+                          className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-muted/40 transition-colors group">
                           <div className="h-5 w-5 rounded-md flex items-center justify-center flex-shrink-0"
                             style={{ background: meta.bg, border: `1px solid ${meta.border}` }}>
                             <Icon className="h-2.5 w-2.5" style={{ color: meta.color }} />
                           </div>
-                          <span className="text-[10px] font-mono font-bold text-white/50 group-hover:text-white/80 transition-colors">{e.version}</span>
-                          <span className="text-[9px] text-white/20 truncate hidden sm:block">{e.title.slice(0, 22)}…</span>
+                          <span className="text-[10px] font-mono font-bold text-foreground/50 group-hover:text-foreground/80 transition-colors">{e.version}</span>
+                          <span className="text-[9px] text-muted-foreground truncate hidden sm:block">{e.title.slice(0, 22)}…</span>
                         </a>
                       );
                     })}

@@ -185,7 +185,7 @@ function DecisionIntelligenceHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-[95vh] flex items-center overflow-hidden bg-[#030712]">
+    <section ref={ref} className="relative min-h-[95vh] flex items-center overflow-hidden bg-background">
       <AnimatedGradient intensity="medium" />
       <Orb delay={0} className="absolute top-[-8%] left-[-3%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
       <Orb delay={4} className="absolute bottom-[-8%] right-[-3%] w-[420px] h-[420px] rounded-full bg-violet-600/8 blur-[100px] pointer-events-none" />
@@ -198,12 +198,12 @@ function DecisionIntelligenceHero() {
           {/* Left */}
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5 backdrop-blur-sm">
                 <Brain className="h-3.5 w-3.5" /> Decision Intelligence
               </span>
             </Reveal>
             <Reveal delay={0.07}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
                 A Decision Object is the{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 45%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   atom
@@ -212,7 +212,7 @@ function DecisionIntelligenceHero() {
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="text-sm sm:text-base md:text-lg text-white/45 leading-relaxed max-w-lg mb-8">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
                 Every decision in StemmQ becomes a Structured Decision Object — with intent, owner,
                 assumptions, risk score, and outcome tracking built in from day one.
                 No decision hides. Nothing flies blind.
@@ -244,7 +244,7 @@ function DecisionIntelligenceHero() {
                 ].map(s => (
                   <div key={s.label} className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl font-bold tabular-nums" style={{ color: s.color }}>{s.v}</span>
-                    <span className="text-[10px] text-white/30 leading-tight">{s.label}</span>
+                    <span className="text-[10px] text-muted-foreground leading-tight">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -282,19 +282,19 @@ function SDOAnatomySection() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-[#080d1a] to-[#030712] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-16">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             SDO Anatomy
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Every field exists{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               for a reason
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             No optional fields that matter. Each one enforces the discipline that makes decisions compound over time.
           </p>
         </Reveal>
@@ -312,15 +312,15 @@ function SDOAnatomySection() {
                 className={`group rounded-xl border px-4 py-3 cursor-pointer transition-all ${
                   active === i
                     ? "border-indigo-500/40 bg-indigo-500/8"
-                    : "border-white/8 bg-white/2 hover:border-white/15 hover:bg-white/4"
+                    : "border-border/60 bg-card/30 hover:border-border hover:bg-muted/40"
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="h-2 w-2 rounded-full flex-shrink-0" style={{ background: f.color }} />
-                    <span className="text-xs font-semibold text-white/60 flex-shrink-0">{f.label}</span>
+                    <span className="text-xs font-semibold text-muted-foreground flex-shrink-0">{f.label}</span>
                   </div>
-                  <span className="text-xs text-white/80 font-medium truncate text-right">{f.value}</span>
+                  <span className="text-xs text-foreground/80 font-medium truncate text-right">{f.value}</span>
                 </div>
                 <AnimatePresence>
                   {active === i && (
@@ -329,7 +329,7 @@ function SDOAnatomySection() {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="text-[11px] text-white/40 mt-2 leading-relaxed pl-5"
+                      className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-5"
                     >
                       {f.note}
                     </motion.p>
@@ -341,8 +341,8 @@ function SDOAnatomySection() {
 
           {/* Visual right: animated donut + breakdown */}
           <div className="sticky top-24 space-y-4">
-            <div className="rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6">
-              <p className="text-[10px] text-white/35 uppercase tracking-widest font-semibold mb-5">SDO Health Score</p>
+            <div className="rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-6">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold mb-5">SDO Health Score</p>
               <div className="flex items-center gap-6 mb-6">
                 <div className="relative h-24 w-24 flex-shrink-0">
                   <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
@@ -370,7 +370,7 @@ function SDOAnatomySection() {
                     { label: "Confidence Level", val: 82, color: "#f59e0b" },
                   ].map(c => (
                     <div key={c.label}>
-                      <div className="flex justify-between text-[9px] text-white/30 mb-0.5">
+                      <div className="flex justify-between text-[9px] text-muted-foreground mb-0.5">
                         <span>{c.label}</span><span>{c.val}%</span>
                       </div>
                       <div className="h-1 rounded-full bg-white/6 overflow-hidden">
@@ -382,8 +382,8 @@ function SDOAnatomySection() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-xl border border-white/6 bg-white/2 p-3 text-center">
-                <p className="text-[10px] text-white/35 mb-1">Click any field row to learn why it matters</p>
+              <div className="rounded-xl border border-border/40 bg-muted/20 p-3 text-center">
+                <p className="text-[10px] text-muted-foreground mb-1">Click any field row to learn why it matters</p>
                 <p className="text-[9px] text-indigo-400/60">↑ {sdoFields.length} fields · all required · all auditable</p>
               </div>
             </div>
@@ -437,19 +437,19 @@ function PipelineSection() {
   const Icon = step.icon;
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-16">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Decision Lifecycle
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             From intent to outcome —{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               fully tracked
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             Every decision moves through a structured lifecycle. Nothing skips steps. Everything is auditable.
           </p>
         </Reveal>
@@ -470,20 +470,20 @@ function PipelineSection() {
                   className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${
                     isActive
                       ? "border-white/20 bg-white/5"
-                      : "border-white/6 bg-white/2 hover:border-white/12"
+                      : "border-border/40 bg-card/30 hover:border-border/60"
                   }`}
                   style={isActive ? { borderColor: `${s.color}40`, background: `${s.color}08` } : {}}
                 >
                   <div className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all"
-                    style={{ background: isActive ? `${s.color}20` : "rgba(255,255,255,0.04)", border: `1px solid ${isActive ? s.color + "40" : "rgba(255,255,255,0.06)"}` }}>
-                    <SIcon className="h-4 w-4" style={{ color: isActive ? s.color : "rgba(255,255,255,0.25)" }} />
+                    style={{ background: isActive ? `${s.color}20` : "var(--muted)", border: `1px solid ${isActive ? s.color + "40" : "var(--border)"}` }}>
+                    <SIcon className="h-4 w-4" style={{ color: isActive ? s.color : "var(--muted-foreground)" }} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-[9px] font-mono" style={{ color: isActive ? s.color : "rgba(255,255,255,0.2)" }}>{s.step}</span>
-                      <span className={`text-xs font-semibold ${isActive ? "text-white" : "text-white/45"}`}>{s.label}</span>
+                      <span className="text-[9px] font-mono" style={{ color: isActive ? s.color : "var(--muted-foreground)" }}>{s.step}</span>
+                      <span className={`text-xs font-semibold ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{s.label}</span>
                     </div>
-                    <p className="text-[11px] text-white/35 leading-snug hidden sm:block">{s.desc.slice(0, 55)}…</p>
+                    <p className="text-[11px] text-muted-foreground leading-snug hidden sm:block">{s.desc.slice(0, 55)}…</p>
                   </div>
                   {isActive && <motion.div layoutId="step-dot" className="h-1.5 w-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: s.color }} />}
                 </motion.div>
@@ -509,19 +509,19 @@ function PipelineSection() {
                   </div>
                   <div>
                     <p className="text-[9px] font-mono mb-0.5" style={{ color: step.color }}>{step.step} OF 05</p>
-                    <h3 className="text-base sm:text-lg font-bold text-white">{step.label}</h3>
+                    <h3 className="text-base sm:text-lg font-bold text-foreground">{step.label}</h3>
                   </div>
                 </div>
-                <p className="text-sm sm:text-base text-white/60 leading-relaxed mb-4">{step.desc}</p>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-4">
-                  <p className="text-xs text-white/45 leading-relaxed">{step.detail}</p>
+                <p className="text-sm sm:text-base text-foreground/60 leading-relaxed mb-4">{step.desc}</p>
+                <div className="rounded-xl border border-border/60 bg-card/30 p-4">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{step.detail}</p>
                 </div>
                 {/* Progress dots */}
                 <div className="flex items-center gap-2 mt-6">
                   {pipelineSteps.map((_, i) => (
                     <div key={i} className="h-1 rounded-full transition-all" style={{
                       width: i === activeStep ? 20 : 6,
-                      background: i === activeStep ? step.color : i < activeStep ? `${step.color}50` : "rgba(255,255,255,0.12)",
+                      background: i === activeStep ? step.color : i < activeStep ? `${step.color}50` : "var(--border)",
                     }} />
                   ))}
                 </div>
@@ -544,7 +544,7 @@ function DQSSection() {
   const score = useCounter(87, 1600, 0, inView);
 
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
@@ -566,8 +566,8 @@ function DQSSection() {
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-4xl sm:text-5xl font-bold text-white tabular-nums">{score}</span>
-                  <span className="text-xs text-white/35 mt-1">DQS Score</span>
+                  <span className="text-4xl sm:text-5xl font-bold text-foreground tabular-nums">{score}</span>
+                  <span className="text-xs text-muted-foreground mt-1">DQS Score</span>
                 </div>
               </div>
 
@@ -579,11 +579,11 @@ function DQSSection() {
                   { label: "Historical Accuracy", pct: 20, val: 91, color: "#10b981" },
                   { label: "Confidence Level", pct: 15, val: 82, color: "#f59e0b" },
                 ].map((c, i) => (
-                  <div key={c.label} className="rounded-xl border border-white/6 bg-white/2 p-3">
+                  <div key={c.label} className="rounded-xl border border-border/40 bg-muted/20 p-3">
                     <div className="flex justify-between text-[10px] mb-2">
-                      <span className="text-white/50 font-medium">{c.label}</span>
+                      <span className="text-foreground/50 font-medium">{c.label}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-white/25">{c.pct}% weight</span>
+                        <span className="text-muted-foreground">{c.pct}% weight</span>
                         <span className="font-bold" style={{ color: c.color }}>{c.val}%</span>
                       </div>
                     </div>
@@ -608,13 +608,13 @@ function DQSSection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Decision Quality Score</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 Quality isn't a feeling —{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   it's a number
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">
                 DQS is a composite score measuring assumption coverage, data quality, historical accuracy,
                 and confidence. It tells you exactly how strong a decision is before you commit.
               </p>
@@ -629,16 +629,16 @@ function DQSSection() {
                     <div className="h-5 w-5 rounded-full bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center mt-0.5 flex-shrink-0">
                       <CheckCircle2 className="h-3 w-3 text-indigo-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{point}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{point}</span>
                   </li>
                 ))}
               </ul>
               <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-4 sm:p-5">
-                <p className="text-sm font-semibold text-white/80 mb-1">
+                <p className="text-sm font-semibold text-foreground/80 mb-1">
                   "Organizations that track decision quality improve it by{" "}
                   <span className="text-indigo-300">34% within 6 months.</span>"
                 </p>
-                <p className="text-xs text-white/30">StemmQ platform data, 2024</p>
+                <p className="text-xs text-muted-foreground">StemmQ platform data, 2024</p>
               </div>
             </div>
           </Reveal>
@@ -689,34 +689,34 @@ function CompoundingSection() {
   }).join(" ");
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-16">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-xs font-medium text-violet-300 mb-4">
             <TrendingUp className="h-3.5 w-3.5" /> The Compounding Effect
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Decisions get better the more{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               you make
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             The more decisions you capture, the smarter every future decision becomes.
           </p>
         </Reveal>
 
         {/* Sparkline chart */}
         <Reveal delay={0.1} className="mb-10 sm:mb-14">
-          <div ref={ref} className="rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-6 max-w-3xl mx-auto">
+          <div ref={ref} className="rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-xs font-semibold text-white/60">DQS Trajectory</p>
-                <p className="text-[10px] text-white/30">Month 0 → Month 12</p>
+                <p className="text-xs font-semibold text-foreground/60">DQS Trajectory</p>
+                <p className="text-[10px] text-muted-foreground">Month 0 → Month 12</p>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-white/30">42</span>
-                <ArrowRight className="h-3 w-3 text-white/20" />
+                <span className="text-xs text-muted-foreground">42</span>
+                <ArrowRight className="h-3 w-3 text-muted-foreground" />
                 <span className="text-xs font-bold text-violet-300">91</span>
                 <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full ml-1">+116%</span>
               </div>
@@ -742,7 +742,7 @@ function CompoundingSection() {
                 </defs>
               </svg>
               {/* Month labels */}
-              <div className="absolute bottom-0 left-0 right-0 flex justify-between text-[8px] text-white/20">
+              <div className="absolute bottom-0 left-0 right-0 flex justify-between text-[8px] text-muted-foreground">
                 <span>M0</span><span>M3</span><span>M6</span><span>M9</span><span>M12</span>
               </div>
             </div>
@@ -759,8 +759,8 @@ function CompoundingSection() {
                 whileHover={{ y: -6 }}
                 className="relative rounded-2xl border p-5 sm:p-6 overflow-hidden transition-all cursor-default h-full"
                 style={{
-                  borderColor: hoveredCard === i ? `${item.color}40` : "rgba(255,255,255,0.08)",
-                  background: hoveredCard === i ? `${item.color}06` : "rgba(255,255,255,0.02)",
+                  borderColor: hoveredCard === i ? `${item.color}40` : "var(--border)",
+                  background: hoveredCard === i ? `${item.color}06` : "var(--card)",
                 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 blur-2xl pointer-events-none transition-opacity"
@@ -770,20 +770,20 @@ function CompoundingSection() {
                   <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: `${item.color}15`, color: item.color, border: `1px solid ${item.color}25` }}>
                     {item.tag}
                   </span>
-                  <span className="text-[10px] text-white/30 font-medium">{item.period}</span>
+                  <span className="text-[10px] text-muted-foreground font-medium">{item.period}</span>
                 </div>
 
                 <div className="flex items-end gap-1.5 mb-1">
-                  <span className="text-4xl sm:text-5xl font-bold text-white tabular-nums">{item.dqs}</span>
-                  <span className="text-xs text-white/30 mb-1.5">DQS avg</span>
+                  <span className="text-4xl sm:text-5xl font-bold text-foreground tabular-nums">{item.dqs}</span>
+                  <span className="text-xs text-muted-foreground mb-1.5">DQS avg</span>
                 </div>
-                <div className="h-px bg-white/6 my-3" />
+                <div className="h-px bg-border/40 my-3" />
 
                 <div className="space-y-2">
                   {item.events.map((e, j) => (
                     <div key={j} className="flex items-center gap-2">
                       <div className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: item.color }} />
-                      <span className="text-[10px] sm:text-xs text-white/45">{e}</span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground">{e}</span>
                     </div>
                   ))}
                 </div>
@@ -818,7 +818,7 @@ function OrgMemorySection() {
   const edges = [[0,5],[1,5],[2,5],[3,5],[4,5],[1,3],[2,4],[0,2]];
 
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <Reveal>
@@ -829,13 +829,13 @@ function OrgMemorySection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-violet-400">Decision Graph</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 Your organization's{" "}
                 <span style={{ background: "linear-gradient(135deg,#8b5cf6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   strategic memory
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">
                 Every decision is connected to every other decision. The Decision Graph shows
                 how choices compound, conflict, or depend on each other — giving leadership a
                 living map of organizational strategy.
@@ -851,7 +851,7 @@ function OrgMemorySection() {
                     <div className="h-5 w-5 rounded-full bg-violet-500/15 border border-violet-500/25 flex items-center justify-center mt-0.5 flex-shrink-0">
                       <CheckCircle2 className="h-3 w-3 text-violet-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{f}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -921,7 +921,7 @@ function OrgMemorySection() {
 
 function InlineCTA() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/30">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center overflow-hidden relative">
@@ -929,10 +929,10 @@ function InlineCTA() {
               background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.15), transparent 60%)",
             }} />
             <div className="relative">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Ready to make your first structured decision?
               </h2>
-              <p className="text-sm text-white/45 max-w-md mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-7">
                 Start free. No credit card. See your first DQS score in under 10 minutes.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -949,12 +949,12 @@ function InlineCTA() {
                 </Link>
                 <Link href={ROUTES.product}>
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     Explore the Platform
                   </motion.button>
                 </Link>
               </div>
-              <p className="text-[11px] text-white/20 mt-4">No credit card required · 14-day Pro trial</p>
+              <p className="text-[11px] text-foreground/20 mt-4">No credit card required · 14-day Pro trial</p>
             </div>
           </div>
         </Reveal>
@@ -969,7 +969,7 @@ function InlineCTA() {
 
 export default function DecisionIntelligencePage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <DecisionIntelligenceHero />
       <SDOAnatomySection />

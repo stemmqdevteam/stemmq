@@ -41,8 +41,8 @@ export default async function AdminPage() {
   const startOfWeek  = new Date(now); startOfWeek.setDate(now.getDate() - 7)
   const startOfDay   = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
-  const proOrgs  = subscriptions?.filter((s) => s.plan === 'pro'        && s.status === 'active').length ?? 0
-  const entOrgs  = subscriptions?.filter((s) => s.plan === 'enterprise' && s.status === 'active').length ?? 0
+  const proOrgs  = subscriptions?.filter((s: { plan: string; status: string }) => s.plan === 'pro'        && s.status === 'active').length ?? 0
+  const entOrgs  = subscriptions?.filter((s: { plan: string; status: string }) => s.plan === 'enterprise' && s.status === 'active').length ?? 0
   const freeOrgs = (orgs?.length ?? 0) - proOrgs - entOrgs
 
   const stats = {
@@ -60,35 +60,35 @@ export default async function AdminPage() {
     pro_orgs:        proOrgs,
     enterprise_orgs: entOrgs,
     // Growth
-    new_orgs_today:   orgs?.filter((o) => new Date(o.created_at) >= startOfDay).length  ?? 0,
-    new_orgs_week:    orgs?.filter((o) => new Date(o.created_at) >= startOfWeek).length ?? 0,
-    new_orgs_month:   orgs?.filter((o) => new Date(o.created_at) >= startOfMonth).length ?? 0,
-    new_users_month:  allUsers?.filter((u) => new Date(u.created_at) >= startOfMonth).length ?? 0,
-    new_decisions_week: decisions?.filter((d) => new Date(d.created_at) >= startOfWeek).length ?? 0,
-    active_decisions:   decisions?.filter((d) => d.status === 'active').length ?? 0,
-    resolved_decisions: decisions?.filter((d) => d.status === 'resolved').length ?? 0,
-    admin_count:        allUsers?.filter((u) => u.is_admin).length ?? 0,
+    new_orgs_today:   orgs?.filter((o: { created_at: string | number | Date }) => new Date(o.created_at) >= startOfDay).length  ?? 0,
+    new_orgs_week:    orgs?.filter((o: { created_at: string | number | Date }) => new Date(o.created_at) >= startOfWeek).length ?? 0,
+    new_orgs_month:   orgs?.filter((o: { created_at: string | number | Date }) => new Date(o.created_at) >= startOfMonth).length ?? 0,
+    new_users_month:  allUsers?.filter((u: { created_at: string | number | Date }) => new Date(u.created_at) >= startOfMonth).length ?? 0,
+    new_decisions_week: decisions?.filter((d: { created_at: string | number | Date }) => new Date(d.created_at) >= startOfWeek).length ?? 0,
+    active_decisions:   decisions?.filter((d: { status: string }) => d.status === 'active').length ?? 0,
+    resolved_decisions: decisions?.filter((d: { status: string }) => d.status === 'resolved').length ?? 0,
+    admin_count:        allUsers?.filter((u: { is_admin: any }) => u.is_admin).length ?? 0,
   }
 
-  const orgRows = (orgs ?? []).map((org) => ({
+  const orgRows = (orgs ?? []).map((org: { id: any }) => ({
     ...org,
-    decision_count:   decisions?.filter((d) => d.org_id === org.id).length   ?? 0,
+    decision_count:   decisions?.filter((d: { org_id: any }) => d.org_id === org.id).length   ?? 0,
     member_count:     allUsers?.length ?? 0, // will be fetched per-org in future
-    simulation_count: simulations?.filter((s) => s.org_id === org.id).length ?? 0,
-    subscription:     subscriptions?.find((s) => s.org_id === org.id) ?? null,
+    simulation_count: simulations?.filter((s: { org_id: any }) => s.org_id === org.id).length ?? 0,
+    subscription:     subscriptions?.find((s: { org_id: any }) => s.org_id === org.id) ?? null,
   }))
 
-  const userRows = (allUsers ?? []).map((u) => ({
+  const userRows = (allUsers ?? []).map((u: any) => ({
     ...u,
-    org: orgs?.find((o) => {
+    org: orgs?.find((o: any) => {
       // match via subscriptions/members — simplified for now
       return false
     }) ?? null,
   }))
 
-  const recentDecisions = (decisions ?? []).slice(0, 50).map((d) => ({
+  const recentDecisions = (decisions ?? []).slice(0, 50).map((d: { org_id: any }) => ({
     ...d,
-    org_name: orgs?.find((o) => o.id === d.org_id)?.name ?? 'Unknown',
+    org_name: orgs?.find((o: { id: any }) => o.id === d.org_id)?.name ?? 'Unknown',
   }))
 
   const currentAdmin = { id: user.id, full_name: adminProfile.full_name }

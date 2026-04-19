@@ -198,7 +198,7 @@ function IntegrationsHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-[#030712]">
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-14 sm:pb-16 bg-background">
       <div className="absolute inset-0 pointer-events-none opacity-[0.022]"
         style={{ backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.8) 1px,transparent 1px)`, backgroundSize: "52px 52px" }} />
       <Orb delay={0} className="absolute top-[-8%] right-[-3%] w-[420px] h-[420px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
@@ -206,12 +206,12 @@ function IntegrationsHero() {
 
       <motion.div style={{ y, opacity }} className="relative mx-auto max-w-5xl px-4 sm:px-6 text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5 backdrop-blur-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5 backdrop-blur-sm">
             <Network className="h-3.5 w-3.5" /> Integrations
           </span>
         </Reveal>
         <Reveal delay={0.07}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-4">
             Connect StemmQ to your{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               entire stack
@@ -219,7 +219,7 @@ function IntegrationsHero() {
           </h1>
         </Reveal>
         <Reveal delay={0.13}>
-          <p className="text-sm sm:text-base md:text-lg text-white/45 max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
             StemmQ sits at the intelligence layer — not the execution layer. Connect your existing tools
             and let every action become a governed, auditable decision.
           </p>
@@ -229,8 +229,8 @@ function IntegrationsHero() {
         <Reveal delay={0.2}>
           <div className="relative overflow-hidden mb-6">
             {/* Fade masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#030712] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#030712] to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
             <motion.div
               animate={{ x: ["0%", "-50%"] }}
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -243,7 +243,7 @@ function IntegrationsHero() {
                     style={{ background: `${logo.color}15`, border: `1px solid ${logo.color}25` }}>
                     {logo.abbr}
                   </div>
-                  <span className="text-xs font-semibold text-white/25 group-hover:text-white/55 transition-colors whitespace-nowrap">{logo.name}</span>
+                  <span className="text-xs font-semibold text-muted-foreground group-hover:text-foreground/55 transition-colors whitespace-nowrap">{logo.name}</span>
                   <span className="ml-4 h-1 w-1 rounded-full bg-white/10 flex-shrink-0" />
                 </div>
               ))}
@@ -252,7 +252,7 @@ function IntegrationsHero() {
         </Reveal>
 
         <Reveal delay={0.25}>
-          <p className="text-[11px] text-white/25">{integrationLogos.length}+ integrations · REST API · Webhooks · SDKs</p>
+          <p className="text-[11px] text-muted-foreground">{integrationLogos.length}+ integrations · REST API · Webhooks · SDKs</p>
         </Reveal>
       </motion.div>
     </section>
@@ -284,11 +284,11 @@ function IntelligenceLayerSection() {
   ];
 
   return (
-    <section className="py-14 sm:py-16 border-y border-white/5 bg-white/[0.01]">
+    <section className="py-14 sm:py-16 border-y border-border/30 bg-muted/20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-8 sm:mb-10">
-          <p className="text-[10px] text-white/25 uppercase tracking-widest font-semibold mb-2">Architecture</p>
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold mb-2">Architecture</p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
             StemmQ is the{" "}
             <span style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               intelligence layer
@@ -310,23 +310,23 @@ function IntelligenceLayerSection() {
                     transition={{ duration: 0.4, type: "spring" }}
                     className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl border text-center transition-all"
                     style={{
-                      borderColor: done ? (layer.highlight ? `${layer.color}60` : `${layer.color}30`) : "rgba(255,255,255,0.06)",
-                      background: done ? (layer.highlight ? `${layer.color}14` : `${layer.color}07`) : "rgba(255,255,255,0.01)",
+                      borderColor: done ? (layer.highlight ? `${layer.color}60` : `${layer.color}30`) : "var(--border)",
+                      background: done ? (layer.highlight ? `${layer.color}14` : `${layer.color}07`) : "var(--card)",
                       boxShadow: done && layer.highlight ? `0 0 40px ${layer.color}15` : "none",
                     }}
                   >
                     <div className="h-10 w-10 rounded-xl flex items-center justify-center"
-                      style={{ background: done ? `${layer.color}20` : "rgba(255,255,255,0.04)" }}>
-                      <Icon className="h-5 w-5" style={{ color: done ? layer.color : "rgba(255,255,255,0.2)" }} />
+                      style={{ background: done ? `${layer.color}20` : "var(--muted)" }}>
+                      <Icon className="h-5 w-5" style={{ color: done ? layer.color : "var(--muted-foreground)" }} />
                     </div>
                     <p className="text-[10px] font-bold uppercase tracking-wider"
-                      style={{ color: done ? "rgba(255,255,255,0.80)" : "rgba(255,255,255,0.2)" }}>
+                      style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       {layer.label}
                     </p>
                     <div className="space-y-0.5">
                       {layer.items.map(item => (
                         <p key={item} className="text-[9px]"
-                          style={{ color: done ? "rgba(255,255,255,0.40)" : "rgba(255,255,255,0.12)" }}>
+                          style={{ color: done ? "var(--muted-foreground)" : "var(--muted-foreground)" }}>
                           {item}
                         </p>
                       ))}
@@ -337,7 +337,7 @@ function IntelligenceLayerSection() {
                   </motion.div>
                   {i < layers.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.1 }} className="h-px w-5 flex-shrink-0"
-                      style={{ background: active > i ? `linear-gradient(90deg,${layer.color}80,${layers[i+1].color}80)` : "rgba(255,255,255,0.08)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${layer.color}80,${layers[i+1].color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );
@@ -354,13 +354,13 @@ function IntelligenceLayerSection() {
                   initial={{ opacity: 0, y: 16 }} animate={done ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4 }}
                   className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-center ${layer.highlight && done ? "col-span-2" : ""}`}
-                  style={{ borderColor: done ? `${layer.color}30` : "rgba(255,255,255,0.06)", background: done ? `${layer.color}07` : "rgba(255,255,255,0.01)" }}>
+                  style={{ borderColor: done ? `${layer.color}30` : "var(--border)", background: done ? `${layer.color}07` : "var(--card)" }}>
                   <div className="h-8 w-8 rounded-lg flex items-center justify-center"
-                    style={{ background: done ? `${layer.color}18` : "rgba(255,255,255,0.04)" }}>
-                    <Icon className="h-4 w-4" style={{ color: done ? layer.color : "rgba(255,255,255,0.2)" }} />
+                    style={{ background: done ? `${layer.color}18` : "var(--muted)" }}>
+                    <Icon className="h-4 w-4" style={{ color: done ? layer.color : "var(--muted-foreground)" }} />
                   </div>
                   <p className="text-[10px] font-bold uppercase tracking-wider"
-                    style={{ color: done ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.2)" }}>
+                    style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                     {layer.label}
                   </p>
                 </motion.div>
@@ -519,13 +519,13 @@ function IntegrationCategoriesSection() {
   const content = contentMap[activeTab];
 
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Integration Types
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Every connection goes through the{" "}
             <span style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               Decision Gate
@@ -543,12 +543,12 @@ function IntegrationCategoriesSection() {
                 onClick={() => setActiveTab(t.id)}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all"
                 style={{
-                  borderColor: isActive ? `${t.color}50` : "rgba(255,255,255,0.10)",
-                  background: isActive ? `${t.color}12` : "rgba(255,255,255,0.02)",
-                  color: isActive ? "white" : "rgba(255,255,255,0.45)",
+                  borderColor: isActive ? `${t.color}50` : "var(--border)",
+                  background: isActive ? `${t.color}12` : "var(--muted)/30",
+                  color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
                 }}
               >
-                <Icon className="h-4 w-4" style={{ color: isActive ? t.color : "rgba(255,255,255,0.3)" }} />
+                <Icon className="h-4 w-4" style={{ color: isActive ? t.color : "var(--muted-foreground)" }} />
                 {t.label}
               </motion.button>
             );
@@ -571,8 +571,8 @@ function IntegrationCategoriesSection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: tab.color }}>{tab.label}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight mb-4">{content.title}</h3>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">{content.desc}</p>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight mb-4">{content.title}</h3>
+              <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">{content.desc}</p>
               <ul className="space-y-3 mb-8">
                 {content.features.map((f, i) => (
                   <li key={i} className="flex items-start gap-3">
@@ -580,7 +580,7 @@ function IntegrationCategoriesSection() {
                       style={{ background: `${tab.color}15`, border: `1px solid ${tab.color}25` }}>
                       <CheckCircle2 className="h-3 w-3" style={{ color: tab.color }} />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{f}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -645,19 +645,19 @@ function ExternalAgentSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-xs font-medium text-violet-300 mb-4">
             External Agents
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Any agent.{" "}
             <span style={{ background: "linear-gradient(135deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               One Decision Gate.
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             Whether you're running GPT-4, Claude, a custom model, or a third-party AI platform —
             all actions route through StemmQ's Decision Gate before execution.
           </p>
@@ -678,25 +678,25 @@ function ExternalAgentSection() {
                     transition={{ duration: 0.4, type: "spring" }}
                     className="flex-1 flex flex-col items-center gap-2 py-4 px-2 rounded-2xl border text-center transition-all"
                     style={{
-                      borderColor: done ? (isGate ? `${node.color}60` : `${node.color}30`) : "rgba(255,255,255,0.06)",
-                      background: done ? (isGate ? `${node.color}14` : `${node.color}07`) : "rgba(255,255,255,0.01)",
+                      borderColor: done ? (isGate ? `${node.color}60` : `${node.color}30`) : "var(--border)",
+                      background: done ? (isGate ? `${node.color}14` : `${node.color}07`) : "var(--card)",
                       boxShadow: done && isGate ? `0 0 40px ${node.color}15` : "none",
                     }}
                   >
                     <div className="h-10 w-10 rounded-xl flex items-center justify-center"
-                      style={{ background: done ? `${node.color}20` : "rgba(255,255,255,0.04)" }}>
-                      <Icon className="h-5 w-5" style={{ color: done ? node.color : "rgba(255,255,255,0.18)" }} />
+                      style={{ background: done ? `${node.color}20` : "var(--muted)" }}>
+                      <Icon className="h-5 w-5" style={{ color: done ? node.color : "var(--muted-foreground)" }} />
                     </div>
                     <p className="text-[10px] font-bold uppercase tracking-wider leading-tight"
-                      style={{ color: done ? "rgba(255,255,255,0.80)" : "rgba(255,255,255,0.2)" }}>
+                      style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       {node.label}
                     </p>
-                    <p className="text-[8px]" style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.12)" }}>{node.sub}</p>
+                    <p className="text-[8px]" style={{ color: done ? "var(--muted-foreground)" : "var(--muted-foreground)" }}>{node.sub}</p>
                     {done && <div className="h-1.5 w-1.5 rounded-full" style={{ background: node.color }} />}
                   </motion.div>
                   {i < nodes.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.08 }} className="h-px w-5 flex-shrink-0"
-                      style={{ background: active > i ? `linear-gradient(90deg,${node.color}80,${nodes[i+1].color}80)` : "rgba(255,255,255,0.08)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${node.color}80,${nodes[i+1].color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );
@@ -713,13 +713,13 @@ function ExternalAgentSection() {
                   initial={{ opacity: 0, y: 16 }} animate={done ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4 }}
                   className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border text-center ${node.label === "Decision Gate" ? "col-span-2" : ""}`}
-                  style={{ borderColor: done ? `${node.color}30` : "rgba(255,255,255,0.06)", background: done ? `${node.color}06` : "rgba(255,255,255,0.01)" }}>
+                  style={{ borderColor: done ? `${node.color}30` : "var(--border)", background: done ? `${node.color}06` : "var(--card)" }}>
                   <div className="h-8 w-8 rounded-lg flex items-center justify-center"
-                    style={{ background: done ? `${node.color}18` : "rgba(255,255,255,0.04)" }}>
-                    <Icon className="h-4 w-4" style={{ color: done ? node.color : "rgba(255,255,255,0.2)" }} />
+                    style={{ background: done ? `${node.color}18` : "var(--muted)" }}>
+                    <Icon className="h-4 w-4" style={{ color: done ? node.color : "var(--muted-foreground)" }} />
                   </div>
                   <p className="text-[10px] font-bold uppercase tracking-wider"
-                    style={{ color: done ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.2)" }}>
+                    style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                     {node.label}
                   </p>
                 </motion.div>
@@ -732,7 +732,7 @@ function ExternalAgentSection() {
         <Reveal delay={0.3} className="text-center">
           <div className="inline-flex items-center gap-2.5 rounded-2xl border border-violet-500/20 bg-violet-500/5 px-5 py-3">
             <Terminal className="h-4 w-4 text-violet-400 flex-shrink-0" />
-            <p className="text-xs text-white/55">
+            <p className="text-xs text-foreground/55">
               Connect via{" "}
               <code className="text-violet-300 font-mono">POST /v1/external-agent/decision</code>
               {" "}or passive observation mode — zero agent changes required
@@ -752,19 +752,19 @@ function EcosystemSection() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Ecosystem
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Works with the tools{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               you already use
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             {integrationLogos.length}+ integrations and growing. Can't find yours? Use our REST API or submit a request.
           </p>
         </Reveal>
@@ -778,15 +778,15 @@ function EcosystemSection() {
                 whileHover={{ y: -4, scale: 1.04 }}
                 className="flex flex-col items-center gap-1.5 p-2.5 sm:p-3 rounded-xl border cursor-default transition-all"
                 style={{
-                  borderColor: hovered === i ? `${logo.color}35` : "rgba(255,255,255,0.08)",
-                  background: hovered === i ? `${logo.color}08` : "rgba(255,255,255,0.02)",
+                  borderColor: hovered === i ? `${logo.color}35` : "var(--border)",
+                  background: hovered === i ? `${logo.color}08` : "var(--card)",
                 }}
               >
                 <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl flex items-center justify-center text-[9px] sm:text-[10px] font-bold"
-                  style={{ background: `${logo.color}15`, border: `1px solid ${logo.color}20`, color: hovered === i ? logo.color : "rgba(255,255,255,0.5)" }}>
+                  style={{ background: `${logo.color}15`, border: `1px solid ${logo.color}20`, color: hovered === i ? logo.color : "var(--muted-foreground)" }}>
                   {logo.abbr}
                 </div>
-                <span className="text-[8px] sm:text-[9px] text-white/30 text-center leading-tight">{logo.name}</span>
+                <span className="text-[8px] sm:text-[9px] text-muted-foreground text-center leading-tight">{logo.name}</span>
               </motion.div>
             </Reveal>
           ))}
@@ -794,11 +794,11 @@ function EcosystemSection() {
           {/* Request more */}
           <Reveal delay={integrationLogos.length * 0.03}>
             <motion.div whileHover={{ y: -4, scale: 1.04 }}
-              className="flex flex-col items-center gap-1.5 p-2.5 sm:p-3 rounded-xl border border-dashed border-white/12 bg-white/2 cursor-pointer hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all">
-              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl bg-white/5 flex items-center justify-center">
-                <ChevronRight className="h-4 w-4 text-white/20" />
+              className="flex flex-col items-center gap-1.5 p-2.5 sm:p-3 rounded-xl border border-dashed border-border/40 bg-muted/20 cursor-pointer hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all">
+              <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl bg-muted/50 flex items-center justify-center">
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </div>
-              <span className="text-[8px] sm:text-[9px] text-white/25 text-center">Request</span>
+              <span className="text-[8px] sm:text-[9px] text-muted-foreground text-center">Request</span>
             </motion.div>
           </Reveal>
         </div>
@@ -813,7 +813,7 @@ function EcosystemSection() {
 
 export default function IntegrationsPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <IntegrationsHero />
       <IntelligenceLayerSection />

@@ -225,7 +225,7 @@ function AIAgentsHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-[95vh] flex items-center overflow-hidden bg-[#030712]">
+    <section ref={ref} className="relative min-h-[95vh] flex items-center overflow-hidden bg-background">
       <AnimatedGradient intensity="strong" />
       <Orb delay={0} className="absolute top-[-8%] left-[-3%] w-[500px] h-[500px] rounded-full bg-indigo-600/12 blur-[120px] pointer-events-none" />
       <Orb delay={4} className="absolute bottom-[-8%] right-[-3%] w-[420px] h-[420px] rounded-full bg-violet-600/10 blur-[100px] pointer-events-none" />
@@ -238,12 +238,12 @@ function AIAgentsHero() {
           {/* Left */}
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5 backdrop-blur-sm">
                 <Bot className="h-3.5 w-3.5" /> AI Agent System
               </span>
             </Reveal>
             <Reveal delay={0.07}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
                 Agents that{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   decide.
@@ -256,7 +256,7 @@ function AIAgentsHero() {
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="text-sm sm:text-base md:text-lg text-white/45 leading-relaxed max-w-lg mb-8">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
                 Create agents with a no-code builder or connect external systems. Every action generates a
                 structured decision object — with organizational memory, conditional human oversight,
                 and outcome tracking built in.
@@ -277,7 +277,7 @@ function AIAgentsHero() {
                 </Link>
                 <Link href={ROUTES.decisionIntelligence}>
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     <Play className="h-3.5 w-3.5" />
                     See Decision Gate
                   </motion.button>
@@ -295,7 +295,7 @@ function AIAgentsHero() {
                 ].map(s => (
                   <div key={s.label} className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl font-bold tabular-nums" style={{ color: s.color }}>{s.v}</span>
-                    <span className="text-[10px] text-white/30">{s.label}</span>
+                    <span className="text-[10px] text-muted-foreground">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -336,19 +336,19 @@ function DecisionGateSection() {
   const DIcon = detail.icon;
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-[#080d1a] to-[#030712] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/8 px-4 py-1.5 text-xs font-medium text-amber-300 mb-4">
             <Shield className="h-3.5 w-3.5" /> Core Principle
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-3">
             Every Agent Action ={" "}
             <span style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               A Decision Object
             </span>
           </h2>
-          <p className="text-sm sm:text-base text-white/40 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             No agent — internal or external — can execute without first generating a structured decision.
             The Decision Gate is non-negotiable.
           </p>
@@ -368,23 +368,23 @@ function DecisionGateSection() {
                     transition={{ duration: 0.4, type: "spring" }}
                     className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-2xl border cursor-pointer transition-all"
                     style={{
-                      borderColor: isSel ? `${step.color}50` : done ? `${step.color}25` : "rgba(255,255,255,0.06)",
-                      background: isSel ? `${step.color}12` : done ? `${step.color}06` : "rgba(255,255,255,0.02)",
+                      borderColor: isSel ? `${step.color}50` : done ? `${step.color}25` : "var(--border)",
+                      background: isSel ? `${step.color}12` : done ? `${step.color}06` : "var(--card)",
                       minWidth: 100,
                     }}>
-                    <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: done ? `${step.color}20` : "rgba(255,255,255,0.04)" }}>
-                      <SIcon className="h-5 w-5" style={{ color: done ? step.color : "rgba(255,255,255,0.18)" }} />
+                    <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: done ? `${step.color}20` : "var(--muted)" }}>
+                      <SIcon className="h-5 w-5" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
                     </div>
-                    <p className="text-[9px] font-bold uppercase tracking-wider text-center" style={{ color: done ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.18)" }}>
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-center" style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       Step {step.step}
                     </p>
-                    <p className="text-[10px] font-semibold text-center leading-tight" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }}>{step.label}</p>
+                    <p className="text-[10px] font-semibold text-center leading-tight" style={{ color: done ? step.color : "var(--muted-foreground)" }}>{step.label}</p>
                     {done && <div className="h-1 w-1 rounded-full" style={{ background: step.color }} />}
                   </motion.div>
                   {i < gateSteps.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.1 }}
                       className="h-px w-4 mx-0.5"
-                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "rgba(255,255,255,0.08)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );
@@ -401,11 +401,11 @@ function DecisionGateSection() {
                   initial={{ opacity: 0, y: 16 }} animate={done ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center gap-1.5 p-3 rounded-xl border text-center cursor-pointer"
-                  style={{ borderColor: done ? `${step.color}30` : "rgba(255,255,255,0.06)", background: done ? `${step.color}08` : "rgba(255,255,255,0.02)" }}>
-                  <div className="h-8 w-8 rounded-lg flex items-center justify-center" style={{ background: done ? `${step.color}20` : "rgba(255,255,255,0.04)" }}>
-                    <SIcon className="h-4 w-4" style={{ color: done ? step.color : "rgba(255,255,255,0.18)" }} />
+                  style={{ borderColor: done ? `${step.color}30` : "var(--border)", background: done ? `${step.color}08` : "var(--card)" }}>
+                  <div className="h-8 w-8 rounded-lg flex items-center justify-center" style={{ background: done ? `${step.color}20` : "var(--muted)" }}>
+                    <SIcon className="h-4 w-4" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
                   </div>
-                  <p className="text-[10px] font-semibold" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }}>{step.label}</p>
+                  <p className="text-[10px] font-semibold" style={{ color: done ? step.color : "var(--muted-foreground)" }}>{step.label}</p>
                 </motion.div>
               );
             })}
@@ -424,8 +424,8 @@ function DecisionGateSection() {
                 </div>
               </div>
               <p className="text-[10px] font-mono mb-1" style={{ color: detail.color }}>STEP {detail.step} OF 06</p>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-2">{detail.label}</h3>
-              <p className="text-sm text-white/50">{detail.desc}</p>
+              <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">{detail.label}</h3>
+              <p className="text-sm text-muted-foreground">{detail.desc}</p>
               {/* Step nav dots */}
               <div className="flex justify-center gap-1.5 mt-5">
                 {gateSteps.map((_, i) => (
@@ -450,20 +450,20 @@ function AgentTypesSection() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-14">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Agent Types
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Build or{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               connect
             </span>{" "}
             any agent
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             Native agents via no-code builder, or plug in external systems. StemmQ governs all of them.
           </p>
         </Reveal>
@@ -480,8 +480,8 @@ function AgentTypesSection() {
                   whileHover={{ y: -5 }}
                   className="relative rounded-2xl border p-4 sm:p-5 overflow-hidden cursor-default transition-all"
                   style={{
-                    borderColor: isHovered ? `${agent.color}40` : "rgba(255,255,255,0.08)",
-                    background: isHovered ? `${agent.color}08` : "rgba(255,255,255,0.02)",
+                    borderColor: isHovered ? `${agent.color}40` : "var(--border)",
+                    background: isHovered ? `${agent.color}08` : "var(--card)",
                   }}
                 >
                   <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity pointer-events-none"
@@ -491,9 +491,9 @@ function AgentTypesSection() {
                       style={{ background: `${agent.color}15`, border: `1px solid ${agent.color}25` }}>
                       <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: agent.color }} />
                     </div>
-                    <p className="text-[9px] sm:text-[10px] text-white/30 font-medium mb-0.5">{agent.dept}</p>
-                    <p className="text-xs sm:text-sm font-bold text-white mb-0.5">{agent.name}</p>
-                    <p className="text-[10px] sm:text-xs text-white/45">{agent.role}</p>
+                    <p className="text-[9px] sm:text-[10px] text-muted-foreground font-medium mb-0.5">{agent.dept}</p>
+                    <p className="text-xs sm:text-sm font-bold text-foreground mb-0.5">{agent.name}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">{agent.role}</p>
                   </div>
                 </motion.div>
               </Reveal>
@@ -503,8 +503,8 @@ function AgentTypesSection() {
 
         {/* API endpoint */}
         <Reveal>
-          <div className="rounded-2xl border border-dashed border-white/12 bg-white/2 p-4 text-center">
-            <p className="text-xs sm:text-sm text-white/40">
+          <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-4 text-center">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               + Connect any external AI system via{" "}
               <code className="text-indigo-300 font-mono bg-indigo-500/10 px-2 py-0.5 rounded text-xs">POST /external-agent/decision</code>
             </p>
@@ -592,7 +592,7 @@ function AgentBuilderAnimation() {
 
 function AgentBuilderSection() {
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <Reveal direction="left">
@@ -603,13 +603,13 @@ function AgentBuilderSection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Agent Builder</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 Create an agent or connect{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">
                 Define goal, permissions, and risk boundaries. Your agent starts operating immediately —
                 every action flows through the Decision Gate automatically.
               </p>
@@ -626,7 +626,7 @@ function AgentBuilderSection() {
                       style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)" }}>
                       {i + 1}
                     </span>
-                    <span className="text-xs sm:text-sm text-white/55 mt-0.5">{step}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55 mt-0.5">{step}</span>
                   </li>
                 ))}
               </ol>
@@ -653,7 +653,7 @@ function HumanLoopSection() {
   }, []);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
@@ -673,11 +673,11 @@ function HumanLoopSection() {
                       <AlertTriangle className="h-4 w-4 text-amber-400" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-white/80">Risk Threshold Triggered</p>
+                      <p className="text-xs font-bold text-foreground/80">Risk Threshold Triggered</p>
                       <p className="text-[9px] text-amber-400 font-semibold">High Risk · Escalated</p>
                     </div>
                   </div>
-                  <p className="text-[11px] text-white/55 mb-4 leading-relaxed">
+                  <p className="text-[11px] text-foreground/55 mb-4 leading-relaxed">
                     SalesAgent proposes reducing enterprise contract floor to $6,000/yr (−40%).
                     Exceeds defined risk threshold. Requires human approval.
                   </p>
@@ -701,17 +701,17 @@ function HumanLoopSection() {
               <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                  <p className="text-xs font-bold text-white/75">Auto-Approved — Low Risk</p>
+                  <p className="text-xs font-bold text-foreground/75">Auto-Approved — Low Risk</p>
                   <span className="ml-auto text-[8px] text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">No human needed</span>
                 </div>
-                <p className="text-[11px] text-white/45 leading-relaxed">
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
                   PricingAgent launched 5% seasonal discount. Below risk threshold — executed automatically. Decision logged.
                 </p>
               </div>
 
               {/* Rules */}
-              <div className="rounded-2xl border border-white/8 bg-white/2 p-4 space-y-2">
-                <p className="text-[9px] text-white/30 uppercase tracking-widest font-semibold mb-3">Active Gate Rules</p>
+              <div className="rounded-2xl border border-border/60 bg-card/30 p-4 space-y-2">
+                <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-semibold mb-3">Active Gate Rules</p>
                 {humanLoopRules.map((rule, i) => (
                   <motion.div key={i} animate={{ borderColor: pulseRule === i ? `${rule.color}40` : "rgba(255,255,255,0.06)", background: pulseRule === i ? `${rule.color}06` : "rgba(255,255,255,0.01)" }}
                     className="flex items-start gap-3 p-2.5 rounded-xl border transition-all">
@@ -719,8 +719,8 @@ function HumanLoopSection() {
                       <AlertTriangle className="h-2.5 w-2.5" style={{ color: rule.color }} />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-[10px] font-semibold text-white/65">{rule.trigger}</span>
-                      <span className="text-[10px] text-white/30"> → {rule.action}</span>
+                      <span className="text-[10px] font-semibold text-foreground/65">{rule.trigger}</span>
+                      <span className="text-[10px] text-muted-foreground"> → {rule.action}</span>
                     </div>
                   </motion.div>
                 ))}
@@ -737,13 +737,13 @@ function HumanLoopSection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-amber-400">Human-in-the-Loop</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 Conditional,{" "}
                 <span style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   not mandatory
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-foreground/50 leading-relaxed mb-6">
                 Human review activates only when predefined thresholds are crossed — risk level,
                 financial exposure, or irreversibility. Everything else executes automatically.
                 No bottlenecks, no blind spots.
@@ -759,7 +759,7 @@ function HumanLoopSection() {
                     <div className="h-5 w-5 rounded-full bg-amber-500/15 border border-amber-500/25 flex items-center justify-center mt-0.5 flex-shrink-0">
                       <CheckCircle2 className="h-3 w-3 text-amber-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{f}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -777,18 +777,18 @@ function HumanLoopSection() {
 
 function CanCannotSection() {
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-12 sm:mb-14">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             <Lock className="h-3.5 w-3.5" /> Agent Governance
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             What agents{" "}
             <span className="text-emerald-400">can</span> — and{" "}
             <span className="text-red-400">cannot</span> — do
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             Clear boundaries are what make AI agents trustworthy. StemmQ enforces these at the
             infrastructure level, not through prompting.
           </p>
@@ -802,7 +802,7 @@ function CanCannotSection() {
                 <div className="h-9 w-9 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
                   <CheckCircle2 className="h-4.5 w-4.5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Agents CAN</span>
+                <span className="text-sm font-bold text-foreground">Agents CAN</span>
               </div>
               <div className="space-y-3">
                 {canDo.map((item, i) => (
@@ -813,7 +813,7 @@ function CanCannotSection() {
                     <div className="h-5 w-5 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <CheckCircle2 className="h-3 w-3 text-emerald-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/65">{item}</span>
+                    <span className="text-xs sm:text-sm text-foreground/65">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -827,7 +827,7 @@ function CanCannotSection() {
                 <div className="h-9 w-9 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center">
                   <XCircle className="h-4.5 w-4.5 text-red-400" />
                 </div>
-                <span className="text-sm font-bold text-white">Agents CANNOT</span>
+                <span className="text-sm font-bold text-foreground">Agents CANNOT</span>
               </div>
               <div className="space-y-3">
                 {cannotDo.map((item, i) => (
@@ -838,7 +838,7 @@ function CanCannotSection() {
                     <div className="h-5 w-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <XCircle className="h-3 w-3 text-red-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/65">{item}</span>
+                    <span className="text-xs sm:text-sm text-foreground/65">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -875,21 +875,21 @@ function PerfOrchestrationSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-[#030712]">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
         {/* Perf metrics */}
         <Reveal className="text-center mb-10 sm:mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Performance System
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Every agent earns its{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               track record
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             Agents that perform well earn more autonomy. Agents that don't get reviewed.
           </p>
         </Reveal>
@@ -900,14 +900,14 @@ function PerfOrchestrationSection() {
             return (
               <Reveal key={m.label} delay={i * 0.07}>
                 <motion.div whileHover={{ y: -5 }}
-                  className="rounded-2xl border border-white/8 bg-white/2 p-4 sm:p-5 text-center hover:border-white/15 transition-all">
+                  className="rounded-2xl border border-border/60 bg-card/30 p-4 sm:p-5 text-center hover:border-border transition-all">
                   <div className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-3"
                     style={{ background: `${m.color}15`, border: `1px solid ${m.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: m.color }} />
                   </div>
-                  <p className="text-xl sm:text-2xl font-bold text-white tabular-nums">{m.value}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-foreground tabular-nums">{m.value}</p>
                   <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">{m.trend}</p>
-                  <p className="text-[10px] sm:text-xs text-white/35 mt-1.5 leading-tight">{m.label}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground mt-1.5 leading-tight">{m.label}</p>
                 </motion.div>
               </Reveal>
             );
@@ -916,12 +916,12 @@ function PerfOrchestrationSection() {
 
         {/* Multi-agent orchestration */}
         <Reveal>
-          <div ref={ref} className="rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-7">
+          <div ref={ref} className="rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-7">
             <div className="flex items-center gap-2 mb-6">
               <div className="h-8 w-8 rounded-xl bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center">
                 <Network className="h-4 w-4 text-indigo-400" />
               </div>
-              <span className="text-sm font-bold text-white">Multi-Agent Orchestration</span>
+              <span className="text-sm font-bold text-foreground">Multi-Agent Orchestration</span>
               <span className="ml-auto text-[9px] text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full font-semibold">Live example</span>
             </div>
 
@@ -938,9 +938,9 @@ function PerfOrchestrationSection() {
                     animate={orchStep >= i ? { opacity: 1, scale: 1 } : {}}
                     transition={{ type: "spring", duration: 0.45 }}
                     className="flex-1 rounded-xl border p-3 text-center"
-                    style={{ borderColor: orchStep >= i ? `${node.color}35` : "rgba(255,255,255,0.06)", background: orchStep >= i ? `${node.color}08` : "rgba(255,255,255,0.02)" }}>
-                    <p className="text-[10px] font-bold mb-1" style={{ color: orchStep >= i ? node.color : "rgba(255,255,255,0.25)" }}>{node.agent}</p>
-                    <p className="text-[10px] text-white/45 leading-snug">{node.action}</p>
+                    style={{ borderColor: orchStep >= i ? `${node.color}35` : "var(--border)", background: orchStep >= i ? `${node.color}08` : "var(--card)" }}>
+                    <p className="text-[10px] font-bold mb-1" style={{ color: orchStep >= i ? node.color : "var(--muted-foreground)" }}>{node.agent}</p>
+                    <p className="text-[10px] text-foreground/45 leading-snug">{node.action}</p>
                   </motion.div>
                 )
               )}
@@ -973,19 +973,19 @@ function PerfOrchestrationSection() {
 
 function AgentMemorySection() {
   return (
-    <section className="py-16 sm:py-24 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/8 px-4 py-1.5 text-xs font-medium text-violet-300 mb-4">
             Agent Memory
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Agents that learn from{" "}
             <span style={{ background: "linear-gradient(135deg,#8b5cf6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               your organization
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             Every agent has local memory plus shared access to the organization's full decision dataset.
           </p>
         </Reveal>
@@ -1009,7 +1009,7 @@ function AgentMemorySection() {
                     <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: `${panel.color}15`, border: `1px solid ${panel.color}25` }}>
                       <Icon className="h-5 w-5" style={{ color: panel.color }} />
                     </div>
-                    <span className="text-sm font-bold text-white">{panel.title}</span>
+                    <span className="text-sm font-bold text-foreground">{panel.title}</span>
                   </div>
                   <div className="space-y-3">
                     {panel.items.map((item, i) => (
@@ -1018,7 +1018,7 @@ function AgentMemorySection() {
                           style={{ background: `${panel.color}15`, border: `1px solid ${panel.color}25` }}>
                           <CheckCircle2 className="h-3 w-3" style={{ color: panel.color }} />
                         </div>
-                        <span className="text-xs sm:text-sm text-white/55">{item}</span>
+                        <span className="text-xs sm:text-sm text-foreground/55">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -1038,17 +1038,17 @@ function AgentMemorySection() {
 
 function InlineCTA() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/30">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none"
               style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.15), transparent 60%)" }} />
             <div className="relative">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Ready to govern your first agent?
               </h2>
-              <p className="text-sm text-white/45 max-w-md mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-7">
                 Set up your first agent in under 5 minutes. The Decision Gate activates automatically.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -1065,12 +1065,12 @@ function InlineCTA() {
                 </Link>
                 <Link href={ROUTES.decisionIntelligence}>
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     See Decision Gate
                   </motion.button>
                 </Link>
               </div>
-              <p className="text-[11px] text-white/20 mt-4">No credit card required · 14-day Pro trial</p>
+              <p className="text-[11px] text-foreground/20 mt-4">No credit card required · 14-day Pro trial</p>
             </div>
           </div>
         </Reveal>
@@ -1085,7 +1085,7 @@ function InlineCTA() {
 
 export default function AIAgentsPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <AIAgentsHero />
       <DecisionGateSection />

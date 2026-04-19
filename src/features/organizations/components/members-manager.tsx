@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import {
@@ -14,9 +14,8 @@ import {
 } from '@/features/organizations/actions'
 import { inviteMemberSchema, type InviteMemberInput } from '@/lib/validations/organization'
 import { Button } from '@/components/ui/button'
-import { Input, Select } from '@/components/ui/input'
 import { Card, CardHeader } from '@/components/ui/card'
-import { Avatar, Badge, EmptyState } from '@/components/ui'
+import { Avatar, Badge, EmptyState, Input, Select } from '@/components/ui'
 import { buttonClass } from '@/components/ui/button'
 import { cn, formatRelativeTime } from '@/utils'
 import type { OrgRole, PlanType } from '@/types'
@@ -73,8 +72,8 @@ export function MembersManager({
   const atLimit    = seatLimit !== null && totalSeats >= seatLimit
   const canInvite  = isAdmin && !atLimit
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<InviteMemberInput>({
-    resolver: zodResolver(inviteMemberSchema),
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<InviteMemberInput>({
+    resolver: zodResolver(inviteMemberSchema as any),
     defaultValues: { email: '', role: 'member' },
   })
 
@@ -191,14 +190,19 @@ export function MembersManager({
                     {...register('email')}
                   />
                 </div>
-                <Select
-                  options={[
-                    { value: 'admin',  label: 'Admin' },
-                    { value: 'member', label: 'Member' },
-                    { value: 'viewer', label: 'Viewer' },
-                  ]}
-                  className="sm:w-36"
-                  {...register('role')}
+                <Controller
+                  name="role"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                    required={undefined} {...field}
+                    options={[
+                      { value: 'admin', label: 'Admin' },
+                      { value: 'member', label: 'Member' },
+                      { value: 'viewer', label: 'Viewer' },
+                    ]}
+                    className="sm:w-36"                    />
+                  )}
                 />
                 <Button type="submit" loading={isPending} leftIcon={<Mail className="w-4 h-4" />}>
                   Send invite
@@ -215,7 +219,7 @@ export function MembersManager({
       </AnimatePresence>
 
       {/* Members list */}
-      <Card padding="none">
+      <Card>
         <div className="px-5 py-4 border-b border-surface-100 dark:border-surface-800">
           <h3 className="font-display font-semibold text-sm">Active members</h3>
         </div>
@@ -237,7 +241,7 @@ export function MembersManager({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-medium truncate">{name}</p>
-                      {isMe && <Badge variant="default" size="xs">You</Badge>}
+                      {isMe && <Badge variant="default">You</Badge>}
                     </div>
                     <p className="text-xs text-surface-400 mt-0.5">
                       {profile?.job_title ?? 'Member'} · Joined {formatRelativeTime(member.joined_at)}
@@ -245,9 +249,9 @@ export function MembersManager({
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <div className={cn('flex items-center gap-1.5 text-xs font-medium', role.color)}>
-                      <role.icon className="w-3.5 h-3.5" />
-                      {role.label}
+                    <div className={cn('flex items-center gap-1.5 text-xs font-medium', role?.color)}>
+                      {role && <role.icon className="w-3.5 h-3.5" />}
+                      {role?.label || 'Member'}
                     </div>
 
                     {canEdit && (
@@ -304,7 +308,7 @@ export function MembersManager({
 
       {/* Pending invitations */}
       {invitations.length > 0 && (
-        <Card padding="none">
+        <Card>
           <div className="px-5 py-4 border-b border-surface-100 dark:border-surface-800">
             <h3 className="font-display font-semibold text-sm">Pending invitations</h3>
           </div>
@@ -321,7 +325,7 @@ export function MembersManager({
                     Invited {formatRelativeTime(inv.created_at)} · Expires {formatRelativeTime(inv.expires_at)}
                   </div>
                 </div>
-                <Badge variant="warning" size="sm" dot>{inv.role}</Badge>
+                <Badge variant="warning">{inv.role}</Badge>
                 {isAdmin && (
                   <button
                     onClick={() => handleRevokeInvite(inv.id, inv.email)}

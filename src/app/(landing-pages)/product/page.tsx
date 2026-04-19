@@ -140,8 +140,8 @@ function PipelineViz() {
             <motion.div
               animate={{
                 scale: isActive ? 1.12 : 1,
-                borderColor: isActive ? node.color : isPast ? `${node.color}60` : "rgba(255,255,255,0.08)",
-                backgroundColor: isActive ? `${node.color}18` : isPast ? `${node.color}08` : "rgba(255,255,255,0.03)",
+                borderColor: isActive ? node.color : isPast ? `${node.color}60` : "var(--border)",
+                backgroundColor: isActive ? `${node.color}18` : isPast ? `${node.color}08` : "var(--card)",
               }}
               transition={{ duration: 0.35 }}
               className="flex flex-col items-center gap-1 px-3 py-2.5 rounded-xl border cursor-pointer select-none"
@@ -150,12 +150,12 @@ function PipelineViz() {
               <div
                 className="h-8 w-8 rounded-lg flex items-center justify-center"
                 style={{
-                  background: isActive ? `${node.color}25` : isPast ? `${node.color}10` : "rgba(255,255,255,0.05)",
+                  background: isActive ? `${node.color}25` : isPast ? `${node.color}10` : "var(--muted)",
                 }}
               >
-                <Icon className="h-4 w-4 transition-colors" style={{ color: isActive ? node.color : isPast ? `${node.color}80` : "rgba(255,255,255,0.25)" }} />
+                <Icon className="h-4 w-4 transition-colors" style={{ color: isActive ? node.color : isPast ? `${node.color}80` : "var(--muted-foreground)" }} />
               </div>
-              <span className="text-[9px] font-semibold uppercase tracking-wider transition-colors" style={{ color: isActive ? node.color : isPast ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.2)" }}>
+              <span className="text-[9px] font-semibold uppercase tracking-wider transition-colors" style={{ color: isActive ? node.color : isPast ? "var(--foreground)" : "var(--muted-foreground)" }}>
                 {node.label}
               </span>
               {isActive && (
@@ -691,16 +691,16 @@ function DecisionGateViz() {
                 transition={{ duration: 0.4, type: "spring" }}
                 className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-2xl border transition-all"
                 style={{
-                  borderColor: done ? `${step.color}40` : "rgba(255,255,255,0.06)",
-                  background: done ? `${step.color}10` : "rgba(255,255,255,0.02)",
+                  borderColor: done ? `${step.color}40` : "var(--border)",
+                  background: done ? `${step.color}10` : "var(--card)",
                   minWidth: 96,
                 }}
               >
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: done ? `${step.color}22` : "rgba(255,255,255,0.04)" }}>
-                  <Icon className="h-5 w-5 transition-colors" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }} />
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ background: done ? `${step.color}22` : "var(--muted)" }}>
+                  <Icon className="h-5 w-5 transition-colors" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
                 </div>
-                <p className="text-[10px] font-semibold text-center leading-tight" style={{ color: done ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.2)" }}>{step.label}</p>
-                <p className="text-[8px] text-center" style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.1)" }}>{step.desc}</p>
+                <p className="text-[10px] font-semibold text-center leading-tight" style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>{step.label}</p>
+                <p className="text-[8px] text-center" style={{ color: done ? "var(--muted-foreground)" : "var(--muted-foreground)" }}>{step.desc}</p>
                 {done && !isActive && (
                   <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="h-1.5 w-1.5 rounded-full" style={{ background: step.color }} />
                 )}
@@ -712,7 +712,7 @@ function DecisionGateViz() {
                 <motion.div
                   animate={{ opacity: active > i ? 1 : 0.1 }}
                   className="h-px w-5 mx-0.5"
-                  style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "rgba(255,255,255,0.1)" }}
+                  style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "var(--border)" }}
                 />
               )}
             </div>
@@ -733,14 +733,14 @@ function DecisionGateViz() {
               transition={{ duration: 0.4 }}
               className="flex flex-col items-center gap-1.5 p-3 rounded-xl border text-center"
               style={{
-                borderColor: done ? `${step.color}40` : "rgba(255,255,255,0.06)",
-                background: done ? `${step.color}10` : "rgba(255,255,255,0.02)",
+                borderColor: done ? `${step.color}40` : "var(--border)",
+                background: done ? `${step.color}10` : "var(--card)",
               }}
             >
-              <div className="h-8 w-8 rounded-lg flex items-center justify-center" style={{ background: done ? `${step.color}22` : "rgba(255,255,255,0.04)" }}>
-                <Icon className="h-4 w-4" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }} />
+              <div className="h-8 w-8 rounded-lg flex items-center justify-center" style={{ background: done ? `${step.color}22` : "var(--muted)" }}>
+                <Icon className="h-4 w-4" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
               </div>
-              <p className="text-[10px] font-semibold" style={{ color: done ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.2)" }}>{step.label}</p>
+              <p className="text-[10px] font-semibold" style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>{step.label}</p>
             </motion.div>
           );
         })}
@@ -882,15 +882,15 @@ function FeatureGrid() {
               <Reveal key={f.title} delay={i * 0.07}>
                 <motion.div
                   whileHover={{ y: -4, borderColor: `${f.color}35` }}
-                  className="group relative rounded-2xl border border-white/8 bg-white/3 p-5 sm:p-6 h-full transition-all cursor-default overflow-hidden"
+                  className="group relative rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-6 h-full transition-all cursor-default overflow-hidden"
                 >
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: `radial-gradient(circle at 30% 30%, ${f.color}08, transparent 60%)` }} />
                   <div className="relative">
                     <div className="h-10 w-10 rounded-xl flex items-center justify-center mb-4" style={{ background: `${f.color}15`, border: `1px solid ${f.color}25` }}>
                       <Icon className="h-5 w-5" style={{ color: f.color }} />
                     </div>
-                    <h3 className="text-sm sm:text-base font-semibold text-white mb-2">{f.title}</h3>
-                    <p className="text-xs sm:text-sm text-white/45 leading-relaxed">{f.desc}</p>
+                    <h3 className="text-sm sm:text-base font-semibold text-foreground mb-2">{f.title}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                   </div>
                 </motion.div>
               </Reveal>
@@ -960,7 +960,7 @@ const coreSections = [
 
 export default function ProductPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <ProductHero />
 
@@ -1134,7 +1134,7 @@ export default function ProductPage() {
       <FeatureGrid />
 
       {/* ── Social proof strip ── */}
-      <section className="py-12 sm:py-16 border-y border-white/6 bg-white/[0.01]">
+      <section className="py-12 sm:py-16 border-y border-border/30 bg-muted/20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {[
@@ -1143,9 +1143,9 @@ export default function ProductPage() {
               { value: "8 wks", label: "Time to First Insight", color: "#10b981" },
             ].map((stat, i) => (
               <Reveal key={stat.label} delay={i * 0.08}>
-                <div className="text-center p-4 sm:p-5 rounded-2xl border border-white/6 bg-white/2 hover:border-white/12 transition-colors">
-                  <p className="text-2xl sm:text-3xl font-bold text-white tabular-nums mb-1" style={{ color: stat.color }}>{stat.value}</p>
-                  <p className="text-[10px] sm:text-xs text-white/35 uppercase tracking-wide">{stat.label}</p>
+                <div className="text-center p-4 sm:p-5 rounded-2xl border border-border/40 bg-muted/20 hover:border-border/60 transition-colors">
+                  <p className="text-2xl sm:text-3xl font-bold tabular-nums mb-1" style={{ color: stat.color }}>{stat.value}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</p>
                 </div>
               </Reveal>
             ))}

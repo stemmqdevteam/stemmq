@@ -110,9 +110,7 @@ function SecurityHero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-[#030712]">
-      {/* Heavy dark overlay for security feel */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#030712] via-[#070b14] to-[#030712]" />
+    <section ref={ref} className="relative overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 bg-background">
       <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{ backgroundImage: `linear-gradient(rgba(99,102,241,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.8) 1px,transparent 1px)`, backgroundSize: "52px 52px" }} />
       <Orb delay={0} className="absolute top-[-10%] right-[-3%] w-[420px] h-[420px] rounded-full bg-indigo-600/10 blur-[110px] pointer-events-none" />
@@ -123,12 +121,12 @@ function SecurityHero() {
           {/* Left */}
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-5 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/30 bg-(--accent)/10 px-4 py-1.5 text-xs font-medium text-(--accent) mb-5 backdrop-blur-sm">
                 <Shield className="h-3.5 w-3.5" /> Enterprise Security
               </span>
             </Reveal>
             <Reveal delay={0.07}>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.06] mb-5">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.06] mb-5">
                 Enterprise security.{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8 0%,#6366f1 40%,#a855f7 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   Absolute auditability.
@@ -136,7 +134,7 @@ function SecurityHero() {
               </h1>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="text-sm sm:text-base md:text-lg text-white/45 leading-relaxed mb-8 max-w-lg">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-8 max-w-lg">
                 Decision infrastructure must be trustworthy. StemmQ is built on immutable logs,
                 encrypted storage, and granular access controls — from day one, not as an add-on.
               </p>
@@ -155,7 +153,7 @@ function SecurityHero() {
                   </motion.button>
                 </Link>
                 <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                   <FileText className="h-4 w-4" /> Download Trust Report
                 </motion.button>
               </div>
@@ -174,7 +172,7 @@ function SecurityHero() {
             </Reveal>
           </div>
 
-          {/* Right — animated security status panel */}
+          {/* Right — animated security status panel (product mockup, stays dark) */}
           <Reveal delay={0.18} direction="right">
             <SecurityStatusPanel />
           </Reveal>
@@ -185,7 +183,7 @@ function SecurityHero() {
 }
 
 /* ═══════════════════════════════════════════════════
-   SECURITY STATUS PANEL (hero right)
+   SECURITY STATUS PANEL (hero right) — product mockup, intentionally dark
 ═══════════════════════════════════════════════════ */
 
 function SecurityStatusPanel() {
@@ -295,19 +293,19 @@ function SecurityStatusPanel() {
 
 function SecurityPillarsSection() {
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-muted/30 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-14">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/25 bg-(--accent)/8 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Security Architecture
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Security at{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               every layer
             </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
             StemmQ was designed security-first. Every decision is protected by multiple overlapping controls.
           </p>
         </Reveal>
@@ -318,7 +316,7 @@ function SecurityPillarsSection() {
             return (
               <Reveal key={p.title} delay={i * 0.07}>
                 <motion.div whileHover={{ y: -5 }}
-                  className="group relative rounded-2xl border border-white/8 bg-white/2 p-5 sm:p-7 overflow-hidden h-full transition-all hover:border-white/16">
+                  className="group relative rounded-2xl border border-border/60 bg-card/30 p-5 sm:p-7 overflow-hidden h-full transition-all hover:border-border">
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                     style={{ background: `radial-gradient(circle at 20% 20%, ${p.color}08, transparent 60%)` }} />
                   <div className="relative">
@@ -326,8 +324,8 @@ function SecurityPillarsSection() {
                       style={{ background: `${p.color}15`, border: `1px solid ${p.color}25` }}>
                       <Icon className="h-5 w-5" style={{ color: p.color }} />
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-white mb-2.5">{p.title}</h3>
-                    <p className="text-xs sm:text-sm text-white/50 leading-relaxed">{p.desc}</p>
+                    <h3 className="text-sm sm:text-base font-bold text-foreground mb-2.5">{p.title}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                   </div>
                 </motion.div>
               </Reveal>
@@ -340,7 +338,7 @@ function SecurityPillarsSection() {
 }
 
 /* ═══════════════════════════════════════════════════
-   LIVE AUDIT LOG — animated
+   LIVE AUDIT LOG — animated (product mockup, intentionally dark)
 ═══════════════════════════════════════════════════ */
 
 function AuditLogSection() {
@@ -355,11 +353,11 @@ function AuditLogSection() {
   }, [inView, visible]);
 
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          {/* Animated audit log */}
+          {/* Animated audit log — product mockup, intentionally dark */}
           <Reveal direction="left">
             <div ref={ref} className="relative">
               <div className="absolute -top-3 -right-3 z-20"><LiveBadge label="Live Audit" /></div>
@@ -443,13 +441,13 @@ function AuditLogSection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Audit Trail</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 Every action.{" "}
                 <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   Permanent record.
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
                 Immutable audit logs capture who did what, when, from where — including every AI agent action
                 and human approval. Nothing is retroactively editable, ever.
               </p>
@@ -465,7 +463,7 @@ function AuditLogSection() {
                     <div className="h-5 w-5 rounded-full bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center mt-0.5 flex-shrink-0">
                       <CheckCircle2 className="h-3 w-3 text-indigo-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{point}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -494,19 +492,19 @@ function DataFlowSection() {
   }, [inView]);
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-[#080d1a] to-[#030712] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-muted/20 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 px-4 py-1.5 text-xs font-medium text-emerald-300 mb-4">
             Data Flow
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Your data stays{" "}
             <span style={{ background: "linear-gradient(135deg,#10b981,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               yours
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             Every piece of data is encrypted and protected at every stage of processing.
           </p>
         </Reveal>
@@ -525,29 +523,29 @@ function DataFlowSection() {
                     transition={{ duration: 0.4, type: "spring" }}
                     className="flex flex-col items-center gap-2 px-3 py-4 rounded-2xl border transition-all"
                     style={{
-                      borderColor: done ? `${step.color}35` : "rgba(255,255,255,0.06)",
-                      background: done ? `${step.color}08` : "rgba(255,255,255,0.01)",
+                      borderColor: done ? `${step.color}35` : "var(--border)",
+                      background: done ? `${step.color}08` : "var(--muted)",
                       minWidth: 100,
                     }}
                   >
                     <div className="h-10 w-10 rounded-xl flex items-center justify-center"
-                      style={{ background: done ? `${step.color}20` : "rgba(255,255,255,0.03)" }}>
-                      <Icon className="h-5 w-5" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }} />
+                      style={{ background: done ? `${step.color}20` : "var(--muted)" }}>
+                      <Icon className="h-5 w-5" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
                     </div>
                     <p className="text-[10px] font-semibold text-center leading-tight"
-                      style={{ color: done ? "rgba(255,255,255,0.80)" : "rgba(255,255,255,0.2)" }}>
+                      style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       {step.label}
                     </p>
                     <p className="text-[8px] text-center"
-                      style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.12)" }}>
+                      style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
                       {step.sub}
                     </p>
                     {done && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="h-1.5 w-1.5 rounded-full" style={{ background: step.color }} />}
                   </motion.div>
                   {i < dataFlowSteps.length - 1 && (
-                    <motion.div animate={{ opacity: active > i ? 1 : 0.1 }}
+                    <motion.div animate={{ opacity: active > i ? 1 : 0.2 }}
                       className="h-px w-5 mx-0.5"
-                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${dataFlowSteps[i+1].color}80)` : "rgba(255,255,255,0.08)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${dataFlowSteps[i+1].color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );
@@ -565,14 +563,14 @@ function DataFlowSection() {
                   animate={done ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center gap-2 p-4 rounded-2xl border text-center"
-                  style={{ borderColor: done ? `${step.color}30` : "rgba(255,255,255,0.06)", background: done ? `${step.color}06` : "rgba(255,255,255,0.01)" }}
+                  style={{ borderColor: done ? `${step.color}30` : "var(--border)", background: done ? `${step.color}06` : "var(--muted)" }}
                 >
                   <div className="h-9 w-9 rounded-xl flex items-center justify-center"
-                    style={{ background: done ? `${step.color}18` : "rgba(255,255,255,0.03)" }}>
-                    <Icon className="h-4 w-4" style={{ color: done ? step.color : "rgba(255,255,255,0.2)" }} />
+                    style={{ background: done ? `${step.color}18` : "var(--muted)" }}>
+                    <Icon className="h-4 w-4" style={{ color: done ? step.color : "var(--muted-foreground)" }} />
                   </div>
-                  <p className="text-[10px] font-bold" style={{ color: done ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.2)" }}>{step.label}</p>
-                  <p className="text-[8px]" style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.12)" }}>{step.sub}</p>
+                  <p className="text-[10px] font-bold" style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>{step.label}</p>
+                  <p className="text-[8px]" style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>{step.sub}</p>
                 </motion.div>
               );
             })}
@@ -597,19 +595,19 @@ function DataFlowSection() {
 
 function ComplianceSection() {
   return (
-    <section className="py-16 sm:py-20 bg-[#030712]">
+    <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/25 bg-(--accent)/8 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             Compliance
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             Built for{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               regulated industries
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-md mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
             StemmQ's audit infrastructure is designed to satisfy the most demanding compliance requirements.
           </p>
         </Reveal>
@@ -622,8 +620,8 @@ function ComplianceSection() {
                 <motion.div whileHover={{ y: -4 }}
                   className="rounded-2xl border p-4 sm:p-6 text-center transition-all"
                   style={{
-                    borderColor: certified ? `${cert.color}30` : "rgba(255,255,255,0.08)",
-                    background: certified ? `${cert.color}06` : "rgba(255,255,255,0.02)",
+                    borderColor: certified ? `${cert.color}30` : "var(--border)",
+                    background: certified ? `${cert.color}06` : "var(--card)",
                   }}
                 >
                   <div className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-3"
@@ -633,7 +631,7 @@ function ComplianceSection() {
                       : <ChevronRight className="h-5 w-5" style={{ color: cert.color }} />
                     }
                   </div>
-                  <p className="text-xs sm:text-sm font-bold text-white mb-1">{cert.name}</p>
+                  <p className="text-xs sm:text-sm font-bold text-foreground mb-1">{cert.name}</p>
                   <p className="text-[9px] sm:text-[10px] font-semibold capitalize"
                     style={{ color: cert.color }}>
                     {cert.status}
@@ -646,9 +644,9 @@ function ComplianceSection() {
 
         {/* Feature compliance table */}
         <Reveal delay={0.15}>
-          <div className="rounded-2xl border border-white/8 bg-white/2 overflow-hidden max-w-3xl mx-auto">
-            <div className="px-5 py-3 border-b border-white/6 flex items-center justify-between">
-              <span className="text-[10px] text-white/30 uppercase tracking-widest font-semibold">Compliance Features</span>
+          <div className="rounded-2xl border border-border/60 bg-card/30 overflow-hidden max-w-3xl mx-auto">
+            <div className="px-5 py-3 border-b border-border/40 flex items-center justify-between">
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Compliance Features</span>
               <span className="text-[9px] text-emerald-400 font-semibold">All enterprise plans</span>
             </div>
             {[
@@ -661,8 +659,8 @@ function ComplianceSection() {
               { feature: "Compliance export (CSV/PDF)", included: true },
             ].map((row, i) => (
               <div key={row.feature}
-                className={`flex items-center justify-between px-5 py-3 ${i < 6 ? "border-b border-white/4" : ""}`}>
-                <span className="text-xs sm:text-sm text-white/60">{row.feature}</span>
+                className={`flex items-center justify-between px-5 py-3 ${i < 6 ? "border-b border-border/30" : ""}`}>
+                <span className="text-xs sm:text-sm text-foreground/60">{row.feature}</span>
                 <div className="h-5 w-5 rounded-full bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
                   <CheckCircle2 className="h-3 w-3 text-emerald-400" />
                 </div>
@@ -694,9 +692,10 @@ function AgentSecuritySection() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 bg-white/[0.015] border-y border-white/5">
+    <section className="py-16 sm:py-20 bg-muted/30 border-y border-border/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Agent permission panel — product mockup, intentionally dark */}
           <Reveal direction="right" delay={0.1}>
             <div className="relative rounded-2xl border border-white/10 bg-[#0a0f1e] overflow-hidden shadow-2xl shadow-black/40 p-5 sm:p-6">
               <div className="absolute -top-3 -right-3 z-20">
@@ -755,13 +754,13 @@ function AgentSecuritySection() {
                 </div>
                 <span className="text-xs font-semibold uppercase tracking-widest text-violet-400">Agent Security</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight leading-tight mb-4">
                 AI agents with{" "}
                 <span style={{ background: "linear-gradient(135deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   hard boundaries
                 </span>
               </h2>
-              <p className="text-sm sm:text-base text-white/50 leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
                 Every AI agent operates inside a defined permission boundary enforced at the
                 infrastructure level — not through prompting. No agent can escalate its own
                 privileges or bypass the Decision Gate under any condition.
@@ -778,7 +777,7 @@ function AgentSecuritySection() {
                     <div className="h-5 w-5 rounded-full bg-violet-500/15 border border-violet-500/25 flex items-center justify-center mt-0.5 flex-shrink-0">
                       <CheckCircle2 className="h-3 w-3 text-violet-400" />
                     </div>
-                    <span className="text-xs sm:text-sm text-white/55">{f}</span>
+                    <span className="text-xs sm:text-sm text-foreground/55">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -796,7 +795,7 @@ function AgentSecuritySection() {
 
 function SecurityCTA() {
   return (
-    <section className="py-14 sm:py-16 bg-[#030712] border-t border-white/5">
+    <section className="py-14 sm:py-16 bg-background border-t border-border/30">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-violet-500/5 p-7 sm:p-10 text-center relative overflow-hidden">
@@ -806,10 +805,10 @@ function SecurityCTA() {
               <div className="h-14 w-14 rounded-2xl bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center mx-auto mb-5">
                 <Shield className="h-7 w-7 text-indigo-400" />
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Talk to our security team
               </h2>
-              <p className="text-sm text-white/45 max-w-lg mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-lg mx-auto mb-7">
                 Have specific compliance requirements or need a custom deployment? Our security team
                 will walk you through our architecture and answer any technical questions.
               </p>
@@ -826,7 +825,7 @@ function SecurityCTA() {
                   </motion.button>
                 </Link>
                 <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                   <FileText className="h-4 w-4" /> Download Trust Report
                 </motion.button>
               </div>
@@ -851,7 +850,7 @@ function SecurityCTA() {
 
 export default function SecurityPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <SecurityHero />
       <SecurityPillarsSection />

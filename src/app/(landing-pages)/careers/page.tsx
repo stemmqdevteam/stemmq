@@ -984,9 +984,9 @@ function CareersCTA() {
                 {[Brain, Shield, Zap].map((Icon, i) => (
                   <div
                     key={i}
-                    className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
+                    className="h-9 w-9 rounded-xl bg-muted/50 border border-border flex items-center justify-center"
                   >
-                    <Icon className="h-4 w-4 text-white/40" />
+                    <Icon className="h-4 w-4 text-muted-foreground" />
                   </div>
                 ))}
               </div>
@@ -1019,7 +1019,7 @@ function CareersCTA() {
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center"
                   >
                     <Users className="h-4 w-4" /> Meet the Team
                   </motion.button>
@@ -1039,7 +1039,7 @@ function CareersCTA() {
 
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-[#030712]">
+    <div className="min-h-screen bg-background">
       <MarketingHeader />
       <CareersHero />
       <WhySection />

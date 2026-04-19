@@ -10,12 +10,12 @@ import {
 import { toast } from 'sonner'
 import { createDecision, updateDecision } from '@/features/decisions/actions'
 import { AISuggestButton } from '@/features/decisions/components/ai-suggest-button'
-import { Button } from '@/componentsz'
-import { Input, Textarea, Select } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utils'
 import type { Decision, ActionResult } from '@/types'
+import { Input, Select, Textarea } from '@/components/ui'
 
 /* ── Types ───────────────────────────────────────────────── */
 interface ExpectedOutcome {
@@ -179,7 +179,7 @@ export function DecisionForm({ mode, decision, orgId }: Props) {
 
   const [state, formAction, isPending] = useActionState<ActionResult, FormData>(
     action as (state: ActionResult, formData: FormData) => Promise<ActionResult>,
-    { success: false, error: null, fieldErrors: {} }
+    { success: false, error: undefined, fieldErrors: {} }
   )
 
   const addAssumption = () => setAssumptions((prev) => [...prev, ''])
@@ -249,15 +249,19 @@ export function DecisionForm({ mode, decision, orgId }: Props) {
             options={INTENT_OPTIONS}
             placeholder="What is the primary intent?"
             defaultValue={decision?.intent}
-            required
-            error={(state?.fieldErrors as Record<string, string[]> | undefined)?.intent?.[0]}
-          />
+            required value={''} onChange={function (value: string): void {
+              throw new Error('Function not implemented.')
+            } }          />
+          {(state?.fieldErrors as Record<string, string[]> | undefined)?.intent?.[0] && (
+            <p className="text-xs text-red-600 dark:text-red-400">
+              {(state?.fieldErrors as Record<string, string[]> | undefined)?.intent?.[0]}
+            </p>
+          )}
           <Textarea
             name="description"
             label="Context & background"
             placeholder="What's the situation? Why is this decision being made now?"
             defaultValue={decision?.description ?? ''}
-            hint="Optional but improves your Decision Quality Score."
           />
           <Input
             name="category"
@@ -345,27 +349,23 @@ export function DecisionForm({ mode, decision, orgId }: Props) {
                 label={`Outcome ${i + 1}`}
                 placeholder="e.g. Increase MRR by 20%"
                 value={o.title}
-                onChange={(e) => updateOutcome(i, 'title', e.target.value)}
-              />
+                onChange={(e) => updateOutcome(i, 'title', e.target.value)} name={''}              />
               <div className="grid grid-cols-3 gap-3">
                 <Input
                   label="Metric"
                   placeholder="e.g. MRR"
                   value={o.metric}
-                  onChange={(e) => updateOutcome(i, 'metric', e.target.value)}
-                />
+                  onChange={(e) => updateOutcome(i, 'metric', e.target.value)} name={''}                />
                 <Input
                   label="Target"
                   placeholder="e.g. +$50k"
                   value={o.target_value}
-                  onChange={(e) => updateOutcome(i, 'target_value', e.target.value)}
-                />
+                  onChange={(e) => updateOutcome(i, 'target_value', e.target.value)} name={''}                />
                 <Input
                   label="Timeframe"
                   placeholder="e.g. Q2 2025"
                   value={o.timeframe}
-                  onChange={(e) => updateOutcome(i, 'timeframe', e.target.value)}
-                />
+                  onChange={(e) => updateOutcome(i, 'timeframe', e.target.value)} name={''}                />
               </div>
             </div>
           ))}
@@ -413,15 +413,17 @@ export function DecisionForm({ mode, decision, orgId }: Props) {
             label="Time horizon"
             options={HORIZON_OPTIONS}
             placeholder="When will we know the result?"
-            defaultValue={decision?.time_horizon ?? ''}
-          />
+            defaultValue={decision?.time_horizon ?? ''} value={''} onChange={function (value: string): void {
+              throw new Error('Function not implemented.')
+            } } required={undefined}          />
           <Select
             name="reversibility"
             label="Reversibility"
             options={REVERSIBILITY_OPTIONS}
             placeholder="How hard to undo?"
-            defaultValue={decision?.reversibility ?? ''}
-          />
+            defaultValue={decision?.reversibility ?? ''} value={''} onChange={function (value: string): void {
+              throw new Error('Function not implemented.')
+            } } required={undefined}          />
           <Input
             name="financial_exposure"
             label="Financial exposure ($)"
@@ -511,7 +513,7 @@ export function DecisionForm({ mode, decision, orgId }: Props) {
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {tags.map((t, i) => (
-                <Badge key={i} variant="brand" size="sm" className="gap-1">
+                <Badge key={i} variant="default" className="gap-1">
                   #{t}
                   <button
                     type="button"

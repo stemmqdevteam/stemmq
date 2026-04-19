@@ -199,13 +199,13 @@ function AboutHero() {
 
           {/* Right: animated "founding story" card */}
           <Reveal delay={0.16} direction="right">
-            <div className="rounded-2xl border border-white/10 bg-[#0a0f1e] overflow-hidden shadow-2xl shadow-black/50">
+            <div className="rounded-2xl border border-border/60 bg-card/50 overflow-hidden shadow-2xl shadow-black/10">
               <div className="p-5 sm:p-6 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse" />
-                  <span className="text-[10px] text-white/30 uppercase tracking-widest font-semibold">The Origin</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">The Origin</span>
                 </div>
-                <blockquote className="text-sm text-white/65 leading-relaxed border-l-2 border-indigo-500/40 pl-4">
+                <blockquote className="text-sm text-foreground/65 leading-relaxed border-l-2 border-indigo-500/40 pl-4">
                   "We watched a $12M strategy fail because of one assumption nobody wrote down.
                   The data was there. The team was talented. The decision had just never been structured."
                 </blockquote>
@@ -213,8 +213,8 @@ function AboutHero() {
                   <div className="h-8 w-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
                     style={{ background: "linear-gradient(135deg,#6366f1,#a855f7)" }}>AM</div>
                   <div>
-                    <p className="text-xs font-semibold text-white/75">Alex Morgan</p>
-                    <p className="text-[10px] text-white/35">CEO & Co-founder, StemmQ</p>
+                    <p className="text-xs font-semibold text-foreground/75">Alex Morgan</p>
+                    <p className="text-[10px] text-muted-foreground">CEO & Co-founder, StemmQ</p>
                   </div>
                 </div>
 
@@ -226,9 +226,9 @@ function AboutHero() {
                     { v: "SOC 2", l: "Certified", c: "#10b981" },
                     { v: "Series A", l: "Funded", c: "#f59e0b" },
                   ].map(s => (
-                    <div key={s.l} className="rounded-xl border border-white/6 bg-white/2 p-2.5">
+                    <div key={s.l} className="rounded-xl border border-border/40 bg-muted/20 p-2.5">
                       <p className="text-sm font-bold" style={{ color: s.c }}>{s.v}</p>
-                      <p className="text-[9px] text-white/30 mt-0.5">{s.l}</p>
+                      <p className="text-[9px] text-muted-foreground mt-0.5">{s.l}</p>
                     </div>
                   ))}
                 </div>
@@ -507,12 +507,12 @@ function TimelineSection() {
                   {/* Content */}
                   <div className={`${isLeft ? "md:pr-8" : "md:order-2 md:pl-8"}`}>
                     <motion.div
-                      animate={{ borderColor: isActive ? `${m.color}40` : "rgba(255,255,255,0.08)", background: isActive ? `${m.color}06` : "rgba(255,255,255,0.02)" }}
+                      animate={{ borderColor: isActive ? `${m.color}40` : "var(--border)", background: isActive ? `${m.color}06` : "var(--card)" }}
                       className="rounded-2xl border p-4 sm:p-5 mb-4 md:mb-0 transition-all"
                     >
                       <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: m.color }}>{m.year}</p>
-                      <h3 className="text-sm sm:text-base font-bold text-white mb-1.5">{m.title}</h3>
-                      <p className="text-xs sm:text-sm text-white/45 leading-relaxed">{m.desc}</p>
+                      <h3 className="text-sm sm:text-base font-bold text-foreground mb-1.5">{m.title}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{m.desc}</p>
                     </motion.div>
                   </div>
 
@@ -521,7 +521,7 @@ function TimelineSection() {
                     <motion.div
                       animate={{ scale: isActive ? 1.3 : 1, boxShadow: isActive ? `0 0 0 4px ${m.color}20` : "none" }}
                       className="h-4 w-4 rounded-full border-2 z-10 transition-all"
-                      style={{ background: isActive ? m.color : "#0a0f1e", borderColor: isActive ? m.color : "rgba(255,255,255,0.2)" }}
+                      style={{ background: isActive ? m.color : "var(--card)", borderColor: isActive ? m.color : "var(--border)" }}
                     />
                   </div>
                 </motion.div>
@@ -548,13 +548,13 @@ function TeamSection() {
           <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
             <Users className="h-3.5 w-3.5" /> The Team
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
             The people building{" "}
             <span style={{ background: "linear-gradient(135deg,#818cf8,#6366f1,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               StemmQ
             </span>
           </h2>
-          <p className="mt-3 text-sm text-white/40 max-w-sm mx-auto">A small, focused team building infrastructure that matters.</p>
+          <p className="mt-3 text-sm text-muted-foreground max-w-sm mx-auto">A small, focused team building infrastructure that matters.</p>
         </Reveal>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 mb-10">
@@ -580,8 +580,8 @@ function TeamSection() {
                     {member.initials}
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm font-semibold text-white/80">{member.name}</p>
-                <p className="text-[9px] sm:text-[10px] text-white/35 mt-0.5 leading-snug">{member.role}</p>
+                <p className="text-xs sm:text-sm font-semibold text-foreground/80">{member.name}</p>
+                <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-0.5 leading-snug">{member.role}</p>
               </motion.div>
             </Reveal>
           ))}
@@ -589,12 +589,12 @@ function TeamSection() {
 
         {/* Hiring banner */}
         <Reveal>
-          <div className="rounded-2xl border border-dashed border-white/12 bg-white/2 p-5 text-center">
-            <p className="text-sm font-semibold text-white/70 mb-1">We're hiring</p>
-            <p className="text-xs text-white/35 mb-4">Join us in building the decision infrastructure for the world's best organizations.</p>
+          <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-5 text-center">
+            <p className="text-sm font-semibold text-foreground/70 mb-1">We're hiring</p>
+            <p className="text-xs text-muted-foreground mb-4">Join us in building the decision infrastructure for the world's best organizations.</p>
             <a href="/careers">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white border border-white/12 bg-white/5 hover:bg-white/10 transition-all">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 transition-all">
                 View Open Roles <ArrowRight className="h-3.5 w-3.5" />
               </motion.button>
             </a>
@@ -623,7 +623,7 @@ function InvestorQuoteSection() {
                 ))}
               </div>
               <Quote className="h-7 w-7 text-indigo-400/25 mx-auto mb-4" />
-              <blockquote className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed font-medium mb-6">
+              <blockquote className="text-base sm:text-lg md:text-xl text-foreground/80 leading-relaxed font-medium mb-6">
                 "{investorQuote.quote}"
               </blockquote>
               <div className="flex items-center justify-center gap-3">
@@ -632,8 +632,8 @@ function InvestorQuoteSection() {
                   {investorQuote.initials}
                 </div>
                 <div className="text-left">
-                  <p className="text-sm font-semibold text-white">{investorQuote.name}</p>
-                  <p className="text-xs text-white/40">{investorQuote.role} · {investorQuote.company}</p>
+                  <p className="text-sm font-semibold text-foreground">{investorQuote.name}</p>
+                  <p className="text-xs text-muted-foreground">{investorQuote.role} · {investorQuote.company}</p>
                 </div>
               </div>
             </div>
@@ -657,10 +657,10 @@ function AboutCTA() {
             <div className="absolute inset-0 pointer-events-none"
               style={{ background: "radial-gradient(circle at 50% 0%, rgba(99,102,241,0.15), transparent 60%)" }} />
             <div className="relative">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                 Ready to build decision infrastructure?
               </h2>
-              <p className="text-sm text-white/45 max-w-md mx-auto mb-7">
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-7">
                 Join 2,400+ teams using StemmQ to make decisions that compound over time.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -677,12 +677,12 @@ function AboutCTA() {
                 </Link>
                 <Link href="/careers">
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-all w-full sm:w-auto justify-center">
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-foreground/60 border border-border bg-muted/30 hover:bg-muted/50 hover:text-foreground transition-all w-full sm:w-auto justify-center">
                     <Users className="h-4 w-4" /> Join the Team
                   </motion.button>
                 </Link>
               </div>
-              <p className="text-[11px] text-white/20 mt-4">No credit card required · 14-day Pro trial</p>
+              <p className="text-[11px] text-foreground/30 mt-4">No credit card required · 14-day Pro trial</p>
             </div>
           </div>
         </Reveal>

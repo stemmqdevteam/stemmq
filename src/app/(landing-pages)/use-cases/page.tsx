@@ -271,9 +271,9 @@ function UseCasesHero({ activeTeam, setActiveTeam }: {
                   whileTap={{ scale: 0.97 }}
                   className="relative flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all border overflow-hidden"
                   style={{
-                    borderColor: isActive ? `${team.color}60` : "rgba(255,255,255,0.10)",
-                    background: isActive ? `${team.color}18` : "rgba(255,255,255,0.03)",
-                    color: isActive ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.4)",
+                    borderColor: isActive ? `${team.color}60` : "var(--border)",
+                    background: isActive ? `${team.color}18` : "var(--muted)",
+                    color: isActive ? team.color : "var(--muted-foreground)",
                   }}
                 >
                   {isActive && (
@@ -282,7 +282,7 @@ function UseCasesHero({ activeTeam, setActiveTeam }: {
                       transition={{ type: "spring", bounce: 0.2, duration: 0.4 }} />
                   )}
                   <span className="relative z-10 flex items-center gap-2">
-                    <Icon className="h-3.5 w-3.5" style={{ color: isActive ? team.color : "rgba(255,255,255,0.3)" }} />
+                    <Icon className="h-3.5 w-3.5" style={{ color: isActive ? team.color : "var(--muted-foreground)" }} />
                     {team.label}
                   </span>
                 </motion.button>
@@ -553,7 +553,7 @@ function AllTeamsGrid({ setActiveTeam }: { setActiveTeam: (id: string) => void }
     <section className="py-16 sm:py-20 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="text-center mb-10 sm:mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/8 px-4 py-1.5 text-xs font-medium text-indigo-300 mb-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-(--accent)/25 bg-(--accent)/8 px-4 py-1.5 text-xs font-medium text-(--accent) mb-4">
             All Teams
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
@@ -588,7 +588,7 @@ function AllTeamsGrid({ setActiveTeam }: { setActiveTeam: (id: string) => void }
                         style={{ background: `${team.color}15`, border: `1px solid ${team.color}25` }}>
                         <Icon className="h-5 w-5" style={{ color: team.color }} />
                       </div>
-                      <ChevronRight className="h-4 w-4 text-white/20 group-hover:text-white/50 group-hover:translate-x-1 transition-all" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-foreground/50 group-hover:translate-x-1 transition-all" />
                     </div>
                     <p className="text-sm font-bold text-foreground mb-1">{team.label} Teams</p>
                     <p className="text-xs text-muted-foreground mb-4 leading-snug">{team.tagline}</p>
@@ -670,7 +670,7 @@ function TestimonialsSection() {
         <div className="flex justify-center gap-2 mt-5 sm:hidden">
           {quotes.map((_, i) => (
             <button key={i} onClick={() => setActive(i)}
-              className={`h-1.5 rounded-full transition-all ${active === i ? "w-5 bg-indigo-400" : "w-1.5 bg-white/20"}`} />
+              className={`h-1.5 rounded-full transition-all ${active === i ? "w-5 bg-indigo-400" : "w-1.5 bg-border/60"}`} />
           ))}
         </div>
       </div>
